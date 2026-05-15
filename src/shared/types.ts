@@ -17,9 +17,10 @@ export interface LibInfo {
   existingBrands: string[];
   brandModeCount: number;
   themeBackgrounds: Record<AppearanceMode, ThemeBackgroundPair>;
-  privateColorsHasModes: boolean;
+  /** true if Private Colors collection exists locally; false = it's in an external file */
+  privateColorsLocal: boolean;
   collectionIds: {
-    privateColors: string;
+    privateColors: string | null;
     appearance: string;
     brand: string;
   };

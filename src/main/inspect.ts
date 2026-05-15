@@ -12,6 +12,10 @@ export class InspectError extends Error {
   }
 }
 
+export type InspectResult =
+  | { phase: 'private-colors' }
+  | { phase: 'main-lib'; info: LibInfo };
+
 const CONTRASTING_MODE: Record<AppearanceMode, AppearanceMode> = {
   Light: 'Dark',
   Dark: 'Light',
@@ -19,9 +23,7 @@ const CONTRASTING_MODE: Record<AppearanceMode, AppearanceMode> = {
   'Dark HC': 'Light HC',
 };
 
-// Follow alias chain to resolve a COLOR variable to an RGB value.
-// Falls back to the first available mode in the target variable when modeId is missing.
-function resolveColor(variable: Variable, modeId: string, depth = 0): RGB | null {
+async function resolveColor(variable: Variable, modeId: string, depth = 0): Promise<RGB | null> {
   if (depth > 4) return null;
 
   const value =
@@ -31,7 +33,7 @@ function resolveColor(variable: Variable, modeId: string, depth = 0): RGB | null
   if (!value) return null;
 
   if (typeof value === 'object' && 'type' in value && value.type === 'VARIABLE_ALIAS') {
-    const target = figma.variables.getVariableById(value.id);
+    const target = await figma.variables.getVariableByIdAsync(value.id);
     if (!target) return null;
     const targetModeId =
       modeId in target.valuesByMode
@@ -48,56 +50,36 @@ function resolveColor(variable: Variable, modeId: string, depth = 0): RGB | null
   return null;
 }
 
-export function inspectLibrary(): LibInfo {
-  const collections = figma.variables.getLocalVariableCollections();
-
-  const privateColorsColl = collections.find(c => c.name === COLLECTION_NAMES.privateColors);
-  const appearanceColl    = collections.find(c => c.name === COLLECTION_NAMES.appearance);
-  const brandColl         = collections.find(c => c.name === COLLECTION_NAMES.brand);
-
-  const missing: string[] = [];
-  if (!privateColorsColl) missing.push(COLLECTION_NAMES.privateColors);
-  if (!appearanceColl)    missing.push(COLLECTION_NAMES.appearance);
-  if (!brandColl)         missing.push(COLLECTION_NAMES.brand);
-
-  if (missing.length > 0) {
-    throw new InspectError(`Не найдены коллекции: ${missing.join(', ')}`, missing);
-  }
-
-  const pc  = privateColorsColl!;
-  const app = appearanceColl!;
-  const br  = brandColl!;
-
-  const existingBrands      = br.modes.map(m => m.name);
-  const brandModeCount      = br.modes.length;
-  const privateColorsHasModes = pc.modes.length > 1;
+async function buildMainLibInfo(
+  app: VariableCollection,
+  br: VariableCollection
+): Promise<LibInfo> {
+  const existingBrands  = br.modes.map(m => m.name);
+  const brandModeCount  = br.modes.length;
 
   const appearanceModeMap = new Map(app.modes.map(m => [m.name, m.modeId]));
 
-  // Look for any "<Brand>/Branding/Base Background" variable in Appearance.
-  const bgVar =
-    figma.variables
-      .getLocalVariables('COLOR')
-      .find(
-        v =>
-          v.variableCollectionId === app.id &&
-          v.name.endsWith('/Branding/Base Background')
-      ) ?? null;
+  const allColorVars = await figma.variables.getLocalVariablesAsync('COLOR');
+  const bgVar = allColorVars.find(
+    v =>
+      v.variableCollectionId === app.id &&
+      v.name.endsWith('/Branding/Base Background')
+  ) ?? null;
 
   const themeBackgrounds = {} as LibInfo['themeBackgrounds'];
 
   for (const mode of APPEARANCE_MODES) {
-    const modeId           = appearanceModeMap.get(mode);
+    const modeId            = appearanceModeMap.get(mode);
     const contrastingModeId = appearanceModeMap.get(CONTRASTING_MODE[mode]);
 
     const primary =
       bgVar && modeId
-        ? (resolveColor(bgVar, modeId) ?? FALLBACK_BACKGROUNDS[mode].primary)
+        ? (await resolveColor(bgVar, modeId) ?? FALLBACK_BACKGROUNDS[mode].primary)
         : FALLBACK_BACKGROUNDS[mode].primary;
 
     const contrasting =
       bgVar && contrastingModeId
-        ? (resolveColor(bgVar, contrastingModeId) ?? FALLBACK_BACKGROUNDS[mode].contrasting)
+        ? (await resolveColor(bgVar, contrastingModeId) ?? FALLBACK_BACKGROUNDS[mode].contrasting)
         : FALLBACK_BACKGROUNDS[mode].contrasting;
 
     themeBackgrounds[mode] = { primary, contrasting };
@@ -107,12 +89,39 @@ export function inspectLibrary(): LibInfo {
     existingBrands,
     brandModeCount,
     themeBackgrounds,
-    privateColorsHasModes,
+    privateColorsLocal: false,
     collectionIds: {
-      privateColors: pc.id,
+      privateColors: null,
       appearance:    app.id,
       brand:         br.id,
     },
     appearanceModes: app.modes,
   };
+}
+
+export async function inspectLibrary(): Promise<InspectResult> {
+  const collections = await figma.variables.getLocalVariableCollectionsAsync();
+
+  const appearanceColl = collections.find(c => c.name === COLLECTION_NAMES.appearance);
+  const brandColl      = collections.find(c => c.name === COLLECTION_NAMES.brand);
+
+  const hasAppearance = Boolean(appearanceColl);
+  const hasBrand      = Boolean(brandColl);
+
+  // Phase 1: Private Colors file — no Appearance, no Brand
+  if (!hasAppearance && !hasBrand) {
+    return { phase: 'private-colors' };
+  }
+
+  // Error: only one of the two main lib collections is present
+  if (!hasAppearance || !hasBrand) {
+    const missing: string[] = [];
+    if (!hasAppearance) missing.push(COLLECTION_NAMES.appearance);
+    if (!hasBrand)      missing.push(COLLECTION_NAMES.brand);
+    throw new InspectError(`Не найдены коллекции: ${missing.join(', ')}`, missing);
+  }
+
+  // Phase 2: Main lib file
+  const info = await buildMainLibInfo(appearanceColl!, brandColl!);
+  return { phase: 'main-lib', info };
 }

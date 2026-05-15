@@ -15,7 +15,7 @@ async function buildMain() {
     entryPoints: ['src/main/index.ts'],
     outfile: 'build/main.js',
     platform: 'browser',
-    target: 'es2022',
+    target: 'es2017', // Figma plugin sandbox doesn't support ??, ?. (ES2020+)
     format: 'iife',
   });
   if (watch) await ctx.watch();

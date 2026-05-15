@@ -12,22 +12,43 @@ function rgbToHex(c: RGB): string {
   return '#' + [r, g, b].map(n => n.toString(16).padStart(2, '0')).join('');
 }
 
+function closeBtn(): string {
+  return '<button id="closeBtn">Закрыть</button>';
+}
+
+function bindClose() {
+  document.getElementById('closeBtn')?.addEventListener('click', () => send({ type: 'close' }));
+}
+
 function showError(message: string, missing?: string[]) {
-  const app = document.getElementById('app')!;
-  app.innerHTML = `
+  document.getElementById('app')!.innerHTML = `
     <div class="error-screen">
       <div class="error-icon">⚠</div>
       <h2>Плагин не может запуститься</h2>
       <p>${message}</p>
       ${missing ? `<p class="missing">Не найдены: <strong>${missing.join(', ')}</strong></p>` : ''}
-      <p class="hint">Запустите плагин в файле библиотеки YC Gravity UI.</p>
-      <button id="closeBtn">Закрыть</button>
+      <p class="hint">Убедитесь, что плагин запущен в файле библиотеки YC Gravity UI с коллекциями Appearance и Brand.</p>
+      ${closeBtn()}
     </div>
   `;
-  document.getElementById('closeBtn')!.addEventListener('click', () => send({ type: 'close' }));
+  bindClose();
 }
 
-function showLibInfo(info: LibInfo) {
+function showPhasePrivateColors() {
+  document.getElementById('app')!.innerHTML = `
+    <h1>Brand Manager</h1>
+    <section>
+      <h2>Фаза 1 — Приватные цвета</h2>
+      <p>Этот файл будет содержать приватные цвета нового бренда.</p>
+      <p class="hint">После генерации опубликуйте файл как библиотеку и подключите к основной либе.</p>
+    </section>
+    <p class="wip">⚙ Генерация приватных цветов — в разработке (Milestone 2)</p>
+    ${closeBtn()}
+  `;
+  bindClose();
+}
+
+function showPhaseMainLib(info: LibInfo) {
   const MODES: AppearanceMode[] = ['Light', 'Dark', 'Light HC', 'Dark HC'];
 
   const brandsHtml = info.existingBrands.length > 0
@@ -35,8 +56,8 @@ function showLibInfo(info: LibInfo) {
     : '<li class="empty">Нет брендов</li>';
 
   const bgRows = MODES.map(mode => {
-    const bg = info.themeBackgrounds[mode];
-    const primaryHex    = rgbToHex(bg.primary);
+    const bg             = info.themeBackgrounds[mode];
+    const primaryHex     = rgbToHex(bg.primary);
     const contrastingHex = rgbToHex(bg.contrasting);
     return `
       <tr>
@@ -47,9 +68,12 @@ function showLibInfo(info: LibInfo) {
     `;
   }).join('');
 
-  const app = document.getElementById('app')!;
-  app.innerHTML = `
+  document.getElementById('app')!.innerHTML = `
     <h1>Brand Manager</h1>
+    <section>
+      <h2>Фаза 2 — Основная либа</h2>
+      <p>Коллекции Appearance и Brand найдены. Можно добавлять новый бренд.</p>
+    </section>
     <section>
       <h2>Существующие бренды (${info.brandModeCount})</h2>
       <ul class="brand-list">${brandsHtml}</ul>
@@ -61,18 +85,18 @@ function showLibInfo(info: LibInfo) {
         <tbody>${bgRows}</tbody>
       </table>
     </section>
-    <section class="meta">
-      <p>Private Colors модусы: <strong>${info.privateColorsHasModes ? 'есть' : 'нет (только 1 модус)'}</strong></p>
-    </section>
-    <button id="closeBtn">Закрыть</button>
+    <p class="wip">⚙ Визард добавления бренда — в разработке (Milestone 5)</p>
+    ${closeBtn()}
   `;
-  document.getElementById('closeBtn')!.addEventListener('click', () => send({ type: 'close' }));
+  bindClose();
 }
 
 window.onmessage = (event: MessageEvent) => {
   const msg = event.data.pluginMessage as MainToUiMessage;
-  if (msg.type === 'lib-info') {
-    showLibInfo(msg.info);
+  if (msg.type === 'phase-private-colors') {
+    showPhasePrivateColors();
+  } else if (msg.type === 'phase-main-lib') {
+    showPhaseMainLib(msg.info);
   } else if (msg.type === 'lib-error') {
     showError(msg.message, msg.missingCollections);
   }

@@ -9,20 +9,25 @@ figma.ui.onmessage = (msg: UiToMainMessage) => {
   }
 };
 
-try {
-  const info = inspectLibrary();
-  figma.ui.postMessage({ type: 'lib-info', info });
-} catch (err) {
-  if (err instanceof InspectError) {
-    figma.ui.postMessage({
-      type: 'lib-error',
-      message: err.message,
-      missingCollections: err.missingCollections,
-    });
-  } else {
-    figma.ui.postMessage({
-      type: 'lib-error',
-      message: 'Неизвестная ошибка при чтении библиотеки.',
-    });
+(async () => {
+  try {
+    const result = await inspectLibrary();
+    if (result.phase === 'private-colors') {
+      figma.ui.postMessage({ type: 'phase-private-colors' });
+    } else {
+      figma.ui.postMessage({ type: 'phase-main-lib', info: result.info });
+    }
+  } catch (err) {
+    if (err instanceof InspectError) {
+      figma.ui.postMessage({
+        type: 'lib-error',
+        message: err.message,
+        missingCollections: err.missingCollections,
+      });
+    } else {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.error('[Brand Manager] inspect error:', err);
+      figma.ui.postMessage({ type: 'lib-error', message: `Ошибка: ${msg}` });
+    }
   }
-}
+})();

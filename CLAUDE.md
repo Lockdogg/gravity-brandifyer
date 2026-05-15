@@ -28,6 +28,15 @@ For brand `<NewBrand>`:
 
 Plugin **does not** create pages, frames, or any artifacts in the lib file beyond these variables.
 
+## Two-phase workflow (confirmed architecture)
+
+**Phase 1 — run in `Brand Name Private Colors` file** (blank file, no Appearance/Brand):
+Plugin generates `<Brand>/Brand/50..1000` local collection. Designer publishes as library.
+
+**Phase 2 — run in main lib branch** (Appearance + Brand present):
+Plugin creates Appearance group + Brand mode, aliasing Branding/* to the published Phase 1 lib.
+Plugin auto-detects phase from which collections exist in the current file.
+
 ## Themer integration
 
 Use `@gravity-ui/uikit-themer` for Light/Dark private color generation (function `updateBaseColor`).
