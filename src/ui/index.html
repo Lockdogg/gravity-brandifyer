@@ -139,6 +139,31 @@
     }
     .family-picker.visible { visibility: visible; }
 
+    /* ---- Custom ColorPicker ---- */
+    .cp-popup { position: fixed; width: 252px; background: #fff; border-radius: 8px; box-shadow: 0 4px 24px rgba(0,0,0,.2), 0 0 0 1px rgba(0,0,0,.08); z-index: 10000; display: none; flex-direction: column; overflow: visible; user-select: none; }
+    .cp-grad-wrap { position: relative; width: 100%; height: 180px; cursor: crosshair; border-radius: 8px 8px 0 0; overflow: hidden; flex-shrink: 0; }
+    .cp-grad-canvas { width: 100%; height: 100%; display: block; }
+    .cp-grad-thumb { position: absolute; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.3); transform: translate(-50%,-50%); pointer-events: none; }
+    .cp-sliders { padding: 12px 12px 0; display: flex; flex-direction: column; gap: 8px; }
+    .cp-row-wrap { position: relative; height: 10px; border-radius: 5px; cursor: ew-resize; overflow: hidden; }
+    .cp-hue-canvas { width: 100%; height: 100%; display: block; }
+    .cp-hue-thumb { position: absolute; top: 50%; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.25), 0 1px 4px rgba(0,0,0,.2); transform: translate(-50%,-50%); pointer-events: none; }
+    .cp-bottom { display: flex; align-items: center; padding: 10px 12px 12px; gap: 6px; }
+    .cp-mode-wrap { position: relative; flex-shrink: 0; }
+    .cp-mode-btn { background: #f0f0f0; border: none; border-radius: 5px; padding: 5px 8px; font-size: 11px; font-weight: 500; color: #333; cursor: pointer; white-space: nowrap; margin: 0; font-family: inherit; display: flex; align-items: center; gap: 3px; }
+    .cp-mode-btn:hover { background: #e8e8e8; }
+    .cp-caret { opacity: .5; font-size: 8px; }
+    .cp-mode-drop { display: none; position: absolute; bottom: calc(100% + 4px); left: 0; background: #2c2c2c; border-radius: 6px; padding: 4px; z-index: 1; min-width: 72px; box-shadow: 0 4px 16px rgba(0,0,0,.35); }
+    .cp-mode-drop.cp-open { display: block; }
+    .cp-mode-opt { padding: 5px 10px; color: #eee; font-size: 12px; border-radius: 4px; cursor: pointer; }
+    .cp-mode-opt:hover { background: rgba(255,255,255,.15); }
+    .cp-values { flex: 1; display: flex; gap: 3px; min-width: 0; }
+    .cp-val { flex: 1; min-width: 0; padding: 5px 2px; border: none; border-radius: 4px; background: #f0f0f0; font-size: 11px; text-align: center; color: #333; font-family: inherit; }
+    .cp-val:focus { outline: none; background: #e4e4e4; }
+    .cp-val-hex { font-family: monospace; letter-spacing: .02em; }
+    .color-swatch { width: 28px; height: 28px; border-radius: 6px; border: 1px solid rgba(0,0,0,.15); cursor: pointer; padding: 0; flex-shrink: 0; margin: 0; transition: border-color 0.1s; }
+    .color-swatch:hover { border-color: rgba(0,0,0,.35); }
+
     #helpToggle svg { width: 16px; height: 16px; display: block; fill: currentColor; }
     #helpToggle:hover { color: #555 !important; }
 
