@@ -1,0 +1,21 @@
+{
+  "name": "gravity-brand-manager",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Figma plugin: Brand Manager for YC Gravity UI library",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "node build.mjs --watch",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.107.0",
+    "esbuild": "^0.24.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "dependencies": {
+    "@gravity-ui/uikit-themer": "^1.8.0"
+  }
+}
