@@ -6,9 +6,8 @@
   "ui": "build/ui.html",
   "editorType": ["figma"],
   "documentAccess": "dynamic-page",
-  "capabilities": ["inspect"],
-  "permissions": ["currentuser"],
+"permissions": ["currentuser"],
   "networkAccess": {
-    "allowedDomains": []
+    "allowedDomains": ["none"]
   }
 }
