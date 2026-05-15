@@ -71,8 +71,8 @@ Communication via `postMessage`. All message types declared in `src/shared/messa
 
 (Update this section as the project progresses.)
 
-- [ ] Milestone 0: Bootstrap
-- [ ] Milestone 1: Lib inspection
+- [x] Milestone 0: Bootstrap
+- [x] Milestone 1: Lib inspection
 - [ ] Milestone 2: Themer + HC blend
 - [ ] Milestone 3: Preview UI
 - [ ] Milestone 4: Variable writer

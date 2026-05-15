@@ -6,29 +6,65 @@
   <title>Brand Manager</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       font-family: Inter, -apple-system, sans-serif;
       font-size: 13px;
       color: #1a1a1a;
       background: #fff;
-      padding: 24px;
+      padding: 20px;
     }
-    h1 { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
-    p { color: #666; margin-bottom: 24px; }
+
+    h1 { font-size: 18px; font-weight: 600; margin-bottom: 16px; }
+    h2 { font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #444; text-transform: uppercase; letter-spacing: .04em; }
+
+    section { margin-bottom: 20px; }
+
+    .brand-list { list-style: none; padding: 0; }
+    .brand-list li { padding: 4px 0; border-bottom: 1px solid #f0f0f0; }
+    .brand-list li.empty { color: #999; font-style: italic; }
+
+    table { border-collapse: collapse; width: 100%; font-size: 12px; }
+    th, td { text-align: left; padding: 4px 8px; border-bottom: 1px solid #f0f0f0; }
+    th { color: #888; font-weight: 500; }
+
+    .swatch {
+      display: inline-block;
+      width: 12px; height: 12px;
+      border-radius: 2px;
+      border: 1px solid rgba(0,0,0,.1);
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+
+    .meta { color: #666; }
+
     button {
+      margin-top: 8px;
       padding: 8px 16px;
       border: none;
       border-radius: 6px;
       cursor: pointer;
       font-size: 13px;
+      background: #f0f0f0;
+      color: #1a1a1a;
     }
-    .btn-close { background: #f0f0f0; color: #1a1a1a; }
+    button:hover { background: #e4e4e4; }
+
+    .error-screen { text-align: center; padding: 32px 16px; }
+    .error-icon { font-size: 32px; margin-bottom: 12px; }
+    .error-screen h2 { font-size: 15px; margin-bottom: 8px; color: #1a1a1a; text-transform: none; letter-spacing: 0; }
+    .error-screen p { color: #666; margin-bottom: 8px; line-height: 1.5; }
+    .error-screen .missing { background: #fff3cd; border-radius: 6px; padding: 8px; color: #856404; }
+    .error-screen .hint { font-size: 11px; color: #999; }
+
+    #app { min-height: 100%; }
   </style>
 </head>
 <body>
-  <h1>Brand Manager</h1>
-  <p id="status">Загружается…</p>
-  <button class="btn-close" id="closeBtn">Закрыть</button>
+  <div id="app">
+    <p style="color:#999; padding:20px 0;">Загружается…</p>
+  </div>
   <script src="ui.js"></script>
 </body>
 </html>
