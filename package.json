@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@figma/plugin-typings": "^1.107.0",
+    "@gravity-ui/icons": "^2.18.0",
     "esbuild": "^0.24.2",
     "typescript": "^5.7.2",
     "vitest": "^2.1.8"

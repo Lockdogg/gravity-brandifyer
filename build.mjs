@@ -7,6 +7,7 @@ const baseOptions = {
   bundle: true,
   minify: !watch,
   sourcemap: watch ? 'inline' : false,
+  loader: { '.svg': 'text' },
 };
 
 async function buildMain() {

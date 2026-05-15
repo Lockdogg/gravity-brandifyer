@@ -8,6 +8,10 @@ export interface RGB {
   b: number;
 }
 
+export interface RGBA extends RGB {
+  a: number; // 0..1
+}
+
 export interface ThemeBackgroundPair {
   primary: RGB;
   contrasting: RGB;
@@ -27,8 +31,9 @@ export interface LibInfo {
   appearanceModes: Array<{ modeId: string; name: string }>;
 }
 
+// key = variable name suffix: "50", "100 Solid", "550 Solid", etc.
 export interface GeneratedBrand {
   name: string;
   brandColor: string;
-  privateColors: Record<AppearanceMode, Record<string, RGB>>;
+  brandScale: Record<AppearanceMode, Record<string, RGBA>>;
 }

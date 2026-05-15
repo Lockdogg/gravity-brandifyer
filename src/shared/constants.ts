@@ -1,12 +1,22 @@
 import type { AppearanceMode, RGB, ThemeBackgroundPair } from './types';
 
+
 export const DEFAULT_BASE_BRAND = 'Yandex Cloud';
 
 export const SCALE_INDICES = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000] as const;
 export type ScaleIndex = typeof SCALE_INDICES[number];
 
-export const ALPHA_INDICES = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550] as const;
+// Alpha: 50..500 only (confirmed from Private Colors dump — 550 exists as Solid only)
+export const ALPHA_INDICES = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500] as const;
 export const SOLID_INDICES = SCALE_INDICES;
+
+// Theme name as it appears in Private Colors variable names (e.g. "Light-HC", not "Light HC")
+export const PRIVATE_COLORS_THEME: Record<AppearanceMode, string> = {
+  'Light':    'Light',
+  'Dark':     'Dark',
+  'Light HC': 'Light-HC',
+  'Dark HC':  'Dark-HC',
+};
 
 export const COLLECTION_NAMES = {
   privateColors: 'Private Colors',

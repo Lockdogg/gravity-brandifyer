@@ -61,6 +61,28 @@
     .error-screen .missing { background: #fff3cd; border-radius: 6px; padding: 8px; color: #856404; }
     .error-screen .hint { font-size: 11px; color: #999; }
 
+    .alert {
+      display: flex;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid;
+      margin-top: 12px;
+      line-height: 1.45;
+    }
+    .alert-icon { flex-shrink: 0; margin-top: 1px; width: 16px; height: 16px; }
+    .alert-icon svg { width: 16px; height: 16px; display: block; fill: currentColor; }
+    .alert-body { flex: 1; }
+    .alert-title { font-weight: 600; font-size: 13px; margin-bottom: 2px; }
+    .alert-desc { font-size: 12px; }
+
+    .alert-success { background: #f0faf4; border-color: #b7e4c7; color: #1a6334; }
+    .alert-error   { background: #fff5f5; border-color: #ffc9c9; color: #c92a2a; }
+    .alert-warning { background: #fffbeb; border-color: #ffe08a; color: #6d4c00; }
+    .alert-warning .alert-desc { color: #555; }
+    .alert-info    { background: #f8f9fa; border-color: #dee2e6; color: #1a1a1a; }
+    .alert-info .alert-desc { color: #666; }
+
     #app { min-height: 100%; }
   </style>
 </head>

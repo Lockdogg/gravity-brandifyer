@@ -11,7 +11,8 @@
     "typeRoots": ["node_modules/@figma/plugin-typings"],
     "outDir": "build",
     "rootDir": "src",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "build"]

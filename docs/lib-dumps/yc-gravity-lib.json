@@ -1,0 +1,4747 @@
+[
+  {
+    "name": "g-spacing-10",
+    "key": "be18cce23d72bbbc56518db418f88e0d66794348",
+    "collection": "Spacings"
+  },
+  {
+    "name": "g-spacing-9",
+    "key": "98259c8d5f23a7fb0764331656aa68953d1eb735",
+    "collection": "Spacings"
+  },
+  {
+    "name": "g-spacing-8",
+    "key": "4fa59fc3bd776b7ba6352f6de5584eb0e3bde244",
+    "collection": "Spacings"
+  },
+  {
+    "name": "g-spacing-7",
+    "key": "2d6955b867a8298305dc6fcbcbf78846694300aa",
+    "collection": "Spacings"
+  },
+  {
+    "name": "g-spacing-6",
+    "key": "12cc24836fedf31e400bc5ceae8bcbaed30080a3",
+    "collection": "Spacings"
+  },
+  {
+    "name": "g-spacing-5",
+    "key": "bb875fadf7f3319636df14a23a30ecc4790c2e31",
+    "collection": "Spacings"
+  },
+  {
+    "name": "g-spacing-4",
+    "key": "3aa5bd06603c60c396e9246a7e12f48558a2d506",
+    "collection": "Spacings"
+  },
+  {
+    "name": "g-spacing-3",
+    "key": "e6c4d3624295d3d3336d6275534374c9a2a09d74",
+    "collection": "Spacings"
+  },
+  {
+    "name": "g-spacing-2",
+    "key": "ec895cfaa9c4c79a338af46b6cee096257812545",
+    "collection": "Spacings"
+  },
+  {
+    "name": "g-spacing-1",
+    "key": "92797c97b2fea072e2c6622fd9ff9781fe7774b2",
+    "collection": "Spacings"
+  },
+  {
+    "name": "g-spacing-0,5",
+    "key": "1196d6312047e9e124b25686a63f9fc302cb84d6",
+    "collection": "Spacings"
+  },
+  {
+    "name": "g-spacing-0",
+    "key": "2d139baaa4358e378d634d05a59250e868e6dfee",
+    "collection": "Spacings"
+  },
+  {
+    "name": "Yandex Cloud/Text/Primary",
+    "key": "8c7865e7d0c05573fc2c2d96b9f8717480af0208",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Complementary",
+    "key": "333ae06e5ceed38b3e8eadcc3a2c5aa45495ef09",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Secondary",
+    "key": "76e27d9fdf887133afc9035f2710204af8f37118",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Hint",
+    "key": "a47cf6f99753b0cdef3055724fe9d24f2ada6dc7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Info",
+    "key": "bb944df5590a3b128be96799b9f510252f81584b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Info Heavy",
+    "key": "a5335b56181b589414bc56fd5577a31325f75f45",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Danger",
+    "key": "3cd72913753f7fc3e0c5fef6294591eced5c4b72",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Danger Heavy",
+    "key": "0a80399756a92c8bb5d621fb79ecafb716dd2947",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Warning",
+    "key": "581aa088a37a4dbe73a0d7e8c792db18b6d447fe",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Warning Heavy",
+    "key": "a5c8015b2db8d4bfe368d3c5d0f7a258d375b285",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Positive",
+    "key": "39b4f402f05a17b7805b231e1220ebb782aa4ee6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Positive Heavy",
+    "key": "3414e500dd5b893a8bbcd4c83ce940035f4ef17f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Utility",
+    "key": "c8a9dd3453819f5b577d24ade331abfc48db07d1",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Utility Heavy",
+    "key": "08bcdb23e1449b3ebeaefafd0048df9a877c0955",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Misc",
+    "key": "ac9a760d47a9e7a5a82d1a5efbf43c42ad45820f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Misc Heavy",
+    "key": "f6b92328fa55d8b89e985569ff86958a2ec4ee10",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Light Primary",
+    "key": "ba0a80691ebd01179a35deb600e487b03818f855",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Light Complementary",
+    "key": "31dcaca09adaae4959a9328f9befa53eb444537d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Light Secondary",
+    "key": "5a5f3e85cc88b014debdbda9e723d6fc386700cc",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Light Hint",
+    "key": "8d02888f2d3b05cbc2677a6497bdd30c0225a7ae",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Dark Primary",
+    "key": "6e739978b641833421afcd8c7043d07b5d7b52ff",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Dark Complementary",
+    "key": "4100d1a917b266ca72a83592f329f21df604faa9",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Dark Secondary",
+    "key": "7e59dad0a1b700ae362df8a0a9555cddc4f25158",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Inverted Primary",
+    "key": "26700cd2050f694fdf65f82b88ef0e61ceafc71e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Inverted Complementary",
+    "key": "c78c28d74346ff5d7392bb2075d98425fb141693",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Inverted Secondary",
+    "key": "5993a3fa0b510e010de9529572e9936e10e39a38",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Inverted Hint",
+    "key": "128bf4672ea0c92accd8e6c8e0afed95e3efab19",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base/Generic",
+    "key": "62a1020ea7777322b4d10629831e8cec554dd299",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base/Generic Hover",
+    "key": "d8422ee5c5784734bc1d1ff56538f0118b35a3b7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base/Generic Accent",
+    "key": "ce8c04824d5d33d612bf8eef3acccea879a4e6f6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base/Generic Accent Disabled",
+    "key": "161f99b1710485cead2d3bc75cfb898130f21607",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base/Generic Medium",
+    "key": "e6b4d2e298c7f8a37ad20f81f7f874519a808676",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base/Generic Medium Hover",
+    "key": "779a089bbfbab25ca62a992e580b347612975cbd",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base/Simple Hover",
+    "key": "55c08dcda00aa858cf09bda34a1f5a0135ae82e2",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base/Simple Hover Solid",
+    "key": "3af6ddb4583d827304cb2d61d7112d5d7364ee96",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Info Light",
+    "key": "190ec15a6196441ca71ed10c4df4c17ecce33ba0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Info Light Hover",
+    "key": "c108866a695534be1e55e141c880070da9b303f9",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Info Heavy",
+    "key": "7cdfa532c6791954d54ddf5f995fa2077589b327",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Positive Light",
+    "key": "3604dab85e5064aef8ff32772650d6c1c6175277",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Positive Light Hover",
+    "key": "3ca795a496095e3893c42c807520aa6b71e7c489",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Positive Medium",
+    "key": "a92fa28973d4db1a2f39751247833d26009f49e3",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Positive Medium Hover",
+    "key": "4ac25d08921bc81696276223309c23af6c6ac423",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Positive Heavy",
+    "key": "39753e0b632329e417b5c84da785145ea0bc94fd",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Warning Light",
+    "key": "5732490b6a91073e8f0bd55ff2520af13fd231da",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Warning Light Hover",
+    "key": "e589c0ef7a088c40e0f26ede59fcca7e2be50c07",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Warning Heavy",
+    "key": "3e6d8518b8a2aa668db4f3343889527c8fa148df",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Warning Heavy Hover",
+    "key": "e7e2df1fdad157540c51dfc8ce09a9ab42f1e8bc",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Neutral Light",
+    "key": "20a0fa86d94543c79814fe2f87b33c5e447a4899",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Neutral Light Hover",
+    "key": "58fa3a44b7d390ca73145b6f3525d2c473442c5c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Danger Light",
+    "key": "e7ca4598a163a4c7ef496399c4e95b6532dc79f4",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Danger Light Hover",
+    "key": "59b5e4250f9700d1f418562ff323ef65814ab79c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Danger Heavy",
+    "key": "38e1626f259baed9ae7fd35d5590d9e9682a07ce",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Danger Heavy Hover",
+    "key": "96833cb787b8d57522e420e8520b9e006a33cb35",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Misc Light",
+    "key": "8b2f550b23e4aa6bf1e3a38a7d9352ab90148d34",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Misc Light Hover",
+    "key": "ccd8d47e720f87fc5dc8cab520148e725a4722cb",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Misc Heavy",
+    "key": "81fe3b0e8dff70a61548f000dc71834fa3788ad5",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Misc Heavy Hover",
+    "key": "394771783e3c804b76ed72cf55cb61ce4dc634b5",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base/Light",
+    "key": "10a9df676065e9b32dd4e2117b63568dac348142",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base/Light Hover",
+    "key": "75357248b97e087efeb96f0826e71975ba9dbdcf",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base/Light Simple Hover",
+    "key": "ba6634593406fbfc0edfd848c54378bf3ee60cec",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base/Light Disabled",
+    "key": "432dcb014bf43510a92d069a3d0a0eda6aaa9ea9",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base/Light Accent Disabled",
+    "key": "df08668a7ef51754f0c661df0232987e6a9c92f3",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Float/Float BG",
+    "key": "3af0bdaced2f95cd7bd48b769af3bbfe908e3dfd",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Float/Float Hover",
+    "key": "9c97463507a58379b39b7a1587e5b078c16028ed",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Float/Float Heavy",
+    "key": "53d7982714dd0be60fb35a3bb8f31848af122afc",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Float/Modal",
+    "key": "f46b564bab4bd813789866eaa889c2a9d9aa4ff0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Float/Float Accent",
+    "key": "742414fe06b36f8ed11ec69bafef7938004f44a8",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Float/Float Accent Hover",
+    "key": "689745e543b735e6450cd772903b6c51aaf82e90",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Line/Generic",
+    "key": "a580c34471fd8d4b89b2537fee48431d3acef348",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Line/Generic Hover",
+    "key": "a0f9c89e8d4a042730b24aa2c734942c6d779dab",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Line/Generic Active",
+    "key": "6adf6b518443c7259bd5075b12d627dcd73274e1",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Line/Generic Solid",
+    "key": "0b518b9facf6f36265fa60fa4ec08e57e0cf46e0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Line/Misc",
+    "key": "923b83d739c726d52146fa675ddf59a83d6eca08",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Line/Info",
+    "key": "5fe7a4efa600fd0adc80752750754c6e05e777ea",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Line/Positive",
+    "key": "b344bed2395c75a90336aaac0552ccf3962669d7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Line/Warning",
+    "key": "5fd5d250dd5679ccbbf45d8a1362de61c7664501",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Line/Danger",
+    "key": "79d5d546f725f0193e5965cfae1a778e5c6acf2a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Line/Light",
+    "key": "8591d5f5e7f525ed0622b0bb52b0d3ffcc147a4d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Line/Generic Accent",
+    "key": "a37953e7e5c41ed52ec9b19e1e2b8ef7730e42bd",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Line/Generic Accent Hover",
+    "key": "3726fcead9b1453f5f84fd908d050c9b94952d39",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Misc/Axis",
+    "key": "ca616d822b26dba6d4017da7af5189822a33b014",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Misc/Tooltip BG",
+    "key": "650fd98930e2645856db824bd70da1db764c5fb7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Effect/Veil",
+    "key": "d19c84150b8497bd4c9f78802e4ebc9b7e9abd89",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Effect/Shadow Light",
+    "key": "56be9e724e0425882599334695ecb1be609b4da6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Effect/Shadow",
+    "key": "750ac3636e137275723f248a0b363e7cf18e1373",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Effect/Shadow Heavy",
+    "key": "126dcbc7be1580e16ddb6475e41bcf1b57dc4619",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Effect/Fade",
+    "key": "9c4d8d84e18270503adf4c0c8474d9417b8e3e60",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Misc/Scroll Corner",
+    "key": "c575edf343f0a8767d10ccd1d833a51edcaf137d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Misc/Scroll Handle",
+    "key": "b47be4f0e6ca675e3aa204ee89b81a7e0863c48d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Misc/Scroll Handle Hover",
+    "key": "772a5a37f40615385b07e0f8e6489f6e7b42fd81",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Misc/Scroll Track",
+    "key": "2f05dfc035a9a4790901518eca06a416115066ad",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Branding/🥴_YC_Yandex Red (Legacy)",
+    "key": "ad51cdf2536cbf8db2c8fc403ede8fc50d3796a2",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base/🥴 _base_Base Area (Ultralight)",
+    "key": "f5e13fa3f47cdf5c722b50cfcfe9a21b57a114ea",
+    "collection": "Appearance"
+  },
+  {
+    "name": "⛔️ XS radius",
+    "key": "e88d32afa9628a0189882b8539f788e7f408fc6f",
+    "collection": "Border Radius"
+  },
+  {
+    "name": "⛔️ S radius",
+    "key": "5a5789ac95c8030b0a09e7c812267c7d9fa9815a",
+    "collection": "Border Radius"
+  },
+  {
+    "name": "⛔️ M radius",
+    "key": "23073ae3cba19392ace73194fad82a0e905545b0",
+    "collection": "Border Radius"
+  },
+  {
+    "name": "⛔️ L radius",
+    "key": "e80d4ac1254cd121b49b4ca4264206a01837672b",
+    "collection": "Border Radius"
+  },
+  {
+    "name": "⛔️ XL radius",
+    "key": "3c37b05750424602a7376d136f68f41b0d2115e1",
+    "collection": "Border Radius"
+  },
+  {
+    "name": "⛔️ 2XL radius",
+    "key": "40a7f9c3649ddfac319bd84b473eb703b18cccfd",
+    "collection": "Border Radius"
+  },
+  {
+    "name": "Yandex Cloud/Branding/Text Brand Contrast",
+    "key": "aa517c083ad92adada516e57457bbf0681e1a3e8",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Float/Float Announcement",
+    "key": "33b5db926e55d7b4787a321fdd3fe7e7e16d7fbe",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Info Medium",
+    "key": "3aa7138cc124037b7a050ec7bab02830c1abb89e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Info Medium Hover",
+    "key": "2efabaf69fc8b87aab764c0844de4ff20d03cd09",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Info Heavy Hover",
+    "key": "671f9e8479461f422663693a3cb5d1841e71b975",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Positive Heavy Hover",
+    "key": "d08e992f0cda3ffe096ac221a111d9fc945dcdbb",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Warning Medium Hover",
+    "key": "5addca73fef1f36b8afe33cbd804d469486e9b7c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Warning Medium",
+    "key": "0c6b1244201638f0ca4f7702e191a5b2ececfbcc",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Neutral Medium Hover",
+    "key": "d2c361db4420151bc504d82a6340332406552415",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Neutral Medium",
+    "key": "388a3b5c56005b7fbd68ff133c5c25f4715a36b8",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Neutral Heavy Hover",
+    "key": "d3074d7ba5821dd5a757577667dfc3809d3c4108",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Neutral Heavy",
+    "key": "7f65b61a40a5e51b6a76199e5fe94f9c644bb51c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Danger Medium Hover",
+    "key": "8b213ec36dce7fec51957823bc18924d0c6195fa",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Danger Medium",
+    "key": "f94922f0beb4c31d7faca96b6020ac228e519d6e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Misc Medium Hover",
+    "key": "7ba03fddad089359102518bb33c30f9830ce5a6a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Misc Medium",
+    "key": "65f9e055b83309673ae21fcd7d2d3c41a3d44177",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Branding/Base Brand",
+    "key": "eb3bb6ead0b240820415b84e17cb4c06ead750cb",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Branding/Base Brand Hover",
+    "key": "bae35c20bd807016cc78558f7310ddbf47aa4b24",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Branding/Line Brand",
+    "key": "7d8f1f8859ee46aebb6d429f9db7023ad5f7f95d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Text/Dark Hint",
+    "key": "d056e68aeae0dc377389619403518d67fe3ca4da",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Branding/Base Background",
+    "key": "a8d1b227d6da09530eb9aeb5a1436e7232b31667",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Branding/Text Brand",
+    "key": "61dca66e4be3ed3914bb9564b7bd2e96ac006820",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Branding/Text Brand Heavy",
+    "key": "0c41e4490d4bed54a5cdfcf93a2cc0bff86240b2",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Branding/Base Selection",
+    "key": "a290330de84d072a7c952ebddef57cb594cb7394",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Branding/Base Selection Hover",
+    "key": "694552dd0f27101d38798e5192011052eae70150",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Branding/Text Link",
+    "key": "4001ac241c840cab069d12c19b6fa91ae180c572",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Branding/Text Link Hover",
+    "key": "df95d36f35a5a83dfc2eaedfc78ce6a32558ccef",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Branding/Text Link Visited",
+    "key": "6e636c03db1eecd2193b8e6154cebe2c78adb05a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Branding/Text Link Visited Hover",
+    "key": "472dd415bca3553fa948f08baeec55ec1a75c815",
+    "collection": "Appearance"
+  },
+  {
+    "name": "For Segmented control/⛔️ Inner S radius",
+    "key": "7016f5203f900a89b97f2d955bba8100d6ac4008",
+    "collection": "Border Radius"
+  },
+  {
+    "name": "For Segmented control/⛔️ Inner M radius",
+    "key": "0e79221d2c4e9a5741c9d1fb81d3e0b38feef9db",
+    "collection": "Border Radius"
+  },
+  {
+    "name": "For Segmented control/⛔️ Inner L radius",
+    "key": "4e8e6f4c29ac4f7ce29279a9df2473cbdae3b24c",
+    "collection": "Border Radius"
+  },
+  {
+    "name": "For Segmented control/⛔️ Inner XL radius",
+    "key": "e91df65ea144508c675c32e7d07c11a796ce5d54",
+    "collection": "Border Radius"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Utility Light",
+    "key": "cba687e1dcbfc8a77e3f517acb1dee2b3fe6029a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Utility Light Hover",
+    "key": "49e481151b101ea5a7d17261df142a05837133b5",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Utility Medium",
+    "key": "ec89e753aaa5343b6e329e1f09b82dad92d14bf2",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Utility Medium Hover",
+    "key": "ec0f4a3d9e47645f47e989071070d14179835bd1",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Utility Heavy",
+    "key": "5b2df0a473446e3c2de942226c365dd2176a885b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Base Semantic/Utility Heavy Hover",
+    "key": "96f70295fa8b4f9e07e0044e9e22974196bd114d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Line/Utility",
+    "key": "16d1b01c2d465971d12a2224045c9f81b91cb45a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Text/--g-color-text-primary",
+    "key": "a60eded900b8b85cbb673429d4698b3289a24672",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-complementary",
+    "key": "e46a0ad6d9a82b5b0f68d47f5a55d96899c08641",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-secondary",
+    "key": "1eea5b7b36b36b1bc339241f50920f4e248ad10f",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-hint",
+    "key": "c8965e9a7efabce8731b1e449119dc852f3a2a18",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-info",
+    "key": "1b9bf4e31e0bb43135630613ca2569f82b915e16",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-info-heavy",
+    "key": "1b58b8c72c12b2f4962a9e9157b20987b4387d0d",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-danger",
+    "key": "5380d5e4e531e16523ff3f284322d8799ea7e12b",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-danger-heavy",
+    "key": "2bbbd6feba603dea5d2f91b597261487e49064da",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-warning",
+    "key": "341671e35a4b0bf36d2e6c729de8dce9677be7ee",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-warning-heavy",
+    "key": "b02ef05eef9eefe66ba622a260ce9651714abe4e",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-positive",
+    "key": "e58be1444ce6bd77ec7823fc2c4398c4c831049b",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-positive-heavy",
+    "key": "f061d908ec3137ea1e90720b74606966499aed57",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-utility",
+    "key": "257c4fcb0fbeb1629e4ab54752d57f4dd39dfb73",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-utility-heavy",
+    "key": "eeae18036fb160e0e7896b6821a07fd0b2ee283a",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-misc",
+    "key": "270fe70e89b01bd8a34134e7230d8bfcfba44cb2",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-misc-heavy",
+    "key": "88567ad288cf6bd23f8c68b15847858bb240ae07",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-light-primary",
+    "key": "3dfeabdb71342562adc32bed69e1b443e34984d3",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-light-complementary",
+    "key": "4727ea924e51e65cfd059712cffedc986ed5fe55",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-light-secondary",
+    "key": "1fadbb440832bd436fca2288839d2ee38973a0d6",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-light-hint",
+    "key": "248f75c3b66fc59756c50f2576066abc1275cc32",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-dark-primary",
+    "key": "557ab4b8559d39f884728382ea2ac37d59a28e97",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-dark-complementary",
+    "key": "32a84dea1851605845733b1a95a4fef35acf95fe",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-dark-secondary",
+    "key": "daff0c9d6f3fb1e6640623a11f61b73a61e42ca5",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-inverted-primary",
+    "key": "3523d0855c99cfe03f28b2c6a446d7b676e49e6a",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-inverted-complementary",
+    "key": "5005acffd5747ef48fd833c28ece2724f597e8f9",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-inverted-secondary",
+    "key": "f5d40f5769ff5d55a85a8ffbc9aa53f7fe206902",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-inverted-hint",
+    "key": "5a2e90b0068b1513065b9aabe411657de6e4d46f",
+    "collection": "Brand"
+  },
+  {
+    "name": "Text/--g-color-text-dark-hint",
+    "key": "10a76bef6557d7dd6356e861d161b872ef665c70",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base/--g-color-base-generic",
+    "key": "b2b6f97ca29ac370be96765ccd03c110360a1b52",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base/--g-color-base-generic-hover",
+    "key": "cffd9d967ec4b178f8f0175e3f8550db6e3ab684",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base/--g-color-base-generic-accent",
+    "key": "25bb977a8a48eebc8e75f9df9eb7db792f765879",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base/--g-color-base-generic-accent-disabled",
+    "key": "849c54fd3da2bb15b6d828e1ee4d18a0d8cff91d",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base/--g-color-base-generic-medium",
+    "key": "1578e5f389ce52d3c380a0bd99f6916445fb0e45",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base/--g-color-base-generic-medium-hover",
+    "key": "1f5d36a80edc586bd6d1c2f485e3836e78b4b674",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base/--g-color-base-simple-hover",
+    "key": "993b263563fab06d39ba460adba48efc7eff2392",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base/--g-color-base-simple-hover-solid",
+    "key": "bacd0c45d2c93c91f2ce847efac65d974666c184",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base/--g-color-base-light",
+    "key": "b987f4e871d286f3e3eadd9724253863b7ff4b11",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base/--g-color-base-light-hover",
+    "key": "53e55ba324f98a00494ce44f66aa825a0b7175a9",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base/--g-color-base-light-simple-hover",
+    "key": "e77e0470651c1d0bf69ec9ee7ede63f1e3a4e04b",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base/--g-color-base-light-disabled",
+    "key": "82963d584e658f308a66e25e2f1f4a4067756c15",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base/--g-color-base-light-accent-disabled",
+    "key": "70e0296f6643a410a289c32879a683e7e04e917d",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base/--g-color-base-area (Ultralight)",
+    "key": "16d06e53085f2b5c7c8d8cef78898e0c645f863b",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-info-light",
+    "key": "77424ccef80c35cccfc7e051c1f6c2dc9502810e",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-info-light-hover",
+    "key": "523eb60546c985c729ffe803d0d0edda4ce77cb1",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-info-heavy",
+    "key": "364582ff85fe7072b82a659b064a5f5cd70d2815",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-positive-light",
+    "key": "4af879499c07b796144c37f874501e55db257c6f",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-positive-light-hover",
+    "key": "33d0eff0c713e38e9e41e2fc05bfe5fc76c7de6c",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-positive-medium",
+    "key": "798fe666e5784a4accec7c8ee8404292db8e3c6b",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-positive-medium-hover",
+    "key": "dbe98182e3515a10c40c93a8f9abc340874f556d",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-positive-heavy",
+    "key": "099f68810f3f4560a6a13d1b79b2a66401b667dd",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-warning-light",
+    "key": "e932dad5cc73c1f1060fcfda6218e397fd7b602f",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-warning-light-hover",
+    "key": "265715707db00ca3be18daebba89089bbdd1db05",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-warning-heavy",
+    "key": "9bc9a174fc33a30a9bdbb9c99fa8f0cf9bae5ff5",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-warning-heavy-hover",
+    "key": "c3bf37b7adde3dd7ee1c62e7ac235ab7603302fe",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-neutral-light",
+    "key": "f08e5e07b2831d2c9a9785c3844787a8a944800d",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-neutral-light-hover",
+    "key": "ecac1ef7cd862276c7f06f1120ffab46da288694",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-danger-light",
+    "key": "27d7b61c838bba97059ef1639ebfc5d6d7008f74",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-danger-light-hover",
+    "key": "d95e0226bf42b3ae6939934b1fba6423f1d58248",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-danger-heavy",
+    "key": "45b5f29e5111742363982805e6e091e8ee08d918",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-danger-heavy-hover",
+    "key": "b5df1a5252bc0da26824a3eda7e4e23012478fbc",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-misc-light",
+    "key": "313d45b09cd295865c0924f1acde82cb16ec3b88",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-misc-light-hover",
+    "key": "1ae0a323465af889ee3c6e558d6b7e56ce9235f1",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-misc-heavy",
+    "key": "dae719793ec1abd5b76853629a8009c4bb4a1e51",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-misc-heavy-hover",
+    "key": "c05e41991a1efea4f3b7c579d70a3e5eb685931b",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-info-medium",
+    "key": "329a6903fab43845e66bbbcfef4775b1a099fb61",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-info-medium-hover",
+    "key": "ffe05e3093fe6fbbb26fe66c01716c57cb2a34ef",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-info-heavy-hover",
+    "key": "820b3a7a57fed2dafe14ca40fb7152fc9b1fcda7",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-positive-heavy-hover",
+    "key": "11ab80713a194b092883da0ba08be18764f54488",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-warning-medium-hover",
+    "key": "c8768d5ae9968a39f7ec727411560175e10b8af3",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-warning-medium",
+    "key": "ea4dcefa19af0e719bacffbcd19baa5541b0d7fc",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-neutral-medium-hover",
+    "key": "936bad44f484d444099d5085fb939faa3480d78e",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-neutral-medium",
+    "key": "4a732a1e2f2090c5a3588ae87fb5055cbe1ac12b",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-neutral-heavy-hover",
+    "key": "1617cd8691342be4322f3e9fa426b380a8962afc",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-neutral-heavy",
+    "key": "90c7c7b9b3f4a7dc88475efe74498ede376c2114",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-danger-medium-hover",
+    "key": "431c52a816f72872629608b98812ef788b2ad8ff",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-danger-medium",
+    "key": "f88fe4df024d735162f8d8ddce6c73c99b4955d2",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-misc-medium-hover",
+    "key": "4b9315cd9b20589f9ef2091ade26515a40b061c9",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-misc-medium",
+    "key": "2383fc27dea99b31c0f8012173f2e19f7d316be7",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-utility-light",
+    "key": "4315d09fab9d67c02d32f73cbe45b0eebd143107",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-utility-light-hover",
+    "key": "d1851a85189a93d8d90b6ebf05afe053789b82b8",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-utility-medium",
+    "key": "1e227e4b323734a8a659f0a71097d63b1b25d98d",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-utility-medium-hover",
+    "key": "75aa5542cc4fe29eb42228f9373cee670ed2395a",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-utility-heavy",
+    "key": "5d4566bef4863d7995726f019368b983a7c6d550",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Semantic/--g-color-base-utility-heavy-hover",
+    "key": "32cf6210a9ab545103d09772b4457f5e6235b239",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Float/--g-color-base-float",
+    "key": "31ba2e310683b2bc88cb1f1da55a62f198134874",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Float/--g-color-base-float-hover",
+    "key": "6e08139f16c95cafd49fb107dbfebc08b7ecbb3d",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Float/--g-color-base-float-heavy",
+    "key": "ceb543ead8b603a67f4333266db572b54d6f2a8b",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Float/--g-color-base-modal",
+    "key": "0e3fc71db4a5eafdbdfdfbd84e3593a6cd90803a",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Float/--g-color-base-float-accent",
+    "key": "69ebcadca8f343f812b7520e0388adaba9671b09",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Float/--g-color-base-float-accent-hover",
+    "key": "14f9bf49a70eff97c9104da7d70093ea8fc46463",
+    "collection": "Brand"
+  },
+  {
+    "name": "Base Float/--g-color-base-float-announcement",
+    "key": "5a9a50a736a0248e5381c381cf018f5ba5272ab6",
+    "collection": "Brand"
+  },
+  {
+    "name": "Line/--g-color-line-generic",
+    "key": "05720e67b6d2511072cbc79434ddd0aec39f06df",
+    "collection": "Brand"
+  },
+  {
+    "name": "Line/--g-color-line-generic-hover",
+    "key": "f698812dcc973a31971e44231d4e97a195c504ed",
+    "collection": "Brand"
+  },
+  {
+    "name": "Line/--g-color-line-generic-active",
+    "key": "578a7936a5440cbd96dbd4c7db19564302c23de4",
+    "collection": "Brand"
+  },
+  {
+    "name": "Line/--g-color-line-generic-solid",
+    "key": "73ff3d8e6896bed271a286d75256aa8b547443e2",
+    "collection": "Brand"
+  },
+  {
+    "name": "Line/--g-color-line-misc",
+    "key": "6f6a044c486ba9bfae53fdb5175b1b5f1be61866",
+    "collection": "Brand"
+  },
+  {
+    "name": "Line/--g-color-line-info",
+    "key": "a6341002c8826b1312cd889f26b0ee0f344f9268",
+    "collection": "Brand"
+  },
+  {
+    "name": "Line/--g-color-line-positive",
+    "key": "14105b498375b780c65a31e51b04dba9e28533fb",
+    "collection": "Brand"
+  },
+  {
+    "name": "Line/--g-color-line-warning",
+    "key": "40799f2a4ab4562afb261590fec115795984a23f",
+    "collection": "Brand"
+  },
+  {
+    "name": "Line/--g-color-line-danger",
+    "key": "f2310674d42a91494fb46bfd29086067415c996b",
+    "collection": "Brand"
+  },
+  {
+    "name": "Line/--g-color-line-light",
+    "key": "c1ac727b39214d624ec8a6612fc2daf6993c75c5",
+    "collection": "Brand"
+  },
+  {
+    "name": "Line/--g-color-line-generic-accent",
+    "key": "8d1b9b6148a5747708da55a30786f0a9f8460634",
+    "collection": "Brand"
+  },
+  {
+    "name": "Line/--g-color-line-generic-accent-hover",
+    "key": "9aecbda49d3dfacc1788a2c9205dd22752378554",
+    "collection": "Brand"
+  },
+  {
+    "name": "Line/--g-color-line-utility",
+    "key": "308c618c266cdb988dde6c1d951ffb59d83f5f77",
+    "collection": "Brand"
+  },
+  {
+    "name": "Misc/--g-color-misc-axis",
+    "key": "e48eff40bbc4903f9666d1484b1895c4bd922c60",
+    "collection": "Brand"
+  },
+  {
+    "name": "Misc/--g-color-misc-tooltip-bg",
+    "key": "0a4b79095f543a504e54f56b5021f3b88089cd58",
+    "collection": "Brand"
+  },
+  {
+    "name": "Misc/--g-color-misc-scroll-corner",
+    "key": "b57748deaa822a741adb49cf3e9e663e0f947771",
+    "collection": "Brand"
+  },
+  {
+    "name": "Misc/--g-color-misc-scroll-handle",
+    "key": "ba1cd15fb3c4a0dc1d2fd9215d47ae42f45e0b9c",
+    "collection": "Brand"
+  },
+  {
+    "name": "Misc/--g-color-misc-scroll-handle-hover",
+    "key": "fa9176e5783e16ba7344d74731e2032ad14c2d99",
+    "collection": "Brand"
+  },
+  {
+    "name": "Misc/--g-color-misc-scroll-track",
+    "key": "f319b48ea18aa6a2e88dc6b8fcef10c11097b0ed",
+    "collection": "Brand"
+  },
+  {
+    "name": "Effect/--g-color-effect-veil",
+    "key": "6a95b13f8e62da6e1daffa50590b57e2d9441ccb",
+    "collection": "Brand"
+  },
+  {
+    "name": "Effect/--g-color-effect-shadow-light",
+    "key": "ea2008b61a0a6065d4167d37e84683fbd372fe30",
+    "collection": "Brand"
+  },
+  {
+    "name": "Effect/--g-color-effect-shadow",
+    "key": "c392413342123b09c4371644e7481be4fc181454",
+    "collection": "Brand"
+  },
+  {
+    "name": "Effect/--g-color-effect-shadow-heavy",
+    "key": "9b97835d682f8087ecd3a6240a95fff212718574",
+    "collection": "Brand"
+  },
+  {
+    "name": "Effect/--g-color-effect-fade",
+    "key": "bbd34a2b40a5f70145293c1b89a04f75414c5616",
+    "collection": "Brand"
+  },
+  {
+    "name": "Branding/--g-color-text-Yandex-Red (Legacy)",
+    "key": "2fb9659b787235b971b7d247e4eb92bec334ba17",
+    "collection": "Brand"
+  },
+  {
+    "name": "Branding/--g-color-text-brand-contrast",
+    "key": "625d984ad8ff4bb2a99f5e02d948ece00f2711ff",
+    "collection": "Brand"
+  },
+  {
+    "name": "Branding/--g-color-base-brand",
+    "key": "63e62d14cec7ced0ba307a5b75cb593ceacdc350",
+    "collection": "Brand"
+  },
+  {
+    "name": "Branding/--g-color-base-brand-hover",
+    "key": "aad181fdc5938084e0d480b2fe493568235e8f9f",
+    "collection": "Brand"
+  },
+  {
+    "name": "Branding/--g-color-line-brand",
+    "key": "4390558cb13d1c4b26fe539ca6eb138437b02926",
+    "collection": "Brand"
+  },
+  {
+    "name": "Branding/--g-color-base-background",
+    "key": "eef1a4dd70bd039596d6cacc338c609c3ba3aeb7",
+    "collection": "Brand"
+  },
+  {
+    "name": "Branding/--g-color-text-brand",
+    "key": "879ef1568a669dc51e7cb92ae30cd7b212e1114e",
+    "collection": "Brand"
+  },
+  {
+    "name": "Branding/--g-color-text-brand-heavy",
+    "key": "23458b306cd6329b18ab7f69404645df5317959a",
+    "collection": "Brand"
+  },
+  {
+    "name": "Branding/--g-color-base-selection",
+    "key": "8cfd93a03af9e6c61506b08727680f996832944a",
+    "collection": "Brand"
+  },
+  {
+    "name": "Branding/--g-color-base-selection-hover",
+    "key": "2db2b022dc02a662d4a972e7294079ec9d5bda4a",
+    "collection": "Brand"
+  },
+  {
+    "name": "Branding/--g-color-text-link",
+    "key": "533b65f3c0edee2329bff913a3a0939d00e7c6db",
+    "collection": "Brand"
+  },
+  {
+    "name": "Branding/--g-color-text-link-hover",
+    "key": "c37dae60c8cb67f92f5de87a3007d319216145de",
+    "collection": "Brand"
+  },
+  {
+    "name": "Branding/--g-color-text-link-visited",
+    "key": "a36577c83e8c4e0799bcd22fb6084793bb49ceb2",
+    "collection": "Brand"
+  },
+  {
+    "name": "Branding/--g-color-text-link-visited-hover",
+    "key": "9c2dd85753f0924781de5dee09c65a7cf12ce76e",
+    "collection": "Brand"
+  },
+  {
+    "name": "Gravity/Branding/Base Background",
+    "key": "295fd38959c6631c71468c1c9878f67f71a64dd7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Branding/Text Link Visited Hover",
+    "key": "79cfc5baf9d4d2d9e475770055a536fdcabe7e09",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Branding/Text Link Visited",
+    "key": "9e773011bec0e32804507067cc2026d137d6ad0b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Branding/Text Link Hover",
+    "key": "7ecd47868a2e882f82efe117ec0e1aa74193c3a3",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Branding/Text Link",
+    "key": "754f2bc84513607ecc9131599ea965318b36aecd",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Branding/Text Brand Heavy",
+    "key": "1e23e8bab87ea27250cd7bcb37813daefcc5ba52",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Branding/Text Brand",
+    "key": "2a9ca2489a0469a91457be819c3f3f79f6f45298",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Branding/Line Brand",
+    "key": "235257a5bf3ebb0abd27d14577a176777f74a39d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Branding/Base Selection Hover",
+    "key": "54905931b6af34ad788235e60f984f963d7b6ed1",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Branding/Base Selection",
+    "key": "65afc0a2299b1d5bb50f36ffcd13e1d45460dc21",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Branding/Base Brand Hover",
+    "key": "e883367ac02b807dc5d21c7659f287ac43a9d3c2",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Branding/Base Brand",
+    "key": "841d5db278cd111bf8a347d2871f8019103cf5bf",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Branding/Text Brand Contrast",
+    "key": "3a85e8609196898925a44ac6d947713a158ff72b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Branding/🥴_YC_Yandex Red (Legacy)",
+    "key": "f7926eba15004f93690c3654194170d6ac7f1097",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Float/Modal",
+    "key": "fb11fbe4b35804e73bfae57d08dab54c7244885b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Float/Float Announcement",
+    "key": "f8f26b060a5b8ef090a75cf037f31c1f373d2996",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Float/Float Accent Hover",
+    "key": "6abac953c6a8a3dca0e32d545ea73befe7e3d132",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Float/Float Accent",
+    "key": "2d1a198855a64f45fac5287753065f07f2e0293c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Float/Float Heavy",
+    "key": "0738e4cdb605d69c6a4b678f60b876b65e498a4e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Float/Float Hover",
+    "key": "93e69f6734527cf2dcabf3105368abd4e51c0b31",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Float/Float BG",
+    "key": "1c03db582c52468f3b66f19b07e7a6f0947f7b07",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Misc/Scroll Track",
+    "key": "ea403b8f341ae602f1e960fffdf7e4ee494bccf6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Misc/Tooltip BG",
+    "key": "9e5efe6209bfdca8cc320d1ca29556b0c255c08d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Misc/Axis",
+    "key": "be23bd002f9e19d4c045fdc7db358bc5152a8ae9",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Misc/Scroll Handle Hover",
+    "key": "7b04cbd89e53c549852c525b6769375e89a3be9d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Misc/Scroll Handle",
+    "key": "e6210e39d4be5416da206811567d201e1d2fec32",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Misc/Scroll Corner",
+    "key": "fcb035d5626090c6e03aebcee7d8dadbfe46dd0b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base/🥴 _base_Base Area (Ultralight)",
+    "key": "846d839fc6397738bf0fee964dfecc09823fc6d0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base/Light Accent Disabled",
+    "key": "fa3100a7a9715b67323ce710519168875d87ac64",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base/Light Disabled",
+    "key": "16dbd57812f5dddb06a65693195eb60ec6bc3161",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base/Light Simple Hover",
+    "key": "e9e3dc65d6b44e931f3ebd1b1a9a5ac7f5cadd25",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base/Light Hover",
+    "key": "883a359472db91f2e148b9262b99793e3be72459",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base/Light",
+    "key": "49a269629122a5b93c1b11824268cb6e84e7e618",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base/Simple Hover Solid",
+    "key": "5ff5c5480caa6c0f0ce02590f409ac74b7eab318",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base/Simple Hover",
+    "key": "5c37e81c815f0e0437271aa0bd6c598719b7049a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base/Generic Medium Hover",
+    "key": "6b11250aea71dfdc3fcf550c12844528206b45b5",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base/Generic Medium",
+    "key": "1d09eeceb320241161386404878e20049c264ae1",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base/Generic Accent Disabled",
+    "key": "7517b368733fcd1e110338f2a288fa2602a48264",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base/Generic Accent",
+    "key": "0530e70e58370fcba2eb96c3ec50fd235db19d34",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base/Generic Hover",
+    "key": "eb653c6ec09693d77776f1970526c2657de6acac",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base/Generic",
+    "key": "aacb8220d64198e1a0f526b3c79166375f30abd0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Effect/Fade",
+    "key": "8547d77897e6b320fa157d82db2c9c14386a120b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Effect/Shadow Heavy",
+    "key": "fe1ef68e040a654949f0d3ac92436b4dbae0665c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Effect/Shadow",
+    "key": "ec216a1582fff94842062e7ec92559fdaf11c0c7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Effect/Shadow Light",
+    "key": "363071a2086993893290e1a64af22353561fb4cf",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Effect/Veil",
+    "key": "5023b09474535fcfe96817964270738706039826",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Line/Light",
+    "key": "6e71cde9e1b1b6927f295eb3a26036fb32e54273",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Line/Danger",
+    "key": "388de103eb94843a75d50c30daa0fea3cdd24edf",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Line/Warning",
+    "key": "852118abd3344770a294cd3807dd0976b7d2a68e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Line/Positive",
+    "key": "2e9740f9249ef10fd0c3acf3a48b4067b8f66795",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Line/Info",
+    "key": "b327b3fdc873f3e6c65a094ea4e6c1c56bef7fc6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Line/Misc",
+    "key": "f28c24c18fbeed07be7a14edfc436a800ed022cb",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Line/Generic Solid",
+    "key": "a0144982849e078fb685f4be062378872fb76c46",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Line/Generic Accent Hover",
+    "key": "de0ede4e9b30fbc6accc214d66e0ef8952d6ebbe",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Line/Generic Accent",
+    "key": "4ae4f0081b50ea716944f7571ee4a4c228885d87",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Line/Generic Active",
+    "key": "b95e8aa2c1384a9ff50f6a32a3459a07d4e0fa22",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Line/Generic Hover",
+    "key": "9039dc09958ff4e9295f190b1a31a817568e4fe8",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Line/Generic",
+    "key": "dd2b6674dff6e162c89e4a70f449e5a7b6f4ecf6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Line/Utility",
+    "key": "b43414caca58d16cab41ac95d08c0d9771a84f92",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Misc Heavy Hover",
+    "key": "e5f549fac244df9aa05676d97cd0e31d88f2c433",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Misc Heavy",
+    "key": "e68ce3af92c732164c97007f8fbe0d5e081f9e13",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Misc Medium Hover",
+    "key": "86ebbeaef01482ffae674b3f428f52055f8e0d49",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Misc Medium",
+    "key": "837f488f1f35bbef61c4f173246ba018a9861cfd",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Misc Light Hover",
+    "key": "b3e865362b4af1f3d11d1336f2007a055710bae1",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Misc Light",
+    "key": "8bd7ea83f9540af34d773b872b078a5b506575f9",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Danger Heavy Hover",
+    "key": "e99912b91004f93499f36f2e8d90250cb8173daf",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Danger Heavy",
+    "key": "0854a50c9ba605619cdcc3bf642b5a97244c1a29",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Danger Medium Hover",
+    "key": "e6c68eab89a53927a23da429ca6cd97091c7d3a1",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Danger Medium",
+    "key": "0e9ed5ecbcd24d3f6255ebe833a195c0563c4c43",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Danger Light Hover",
+    "key": "2dd876acca252f14b7d7960c15c5419f1d9ff4cf",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Danger Light",
+    "key": "ad387c160dd53b61a9a1d75292bee5a1e32e0b26",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Neutral Heavy Hover",
+    "key": "0c9921dc5d715e4acb79135678e6105ed26a4d02",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Neutral Heavy",
+    "key": "3e98e82bad09ecf4fd3b86761f57b473cbf4b80a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Neutral Medium Hover",
+    "key": "93aed179a2622435da9789cb4b25ac0c19e89328",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Neutral Medium",
+    "key": "328f59c2b538e51abe35d2273cde6341b5c72b89",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Neutral Light Hover",
+    "key": "c3ec616e98617d0e3192f2c9a6ac47ff737945ce",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Neutral Light",
+    "key": "152f7ccba346a3f963c539f9935070b969a24d3d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Warning Heavy Hover",
+    "key": "25306423caeee95c76e429e6538dfabb8d05104b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Warning Heavy",
+    "key": "09251987b5a4632775bb703fa4471b6626b62ff3",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Warning Medium Hover",
+    "key": "8775d26bded0317a4c63eb28866a1c9913638f2f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Warning Medium",
+    "key": "7ac7af54f66ce3f4590ebee1b8dfafe549e0ed60",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Warning Light Hover",
+    "key": "b4a5974bc6748fdc3ecf40495a9c73c41f157825",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Warning Light",
+    "key": "01bbf236e39a2163219b6c4a626ec7c73fa49917",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Positive Heavy Hover",
+    "key": "bfc22f1e4e46f32a9f8a17d219b46fa6fa334c38",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Positive Heavy",
+    "key": "dd0bc59d427fc4e896abf1f34332ab4ce2a4fd7e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Positive Medium Hover",
+    "key": "d1f0c71499ef8e4c957c8c0a754678088be64446",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Positive Medium",
+    "key": "d18fab96361efc94cb490d69f9e9f5843e903c5f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Positive Light Hover",
+    "key": "0b60d97da79173626bc7d38cff58e1645459a03f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Positive Light",
+    "key": "df02e5c441a9b0200ab873b5f24f60109ee24b69",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Info Heavy Hover",
+    "key": "260eb1161197133c124269df92032a5224a6be6a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Info Heavy",
+    "key": "5866f18d59235da41a6ed0b81989bf3b47845f62",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Info Medium Hover",
+    "key": "3e39ca87559acbfc59c3195de4d7e114185e127b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Info Medium",
+    "key": "a84ac156aa395fe2c5c9f6b9f7487c2f87a51c5e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Info Light Hover",
+    "key": "206592939cf579a1858b3e323ebeed9be92ce887",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Info Light",
+    "key": "b44541ca15faa81c2b43088325901f457f80752b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Utility Light",
+    "key": "dcd0b45058d040dfaf11267bcc347915c0b8441d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Utility Light Hover",
+    "key": "2f8b06de5ef1d143edbd2556dada9fa078748b47",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Utility Medium",
+    "key": "35914a2c2b5e9278185dae2115db9dc0794c0560",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Utility Medium Hover",
+    "key": "7a522921e1edf128f2246755172b8d3e5acecbee",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Utility Heavy",
+    "key": "7e30d2dbeb95d06227e3aebe1691fa13445492e7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Base Semantic/Utility Heavy Hover",
+    "key": "d6a323f522d22254b397da21b64af07f7480b918",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Dark Hint",
+    "key": "3528c37b17962596e69273c8c4e34dc8a44d0da5",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Dark Secondary",
+    "key": "7c42c1eb91ba58eb26e5f573fd4569072e032522",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Dark Complementary",
+    "key": "cfc178429a18a875bf7e60ea00d41196909d2880",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Dark Primary",
+    "key": "eee96217e3bcee9c8c9d0b2be6a640fa266684de",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Light Hint",
+    "key": "6558fd92221f049d3cbff40c75b7347b831079e5",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Light Secondary",
+    "key": "151230fb9399b8e442372a3df014915735d96254",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Light Complementary",
+    "key": "4db01139ddd7ddef9126a0a658c4a5fcaca24170",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Light Primary",
+    "key": "c4051710f54bb7116c14dd3da5bbb04d72996dc2",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Misc Heavy",
+    "key": "0c75fe1e2d659d5217028c54c728b5b6c0669daf",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Misc",
+    "key": "32c1eba464bf9349d7a87e1d0ce1c4174d857f23",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Utility Heavy",
+    "key": "a28e7d70609fb396f651414f36f63e660b4b9999",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Utility",
+    "key": "b6acc96ea70a1b875595c64ea04c5c801f28f89d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Positive Heavy",
+    "key": "985605e3e4e6f235ca0d7f8c807dc8b5c5e17e7e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Positive",
+    "key": "5b9ddc1f1a67bfaefa522fe098665749349bcc15",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Warning Heavy",
+    "key": "745648682a72fc3db7e7c3de5a11155a43ce6993",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Warning",
+    "key": "c3f914edae4ef929592d45b538a4846ff2be608b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Danger Heavy",
+    "key": "b5c0f1aed239cb58471d0d35ef3a2a95ab40f366",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Danger",
+    "key": "f0264e371f87d516fde07d16571edf7e677041d4",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Info Heavy",
+    "key": "2bf31f58319c4653223391449c40288c0e4cb600",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Info",
+    "key": "6b076a93e66a728babfcecaf11535a27f4d6c627",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Primary",
+    "key": "6b23b037f8572ea8d678620dd7f3e0f21c770da6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Complementary",
+    "key": "38108c8a80983e7c89f90892c64a7afc62d6f3b0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Secondary",
+    "key": "27352e3379d47b1000fae611e4046ed1e59645d4",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Hint",
+    "key": "7cd6170f27706344541e2a5f10ef9af1b60650dc",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Inverted Primary",
+    "key": "7010919c9e34787fe8d1999c710537ca46508413",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Inverted Complementary",
+    "key": "2efe953ff7634b8f4547c3914e09025ba75ed373",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Inverted Secondary",
+    "key": "d7ad4f0c619be32a04deaeacb35f4028cdfcc5c0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Text/Inverted Hint",
+    "key": "293dafa423aaf1d620501d17db3ba0d99c23d350",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Branding/Base Background",
+    "key": "4e82630062cae073fe8f294ed01cc7069b0d6a9b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Branding/Text Link Visited Hover",
+    "key": "d6acacb7fdbb1394708e1fc9371dbc74920cad7f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Branding/Text Link Visited",
+    "key": "b926c329655295431755f83c1b8a7c429a3d8b9d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Branding/Text Link Hover",
+    "key": "0834712d835d5aaae05d524b6f3c224275c5870b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Branding/Text Link",
+    "key": "7d22d4d5772ff33fab349af3c96e7ac37f1676e9",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Branding/Text Brand Heavy",
+    "key": "3c86ce389c25d89a77a4a09afda5310276d85c15",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Branding/Text Brand",
+    "key": "d28fba0dcb9cbac00a26e8eec5724fdea11609f7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Branding/Line Brand",
+    "key": "066a9a73f727f1a5518c4083e3ec2b60a206a932",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Branding/Base Selection Hover",
+    "key": "c467c14fac48bdb465cc7e11a6db1ded860dc372",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Branding/Base Selection",
+    "key": "40a36df184626b6ca545c5c6f057355571e03a95",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Branding/Base Brand Hover",
+    "key": "cfb6478138850649cea03e4a0ec1102e97f5ca6f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Branding/Base Brand",
+    "key": "d704e98d67df60a0ca859099c915be4c89fd969b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Branding/Text Brand Contrast",
+    "key": "2ec88ba99f3f336d891569f6b09187b2780a6319",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Branding/🥴_YC_Yandex Red (Legacy)",
+    "key": "579e86586d5037e6d24eef16bc77b8f7730c3eb9",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Float/Modal",
+    "key": "3d5d1ab9c3846dfd5539f2c424cba8426cfe1a06",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Float/Float Announcement",
+    "key": "51a24c0120a25267338adfed7191dae59b43f2aa",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Float/Float Accent Hover",
+    "key": "1d2647f49ff2d554d3ce2b717b6462c5242989d1",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Float/Float Accent",
+    "key": "7e8665294196208cf370fac0dd7a8c20a60086f7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Float/Float Heavy",
+    "key": "fb30148abfd5bc50092b44807c09a9dd7c83848d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Float/Float Hover",
+    "key": "3b7a3b0c7f72cf0ff1a1c6948a5b8b0e441006df",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Float/Float BG",
+    "key": "7b826c334b37ae38b90f96ed44f0a68b79feb277",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Misc/Scroll Track",
+    "key": "e651b229df3127a6778ccc72428dc56bb40c2233",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Misc/Tooltip BG",
+    "key": "9e4ae4bac4ec80f68cff2d135d86302c255ccdab",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Misc/Axis",
+    "key": "50bf7fbdd9c74665b64e3e78eafe895e7014a283",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Misc/Scroll Handle Hover",
+    "key": "f41400d146bbd42d1ba6ae141464dfc497d631e5",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Misc/Scroll Handle",
+    "key": "142c357ff3cb4275cf81b6c717cb24397629add2",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Misc/Scroll Corner",
+    "key": "c68b723596608482407d590e866da832cb9b168c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base/🥴 _base_Base Area (Ultralight)",
+    "key": "1a7f1ba19ee4c70657af4e90d9b6ba31bd5632c3",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base/Light Accent Disabled",
+    "key": "0ea4e977933b7180c573dca4c3363f681b7467b3",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base/Light Disabled",
+    "key": "098615bb54943d01ed149c81f3aa25e58e870ace",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base/Light Simple Hover",
+    "key": "43200d762b21a0631b125925f6d5e12d9e867121",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base/Light Hover",
+    "key": "51a6505cb80a83e914838a808ea99a3f95674a9d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base/Light",
+    "key": "653ea3a39ba94c65a67a153ddf664f003ec778ea",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base/Simple Hover Solid",
+    "key": "01420b2301d68cb66146150bb8ca0d5673cffa6c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base/Simple Hover",
+    "key": "aaafec1d05eeb6a02ac6cc4632732fdca2cff411",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base/Generic Medium Hover",
+    "key": "24501024443ebc2f897e7e6f68e25a5fee87397e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base/Generic Medium",
+    "key": "0218338f0065a8d0a0b018532795aeec0deab44b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base/Generic Accent Disabled",
+    "key": "90643efd008b7a6b98f367b02becc910fe62e988",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base/Generic Accent",
+    "key": "a1fccba5a614f0dacd3be10ee96e479bc2ba7527",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base/Generic Hover",
+    "key": "1b70244b5eb6e33c47644ac0fb11ffa97f21a2ad",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base/Generic",
+    "key": "78a9caec65acc65968ee3436ec7e39001979e7ed",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Effect/Fade",
+    "key": "4573f08fe48b781f81607a1101dd117137b93979",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Effect/Shadow Heavy",
+    "key": "962dbfe48a89755f6045223f878110e6beb2c31d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Effect/Shadow",
+    "key": "15d8362985ada1d9cb871eebfd2071291b9c23e6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Effect/Shadow Light",
+    "key": "1e1d57390d2ed79bd87b62d60a544d02baddddcf",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Effect/Veil",
+    "key": "50804fe0883bbefc93bc07c2d64d8ff92d6903a3",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Line/Light",
+    "key": "f0cb62c64a12cb9005c38fb10c6aeb3d4ca0b96b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Line/Danger",
+    "key": "1a07ac926596aaf83faefeb91876379d3d5b6df0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Line/Warning",
+    "key": "65b07eff4767c5dff25e2fe5aa09a12f73f30dd5",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Line/Positive",
+    "key": "dfdbdf7aefd99efd957e024feebb4ffa8d5e2211",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Line/Info",
+    "key": "c0e17b17e52dc22abc91e2b955ca6f6ab48d3017",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Line/Misc",
+    "key": "4da7adaf0f016d10035647e46c2eace47f9390f7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Line/Generic Solid",
+    "key": "d9f5b3c835fe92205dddcf5ae0c541baf411a5f0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Line/Generic Accent Hover",
+    "key": "9c78b40cc25f52cd55c4ad0276264ec1a1e2051e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Line/Generic Accent",
+    "key": "ebbf4b03d379b3491bfcfd8d00305ecc6e069cb3",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Line/Generic Active",
+    "key": "bc1093e6eef552b04cfeb753331d9c0b024baff6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Line/Generic Hover",
+    "key": "0065c40a45c8ca394cc186aceb1841dfbbfe191a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Line/Generic",
+    "key": "0221fffacfe61c334b65f6f65b51974b0a178798",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Line/Utility",
+    "key": "5dc4872e36ce1659cdaf93feb97c03adb065a5e6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Misc Heavy Hover",
+    "key": "4160287ce5fb46d6b3bcab799ca2552323549f9d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Misc Heavy",
+    "key": "08da6c03157ca2ec808e51a91a24660d17c94a52",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Misc Medium Hover",
+    "key": "55ddbdf3757e8cf5fadd0bc9bef7f6d6cc2d2be6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Misc Medium",
+    "key": "cb30486703f7b76aa19e6b3415899a31e24bef82",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Misc Light Hover",
+    "key": "86f54cf6c975f480b249f7ee0bf6cb9b231f79d6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Misc Light",
+    "key": "65d8a67d15767570bb71deb51f4463773dc0cf7f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Danger Heavy Hover",
+    "key": "bf374c833af0e71b0916da76588558d21216b7e6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Danger Heavy",
+    "key": "dd008b313056e48713c6527b7214cb111bbb87e6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Danger Medium Hover",
+    "key": "8d8b0ea124524c52ec14a834a17e07ea3d70e0a2",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Danger Medium",
+    "key": "53dda39c86a2d5485b3ca6d0e8595bf5b47eabe7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Danger Light Hover",
+    "key": "d0e5f5606e2db322ee0bb455df16ab253f0e8905",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Danger Light",
+    "key": "931137476e51914ffd30df75b3273cc36358b943",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Neutral Heavy Hover",
+    "key": "b96e735fb64bbed99485d8724a0a2cf7567a3d2c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Neutral Heavy",
+    "key": "394f4ab024fcc884c7ef709a081cdc207143335d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Neutral Medium Hover",
+    "key": "a34922a03578263d979d7cf888983286cb238b05",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Neutral Medium",
+    "key": "6ee353186ab33cb1b535ce1dbaf59bc0b8d27c51",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Neutral Light Hover",
+    "key": "c1e93902b46ebeb4f77136c856d0dbd2cde6fb50",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Neutral Light",
+    "key": "99b5126f6046c5e2269b84126874dbc94a98c7eb",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Warning Heavy Hover",
+    "key": "0f28071843157ad3e7fb675796727076f92c2973",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Warning Heavy",
+    "key": "93826db1575d6e8db7149485954b4a20242e15fa",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Warning Medium Hover",
+    "key": "b38e8a135bbf46209ee8f330e7dbf4bdec044300",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Warning Medium",
+    "key": "b7c45fdfc5886ae18f0d8f3c10354bb3f7926085",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Warning Light Hover",
+    "key": "d141ea75a0860ff0dd6fd696a83c6abd12f2790b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Warning Light",
+    "key": "e10abc96e51388045648d3f21c79830bf7b232cc",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Positive Heavy Hover",
+    "key": "c119fec261d63d446089a62de5a72d82bb21d5e4",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Positive Heavy",
+    "key": "6165874c3bacb1e14af2a86bb49d007d786ede63",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Positive Medium Hover",
+    "key": "2956c20dcf3e96099b16548c29eac1dde08240d8",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Positive Medium",
+    "key": "e91d8ab63adfdf07450f1d4fd25d64f119fb911c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Positive Light Hover",
+    "key": "624af061e4013ec37ad713a4d02c03c8b1008682",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Positive Light",
+    "key": "faf729297bc1077fef5eea36fc032e65cdef3962",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Info Heavy Hover",
+    "key": "eab430d4b55333e11f9e67c3095c28d16be2fb08",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Info Heavy",
+    "key": "924401a6fd804c8a599f7bbfdee8744912c8a302",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Info Medium Hover",
+    "key": "0ff26d512c6ff0214e8919ec5ae51b42f03d03d4",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Info Medium",
+    "key": "e4100edbd817f6a9d2e101e39554af1367486b36",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Info Light Hover",
+    "key": "7d7363600869c4ba2b4c1556cc08344b7097bd91",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Info Light",
+    "key": "209e6041b3c7a49aa70b03cf3fcd5a079a5a6109",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Utility Light",
+    "key": "80f80a4d06b4e5f7d4eb81d1791b8002059c280b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Utility Light Hover",
+    "key": "d60f36b4bac16e6d5a074ecead4337d8e04d6f21",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Utility Medium",
+    "key": "0990e5c43bf221b6102e2ea0e30fb77f01ec92e4",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Utility Medium Hover",
+    "key": "27c0431a002ab072d0674c10717ead5c9407beb6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Utility Heavy",
+    "key": "b8ba7930d240dead2838dd8b9f24cc22d8154834",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Base Semantic/Utility Heavy Hover",
+    "key": "3eaa333acc2df7db1d36e007cdebd7e10b384350",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Dark Hint",
+    "key": "e2e44b46b764726450cd522424dfe2436dd95185",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Dark Secondary",
+    "key": "526996ba2ff6d282d26f796dc63e49cc5268a3fb",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Dark Complementary",
+    "key": "f52ea518ff98805e3877a58f8156aed01a7f2884",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Dark Primary",
+    "key": "70f84fea8a2c5db3e1b5ab53c5c7895b77ee5adf",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Light Hint",
+    "key": "7221be23a55c6277595b0f425008803357f62563",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Light Secondary",
+    "key": "e990d7b04a1af3b903ad879996409f5abc58bd4c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Light Complementary",
+    "key": "a63bbc1db363c101d463cb53b76b70f83fd9370c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Light Primary",
+    "key": "bd382bb07f9819682e7c0cc1317a2cd1ad69c5f0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Misc Heavy",
+    "key": "83222dcb171243b51b763ec20c1bc27d34b347f0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Misc",
+    "key": "85db60ad8ac15b33f751b91a382b507bbd0685aa",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Utility Heavy",
+    "key": "1df1eddb12555a2ea37885af4bc7140773f3695e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Utility",
+    "key": "aa48306cdb294617d0c0e45a88144df2173ec08c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Positive Heavy",
+    "key": "9ea67ae058abe9bb5dc1d3695217ad0b05dd26ba",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Positive",
+    "key": "d3f5717b7044fefe4914f0e77f73053cc51be4df",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Warning Heavy",
+    "key": "e57aa3465859c03f1d504fc97166745f3184abbf",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Warning",
+    "key": "5762c289b5f7de56ac60fa7d0fb1bef500adfe9e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Danger Heavy",
+    "key": "6b168729f2c98bc7fbfe2e037eb91a3543e95bd4",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Danger",
+    "key": "c7524d4be9c91ff2b60e5cf19a1ec337dbb59c42",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Info Heavy",
+    "key": "b78db1890aa67b5af89fcd3982d2fd8a7dff2076",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Info",
+    "key": "3ea2ab020a016b00ea53f6ffafdf23010220e598",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Primary",
+    "key": "25e80dc1cb5969c5ca740a800c5f6c810cbb240a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Complementary",
+    "key": "9d0bbd00aca04fde64065ad9b075802595fb1f19",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Secondary",
+    "key": "e3490b50a056ed0d333f01eee3636c7e4286c65f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Hint",
+    "key": "7bed777bbeaf623064bbcd09b4459200ba30d224",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Inverted Primary",
+    "key": "d69cfbf72eb4266a17041ffe0c5295e0ed3479bb",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Inverted Complementary",
+    "key": "0c788d3f388adbdc96e1f8033c4d1ab36cd55d28",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Inverted Secondary",
+    "key": "87e373b924b410bd14ae54eba9edf4a7989e9e42",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Text/Inverted Hint",
+    "key": "a75ff51319216aa03674161bc7cad78f5f0ce625",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Navigation/Decoration collapsed bg",
+    "key": "55349506adcc60197a7dc7cbe9856037e4b74a6a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Navigation/Decoration expanded bg",
+    "key": "2c8632e27819828f728e654ed7836c2bf5b8ae3a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Navigation/Divider vertical",
+    "key": "7a7c6cfda003ee473bc070e9e1e98988e2581090",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Navigation/Divider horizontal",
+    "key": "6f78aa4ac3bd0064e795f4fc94eb9ee1ba7bd3ea",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Navigation/Header background",
+    "key": "63026899072963aa36c882ac2a4cc9406c6e52a8",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Navigation/Item background hover",
+    "key": "caac5fdfece8c3bbaf6144dffd6e0c71a4837d8c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Navigation/Item background current",
+    "key": "f738d37b40567e3d02e0661b473174ddc4987dde",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Navigation/Item icon general",
+    "key": "e38cdaf7534dc00bbbd69b798aad3b166770bc99",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Navigation/Item icon",
+    "key": "3e1b33a44c5bb196252b4b6d84a922bde2b3b36d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Navigation/Item icon hover",
+    "key": "c973741d10aea81711c39c8ebc9e14192e4b80ad",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Navigation/Item icon current",
+    "key": "592bd93dac7a52e01cb42f08dd70c58b436bed2e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Navigation/Item text",
+    "key": "e338254bb4e2aa6255f7b5685574a62b6c8c5786",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud/Navigation/Item text current",
+    "key": "c29958cc18c5f569b2ac2a8ba64b17dd147caac5",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Navigation/Decoration collapsed bg",
+    "key": "f462d3d74d8f09e06b79a62c59db5060756cb9fb",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Navigation/Decoration expanded bg",
+    "key": "ee8dc92b354b875a8d0fb246e4c02df6ccdf0efa",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Navigation/Divider vertical",
+    "key": "ffd5fb4ae55e1b23ee2be52e064d9560057082f7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Navigation/Divider horizontal",
+    "key": "cb31a73192d94a32d7476cd60d15a229bcb1bc29",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Navigation/Header background",
+    "key": "9ac067cc6cf28aaad94a52e22f5bfd0e56c398b5",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Navigation/Item background hover",
+    "key": "1fc83a227788fb93304c88bddaa88be99764ce7d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Navigation/Item background current",
+    "key": "9454d7bbfe880864b370ed5bbbc07c1c4f8a0189",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Navigation/Item icon general",
+    "key": "884d4054bf90f85462d23ffa24ec0b877e6f7609",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Navigation/Item icon",
+    "key": "a6b468691b32fafaee6b18c6ee0286d2276a7637",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Navigation/Item icon hover",
+    "key": "efb1dc31754ac7941d9ad0cec3be88f30085cc1d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Navigation/Item icon current",
+    "key": "017b475ec0a9a21de7e2f2ba076e4cbfdfd919d1",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Navigation/Item text",
+    "key": "64ad7bd2b9bfd373fa34992f41355efbb3704887",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Gravity/Navigation/Item text current",
+    "key": "dce3e98f6c317f00f644e0aee499a0a65d308f78",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Navigation/Decoration collapsed bg",
+    "key": "37ddc5878277a9fc001be97076738b6e77b639b3",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Navigation/Decoration expanded bg",
+    "key": "24dcffae325b8813b059c05affb944da00477993",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Navigation/Divider vertical",
+    "key": "8fc65dd572de76ac82fc74c8a743f82a731bfd1f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Navigation/Divider horizontal",
+    "key": "b5300b34f2a9a01ffb88f2ad087c1cd90589440d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Navigation/Header background",
+    "key": "d405706be3fbf1a8e3c4a1d0c6df5309c309da45",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Navigation/Item background hover",
+    "key": "8b8b89c96bdec5fe2e5022eab14e4691b3feb23f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Navigation/Item background current",
+    "key": "5e4513b3d13018a629c48103fecf57b352ad7458",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Navigation/Item icon general",
+    "key": "630fb8b19ab3d25b1aab61c489770e84b11330d7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Navigation/Item icon",
+    "key": "4d9068f200da1573b647e66a1376a3ee89c13503",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Navigation/Item icon hover",
+    "key": "0a82dd652c48ab3e69355ec4ab57e18ad271d990",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Navigation/Item icon current",
+    "key": "01b439dc31e60aa84eee4a1fdf2fd751900e9146",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Navigation/Item text",
+    "key": "ec9bb21e3055ce69bd72ec1a26bf938d885a6225",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Beta/Navigation/Item text current",
+    "key": "9fe28f2278100c6983cccdbfc765f6e32bf257f6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Navigation/--gn-aside-header-decoration-collapsed-background-color",
+    "key": "49161d1ed9950e89dd7bd5a320128ce8fe37dac9",
+    "collection": "Brand"
+  },
+  {
+    "name": "Navigation/--gn-aside-header-background-color",
+    "key": "0777b8b259b7716de871a9b9cb179f1c1bfc1b38",
+    "collection": "Brand"
+  },
+  {
+    "name": "Navigation/--gn-aside-header-decoration-expanded-background-color",
+    "key": "858bc234a5caf4c5294624816d4f748976ee7421",
+    "collection": "Brand"
+  },
+  {
+    "name": "Navigation/--gn-aside-header-divider-horizontal-color",
+    "key": "f57bdd6b501b4304509abf477f65696ad1f60676",
+    "collection": "Brand"
+  },
+  {
+    "name": "Navigation/--gn-aside-header-divider-vertical-color",
+    "key": "e2d8811f7080976a9d4c1fc4b85d4c31002455dc",
+    "collection": "Brand"
+  },
+  {
+    "name": "Navigation/--gn-aside-header-general-item-icon-color",
+    "key": "819fa65a9f040e1eea9b8ad7df33b005a52940a1",
+    "collection": "Brand"
+  },
+  {
+    "name": "Navigation/--gn-aside-header-item-icon-color",
+    "key": "b4564fd3be137ab3bc9d31bc327e64f567664664",
+    "collection": "Brand"
+  },
+  {
+    "name": "Navigation/--gn-aside-header-item-background-color-hover",
+    "key": "2afb951b7b7e686b5311aeb920a6b5bd35821f1c",
+    "collection": "Brand"
+  },
+  {
+    "name": "Navigation/--gn-aside-header-item-text-color",
+    "key": "5488ef954b4a89934cb23296a92023a5e57c918f",
+    "collection": "Brand"
+  },
+  {
+    "name": "Navigation/--gn-aside-header-item-current-background-color",
+    "key": "69cc8b831c505f996dbf3e0e768d5da3bc102daf",
+    "collection": "Brand"
+  },
+  {
+    "name": "Navigation/--gn-aside-header-item-current-icon-color",
+    "key": "a39cc8225a6842468eb49a5469b4622d97871877",
+    "collection": "Brand"
+  },
+  {
+    "name": "Navigation/--gn-aside-header-item-current-text-color",
+    "key": "2926e015d584071a7c4a1e34b8149d169aa02ad4",
+    "collection": "Brand"
+  },
+  {
+    "name": "Navigation/--gn-aside-header-item-current-background-color-hover",
+    "key": "8c456d0c2ea365f33f8f6008636d642489c478b1",
+    "collection": "Brand"
+  },
+  {
+    "name": "Navigation/Tail",
+    "key": "0e35711d1820127d27bd445ca8f42df7e04427ab",
+    "collection": "Brand"
+  },
+  {
+    "name": "Navigation/divider",
+    "key": "418425d31350eba15f541ac14832a0208cf20170",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font/Sans",
+    "key": "8328e48f0253543196835cac623903e54ad88c31",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font/Monospace",
+    "key": "a4b59a676cebda8f7af628723876aaf33bb033f9",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font/Body",
+    "key": "1dd20f798521c2b91fdce0216cddf67b4afe3015",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font/Caption",
+    "key": "b191c74ca86522e2e8700b2932296a1f98b86a26",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font/Header",
+    "key": "dcf62d4962c043875ce7a675ed35dfb70ef345b1",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font/Subheader",
+    "key": "13c6dee4a060c03a877db2ae8088dd854adb278f",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font/Display",
+    "key": "5f5496143f99168bb9c7d4a363d9f291d17829fe",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font/Code",
+    "key": "134795fe8a415276bb910e19e902a39557af921f",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Display 1 Line",
+    "key": "4020310527ba1a4542f22bb8f2fcffba23150940",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Header 2",
+    "key": "5a316074fca25e701929389052940728d21d2017",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Display 1",
+    "key": "0bf62b58bb14483c0123dde9bb50d0688e540160",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Display 3",
+    "key": "546d9a53259fdc6d0b1e80c13b6a7904bf4be934",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Header 2 Line",
+    "key": "567656a1afa9afa0283c0545200f27c157fb9ee9",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Display 3 Line",
+    "key": "fd4121494993db490002f3f0fe66f4db53c51a94",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Display 4",
+    "key": "f7233d42cc0b5574c4dc94fb8b9933fa49281ac0",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Subheader 1 Line",
+    "key": "fece0ff3de52f06af11e6582c1fdc7ba9aa57093",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Subheader 1",
+    "key": "8c14b7abf8bc1ed33ddc2b5b37e7fdbfd405e9aa",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Display 2",
+    "key": "18921e62ddd3f878b2a5eda83a11f13abb2810b6",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Subheader 3 Line",
+    "key": "27b46f92a7a0e09e9e7b61d237b63339743deb37",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Subheader 2",
+    "key": "dbf587b7cb9b5d0d18fe09fd51c3f72346c745af",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Subheader 3",
+    "key": "44071add2c636976288f340ef7deb34ff6d5f8d6",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Header 1",
+    "key": "b31501ecfa64023a692e866e5624aa376a038e98",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Display 2 Line",
+    "key": "de33476018d5a6f1850837e8c260f6f3dc4903b3",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Header 1 Line",
+    "key": "5a1db75408da71d1f0e444dd6f440584b28b6e1e",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Display 4 Line",
+    "key": "cc45e0609df1be9e40465f0bd6b7eea8bac1d96e",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Subheader 2 Line",
+    "key": "92e9c3f6d27c8110a3cdcaa0b83796a37b4eed28",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Weight/Accent (legacy)",
+    "key": "c40df28380672473da64afe255100187b3995abc",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Weight/Code",
+    "key": "0d9e377bfb35a03e2a63a5ec892058a8faa210d4",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Weight/Display",
+    "key": "71e0f32f383ea36c4a635628ad0738956518de19",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Weight/Subheader",
+    "key": "738cf8b93e14c9e36b4244ecece8ac862050bd58",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Weight/Header",
+    "key": "8ae29ffc03f229e7ae92186fb3b3dca070a89366",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Weight/Caption",
+    "key": "f8af67b363bb8ec26acba4d0742a79df965dd096",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Weight/Body",
+    "key": "3d6da4ce361780ea29f3470d14e1670e2fcb06cf",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Caption 2 Line",
+    "key": "f5bc73f76cb5d7597725dac64af86211ea7c18ff",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Caption 2",
+    "key": "35038de9ca4fc9a3aef1837e020d60f5407f9f98",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Body 2",
+    "key": "975b0bda3de5c2dedc06dae8aa05ac3a691a1dcd",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Body 1 Short",
+    "key": "b062bd8a20ef22675e66be9ee7b6aeaf092a4fec",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Body 3 Line",
+    "key": "c3314199feab06875359704e1bbb30f88bc67cb2",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Body 3",
+    "key": "e046ae6cef337fdd874745507a241ae0a6415fd5",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Body 1",
+    "key": "bc88d19c9e6c35e72803b5648fc41e0ba58e9211",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Body 2 Line",
+    "key": "a94f7041946f6713b63717224b994eb005d1b9c4",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Caption 1 Line",
+    "key": "8f7fb412a0882d3c9130429d79e12ddb2ed930f9",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Body 1 Line",
+    "key": "8ce0d5733598063977b9f2baf9da6b5be0cebd0e",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Body 1 Short Line",
+    "key": "0a7089607b84bf42c95cdf84a92c5a9923c40d00",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Caption 1",
+    "key": "49e27057a4b042a11893219d11ced5e4161413d7",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Code Inline 3 Line",
+    "key": "f129ecfec3693301f980f27cb72037c642b2ca35",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Code Inline 3",
+    "key": "cdae927d428467e0da032ad2893e68125b5a3872",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Code 1 Line",
+    "key": "05584295da047393cee9bf7b4aa33673e4ef72ad",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Code 2",
+    "key": "84c8bdf9a6bacfcceb0906b022323c0be49fba51",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Code Inline 2",
+    "key": "b606f56152cbc94f86b6f2fc1d37dac106a9928e",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Code 1",
+    "key": "b4613e2b51040b3ac89bc2c7baec17c7f320acb0",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Code Inline 2 Line",
+    "key": "095e676472f7d3544c77375f5d12d317e52a8229",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Code 2 Line",
+    "key": "4bb74a6353675a34dba7be1c95b95abfa5d9c65e",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Code 3",
+    "key": "0649ec3f7b83fa79174d058bf6eb200a88cc82ec",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Code Inline 1",
+    "key": "60e05b5b7858355dbe3e8ff7a104ad5d1dcfde29",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Code 3 Line",
+    "key": "f1c56c9c4baf5cff21e6f8583124072c520305cf",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Size/Code Inline 1 Line",
+    "key": "f0525c069e2be7d891041d25d9d9b8e4773283fa",
+    "collection": "Brand"
+  },
+  {
+    "name": "Yandex Beta/Navigation/Item icon current 2",
+    "key": "e7edc5b1b082e13fc60ed1ff3e89dd7e135750ca",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Border Radius/XS radius",
+    "key": "824d2cf854148e1d11b23c98b7b3dcef69815b7d",
+    "collection": "Brand"
+  },
+  {
+    "name": "Border Radius/S radius",
+    "key": "1f99af159586199e90909912e3a3d327179a9d1c",
+    "collection": "Brand"
+  },
+  {
+    "name": "Border Radius/M radius",
+    "key": "c963c6eda8a39ccf358a256bdc806c6ee69977d0",
+    "collection": "Brand"
+  },
+  {
+    "name": "Border Radius/L radius",
+    "key": "43d6e5ef01511b99d4e6b6c4f0eea5fb7f7e3dd6",
+    "collection": "Brand"
+  },
+  {
+    "name": "Border Radius/XL radius",
+    "key": "0fe89c448ef3939aa7bdf49de1f6c1e00e60c2d6",
+    "collection": "Brand"
+  },
+  {
+    "name": "Border Radius/2XL radius",
+    "key": "e9c24e6bab18bcfdfd968428c93d773ede1d85a6",
+    "collection": "Brand"
+  },
+  {
+    "name": "Border Radius/<0 radius>",
+    "key": "30cd245948422b7847dabea0674fb086bab405a2",
+    "collection": "Brand"
+  },
+  {
+    "name": "Border Radius/<full radius>",
+    "key": "c923085e1025097ffdcabec0cda658dd02def378",
+    "collection": "Brand"
+  },
+  {
+    "name": "Boolean",
+    "key": "201438e18eccdade2f4cdfe5e740c0b73c838676",
+    "collection": "Spacings"
+  },
+  {
+    "name": "Font Weight/Display Accent",
+    "key": "4b97b55d6f1399527fcdc39aca8e1517b44ef292",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Weight/Subheader Accent",
+    "key": "6b48cc554286cbb0e03c6c650a04998b94bcb5ef",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Weight/Code Accent",
+    "key": "16a4d29afeaa08f2e63cbb8b64a7c12759617d60",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Weight/Caption Accent",
+    "key": "ec2dc3740c3d13428136fb45ffb1581ad5eefb29",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Weight/Header Accent",
+    "key": "d482338ac5fe04e71e3270b599f3920e3af603d7",
+    "collection": "Brand"
+  },
+  {
+    "name": "Font Weight/Body Accent",
+    "key": "d2cc3899b5ac5503fab411ba09fa83e2a0196761",
+    "collection": "Brand"
+  },
+  {
+    "name": "Yandex Cloud 2026/Branding/Base Background",
+    "key": "3ec6a3be5c0bd4402aa163f356b091b58c82854d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Primary",
+    "key": "975aca4ec4d4dd912a03a7e531f23ce0d47f4068",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Complementary",
+    "key": "44a26f87ec20b7d189f8294defde3ec20d572053",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Secondary",
+    "key": "156eb90500e91d5d8b24add5e711055e9f6695e7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Hint",
+    "key": "74cdb5d98b2ac9850ff3b15170c97483c1dc0529",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Info",
+    "key": "12094dbe547273c567a8cfdb68247569ec9d26c9",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Info Heavy",
+    "key": "6992ad6cd8604387b753f2dd8eca16358c686947",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Danger",
+    "key": "cecc3927eaeb8ef3bcc83b2616b586210c4a34a3",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Danger Heavy",
+    "key": "ffe601b1ddb90fa06278c2cbfaa316c6285ebfa3",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Warning",
+    "key": "d5d897216d62e21107f6a3f7bc614fab68748c27",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Warning Heavy",
+    "key": "66cc96ba7863d63f24e56fcc77cb32d8f868ab79",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Positive",
+    "key": "c5d1b8bb47ba9e6260ddb13bd6908a9b63a26e5f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Positive Heavy",
+    "key": "d4fd0c925c7dc1818b89054f842d97b182bb69be",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Utility",
+    "key": "b7842c5397b5408b73cd0bae15eac46739daedca",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Utility Heavy",
+    "key": "7bf4f5de104497acd33501e26e26419a22dc4ff3",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Misc",
+    "key": "03f73686b95f011442377b14da73325908e831f3",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Misc Heavy",
+    "key": "d3c059b8844d27255529ed17ed64fd77043c5c9f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Light Primary",
+    "key": "436f1bead773585d48e8789cd0bf2c86339539bb",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Light Complementary",
+    "key": "7b1ebccfcb4fcc531183cb112813772452d0a933",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Light Secondary",
+    "key": "e59dc0e3a0e7b62850141ee44b7b16ed1bdad8fc",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Light Hint",
+    "key": "ad8abed190e47803e8bc6bfb3f7f644f73fff818",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Dark Primary",
+    "key": "80aea6dc1e71de5ad8f2f6a6d245b9fc18126a98",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Dark Complementary",
+    "key": "cd5ffa728589cf02dff1ab455cc08009711d14bc",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Dark Secondary",
+    "key": "9f70413b019641b77861fb0b0f06226eb177ad6a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Dark Hint",
+    "key": "5da4863e7bcbdb6542d20e3b5407c84e531f42d4",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Inverted Primary",
+    "key": "2ee7c5a7d989fb7c58c830f26f8834e8996a3e8b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Inverted Complementary",
+    "key": "93be5b8c167e0b79eda086879c4c28a97a9b4c69",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Inverted Secondary",
+    "key": "9805db45021983a4cc7a5617024986d650409893",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Text/Inverted Hint",
+    "key": "ad66ca46f9a7094ab3933f3602767a585d6d866f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base/Generic",
+    "key": "39147661be670ff4f1dd733ea01c33259824aa2a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base/Generic Hover",
+    "key": "6bdb175a9eddd77609016b32b78773b372959f16",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base/Generic Accent",
+    "key": "db02b4d7a6ef7a87f49db6f099cfa0e6ea69a274",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base/Generic Accent Disabled",
+    "key": "10766883f41a643788c6bbbefc9243a47d3fc05d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base/Generic Medium",
+    "key": "1eb3f2aa1dbc40ea5d327a2d7b722061778eb93d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base/Generic Medium Hover",
+    "key": "59013b12fd50717c0fcbaabd63aa8fcec50a840f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base/Simple Hover",
+    "key": "70a3a821116ea2d94f5b3b0b45b00e7cdd2753b0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base/Simple Hover Solid",
+    "key": "eadedfd703124e85d2dffa1e324cd7c94584dd7c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base/Light",
+    "key": "edfadef72530126250a6739a8d204c87f3e45a81",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base/Light Hover",
+    "key": "254dbf8095b15e847213d76f70e936a55e7da71b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base/Light Simple Hover",
+    "key": "57fbb35bc600de03fb15148d2d280d9e3a732d2b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base/Light Disabled",
+    "key": "748c299b7462728434bbd7069f1caaf75d1ede1f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base/Light Accent Disabled",
+    "key": "07e1a4b8c3bf867a145a7e4b625dc3455a576cea",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base/🥴 _base_Base Area (Ultralight)",
+    "key": "ca84287e3e5140bcd98d427c525fbca4f5e2beb8",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Info Light",
+    "key": "7e02a945d11ddbf0785ce3b628b621d546896a74",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Info Light Hover",
+    "key": "73d943a6d878b9b1afac1b84220f09d638ff3a98",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Info Medium",
+    "key": "d3e64bd720272a68fd49ecc075ac475edd49e2ca",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Info Medium Hover",
+    "key": "31b6222238ad1151ea6064fb5f34037a40d2eafe",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Info Heavy",
+    "key": "ec9aa9ea6aedf47ff30f80b8c06b3275023ae16f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Info Heavy Hover",
+    "key": "125ca23825b71f5af48e177c26e06dd6220c5f8d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Positive Light",
+    "key": "40251acb1d48eb89bbd7e5ea06d823e7e41c531c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Positive Light Hover",
+    "key": "efac7c5b9de0d69ed41a16f978e5ff1c09484e05",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Positive Medium",
+    "key": "e1ab79b63551f24eddc758133e99b939ee3b905d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Positive Medium Hover",
+    "key": "9b973491a7707a69e4784eed669416c08813cad5",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Positive Heavy",
+    "key": "5a29bc336b5d273cd5139ac043f7e3760ec6cb6a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Positive Heavy Hover",
+    "key": "c5e3b0128d05b23a6bd4a587c37e1a9fc6514ec0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Warning Light",
+    "key": "bc5fc21c8c1bb3d39b2fd052da78d25e2f083dd9",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Warning Light Hover",
+    "key": "373151240c47dcb7621de8be5812f48b8c837ff4",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Warning Medium",
+    "key": "67d1454a4878a22ed957dfccaaf402499c85bd4e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Warning Medium Hover",
+    "key": "8ddd2ed865f23517c93875c8427d53814ee7da79",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Warning Heavy",
+    "key": "cb9bc8980d8582413d039f72871b929c4d275c6c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Warning Heavy Hover",
+    "key": "6be799795d5c3d89cb61a79c684b5fe8e0e539da",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Neutral Light",
+    "key": "e32555c9f0d7d1eb7dd221d1a70ff18c6fe4a8db",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Neutral Light Hover",
+    "key": "e50adaee285888f39b1337f75c95106188e4c52d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Neutral Medium",
+    "key": "08b3bb3c979e40837fc21e2f6c9271863e732326",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Neutral Medium Hover",
+    "key": "6a4b66314ce76f51557e50edf41811715cd76ebb",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Neutral Heavy",
+    "key": "28296b75a46f8ebb8d5c63778baa34db0d5dc1e7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Neutral Heavy Hover",
+    "key": "0162448e7740b27fca109ae947be17f6309c50c4",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Danger Light",
+    "key": "5906a2575873bba8e04f45abc41600f0144dcfd1",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Danger Light Hover",
+    "key": "60cec11afe9113eab6fef4d168656f773a7f2b31",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Danger Medium",
+    "key": "79ee3f12755a3d1618bea5d87e93bf7cae81dc66",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Danger Medium Hover",
+    "key": "d776603ae309f9c20fbde11998d472653b293787",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Danger Heavy",
+    "key": "f49c6293dc339e9c5779b4fe731e606b3584cd2a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Danger Heavy Hover",
+    "key": "7a05006d9f5829a14e4cb980e57747640c5eb18d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Misc Light",
+    "key": "87cb600118d5562f4332b723be80274d1606edd1",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Misc Light Hover",
+    "key": "beac7fca69b1717a42e1d36532a80715f9d41cf0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Misc Medium",
+    "key": "1e7fc7700e87e4a3e839063700e0f171ed13e75a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Misc Medium Hover",
+    "key": "52f4c20e04d1fd79173e24d67b5436b83d48535c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Misc Heavy",
+    "key": "1a5acc28a4ce5924e79d162b30bb16b7e5d05633",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Misc Heavy Hover",
+    "key": "a7eadc4f635d4de88bbfd12b7b28ff73d0e052ff",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Utility Light",
+    "key": "e602cbd9d0eff50acbd138cd649c1a8d750815f5",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Utility Light Hover",
+    "key": "c1f595da391732faeaeaae5f0c4e32c284b33d1b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Utility Medium",
+    "key": "3a60e2a6863753cd7850e9a280229f33b6a2e493",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Utility Medium Hover",
+    "key": "a753feb3224e8257d426bf0856546df9c6a6594d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Utility Heavy",
+    "key": "a09fc88f9d0572ce2d9c873e739f4b12b333a4e8",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Semantic/Utility Heavy Hover",
+    "key": "3511e9994fef8ebdc7ede49d4613013c30541750",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Float/Float BG",
+    "key": "81e7dddb094ec40cf5e94d282d28eb49da616957",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Float/Float Hover",
+    "key": "21e147bbddeae4e1eeedb5092a4991321c9b1da2",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Float/Float Heavy",
+    "key": "a064f9d352822d3430fdc781ff5b9bb49aec3baa",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Float/Modal",
+    "key": "cf61b8bc8fc5f7a36308766efcd7eba1fdefe5aa",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Float/Float Accent",
+    "key": "b9b6832a166c8668a27b2f9535ec6ad50dce21c9",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Float/Float Accent Hover",
+    "key": "a725e1331eaa025c6e4e37361a1ed87293e4dc6f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Base Float/Float Announcement",
+    "key": "e35b1397c25b4abfffd93652b9ccb2d479e2149c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Line/Generic",
+    "key": "4f120c9b4d5c8988f174e83eea95077366d0745f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Line/Generic Hover",
+    "key": "695d9216d98b5e2c9c9a82bc6d3bfb1110553087",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Line/Generic Active",
+    "key": "49dbd76e881039c422301975fcf8abb1d29f0bbb",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Line/Generic Accent",
+    "key": "14e9d18969cf43b7c3f6515cba275ad62eb43826",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Line/Generic Accent Hover",
+    "key": "a8d626636553d625ae17bcfe73a0e1644b412ef3",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Line/Generic Solid",
+    "key": "9bfc4ad7ec9ab2ffb97ad2c469c0eb3fbf748cee",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Line/Misc",
+    "key": "4103056bdde7f39268af8f82251b5c913de25aa6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Line/Info",
+    "key": "f80afb1bb1532454e2fce99a282d7c099b32a61e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Line/Positive",
+    "key": "9231a5af727848352f5a84675fc60b25c23f46de",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Line/Warning",
+    "key": "7d086f8d74096a8356248e31d65d9942d78cbd7c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Line/Danger",
+    "key": "31ce3b3d2437409972661126c42c3f3395a5fea6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Line/Light",
+    "key": "0e34f0c47f16080b9eeff23c65a62e2f4879541d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Line/Utility",
+    "key": "470fd084c1ca1d91ba2cc947a8ede8684a1b575d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Effect/Veil",
+    "key": "987dd7731dd321ae662392859be1b0397422f604",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Effect/Shadow Light",
+    "key": "5fc2a3e6a5fa9ad6be262ab1a03896ce576e8182",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Effect/Shadow",
+    "key": "6af3e2ccbe4c47c5593e7fe33c974ef7d2675095",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Effect/Shadow Heavy",
+    "key": "f9dc30b88747004e287d3f736a70b31b498d9bd2",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Effect/Fade",
+    "key": "5f45dd305f97be171bb5f66f8472351c266fa659",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Misc/Scroll Corner",
+    "key": "dbd59f313c2a7bff8e0f6feb7b13a44de64b6b51",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Misc/Scroll Handle",
+    "key": "b1a6b3f9a1fd7f25fb719f41d0c3c6e51647140d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Misc/Scroll Handle Hover",
+    "key": "6b24b17217641b2ecf74130242284c101eb3cfc4",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Misc/Scroll Track",
+    "key": "769d0f04bff7add5e07dadbc8cb5e71b1c4390a9",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Misc/Axis",
+    "key": "1c7b32487ee05fcb93ca444b2960423edc66fd24",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Misc/Tooltip BG",
+    "key": "0b430280659c3017ce0c5afa7f7d8c810a3d497d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Branding/Base Brand",
+    "key": "89d7b8e3f40d8226f9837340af40b6e3f2891b3e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Branding/Base Brand Hover",
+    "key": "b98ca7f68e6fac4ddccfd66bdc4e01d4930ebbb0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Branding/Line Brand",
+    "key": "bbffa74baaa61f298e813ada4a93908279f5fa3b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Branding/Text Brand",
+    "key": "f787d2de6e75fc8cbaaa07d308147e2152d8d5e0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Branding/Text Brand Heavy",
+    "key": "5169ec063b296186b2c25b673b903d6f403cc4a0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Branding/Text Brand Contrast",
+    "key": "83da67fe9bec806240890438e24a1680cb900fe5",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Branding/Base Selection",
+    "key": "1d312e17ef5cfcb0bad7abc255ada833acfc1ad0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Branding/Base Selection Hover",
+    "key": "aa8213ff62f31937f4125311989b6ec6f509b9fc",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Branding/Text Link",
+    "key": "a15a25b91ed97d7d1a4442021ac72e2025c2f220",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Branding/Text Link Hover",
+    "key": "b646aac0fe6136dff95eb7f94a95346d1cf8511a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Branding/🥴_YC_Yandex Red (Legacy)",
+    "key": "d56a75c15399b36381ebc423915db7841e19205f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Branding/Text Link Visited",
+    "key": "f6c0a2a94c5b6fb59a62579a529c3a011aa68af7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Branding/Text Link Visited Hover",
+    "key": "443f2285f88df81bca32b171f3bf1c6e84d941b0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Navigation/Decoration collapsed bg",
+    "key": "3e75424afd68e2e0318b8bd86aec6bbe22868c61",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Navigation/Decoration expanded bg",
+    "key": "419fc53c00af42708b28ec8eb4092c419ffe2332",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Navigation/Divider vertical",
+    "key": "d3001d4faf2a07a18afe03f423b102e43de7c849",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Navigation/Divider horizontal",
+    "key": "1b51781d829419bf1349113af2b45b160523e2b7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Navigation/Header background",
+    "key": "779fe7d0aa38c043427b637ee5e479b333961e69",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Navigation/Item background hover",
+    "key": "407f653cfeecbea748c127f031410f2890376276",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Navigation/Item background current",
+    "key": "0fa92343d14cde7a2a243402c38b760c670a2326",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Navigation/Item icon general",
+    "key": "cf51058320defb27286a4f189fd7716e3215fbb7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Navigation/Item icon",
+    "key": "8e7750555e7b306b5a97d41f3309a0fed4435f01",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Navigation/Item icon hover",
+    "key": "16f9e02d05621d7de4ad8290093e51d9b4556be9",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Navigation/Item icon current",
+    "key": "f0755fbc1f75612743e9b1b2839ed00e93748e25",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Navigation/Item text",
+    "key": "fcbe43456c75b0692d81d3eaf2576405a54e963f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "Yandex Cloud 2026/Navigation/Item text current",
+    "key": "63d578ee558cbcde8bdbfcd1655203ae40028758",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Branding/Base Background",
+    "key": "cb1de206adb63eb38e5b1e7771c1ea06d2bd4f55",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Primary",
+    "key": "f37f24ae2a3e456e999eb930241113f4d1ef0edc",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Complementary",
+    "key": "ac37665d04d2ca186c244c31dcbfff7a8c826a23",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Secondary",
+    "key": "c0abdcccc6191c20387cd7f082c9adcee7c11c20",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Hint",
+    "key": "0eef145748407339f37a5c2d1854b00467f94180",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Info",
+    "key": "911b44284e32766a821c7fbc311db9a6043d6ce0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Info Heavy",
+    "key": "466b3bb9e0f0199c60fe50a1654cf80db8ab923a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Danger",
+    "key": "1cfea629c5ae328b1023ecdd069a189ae944b1ef",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Danger Heavy",
+    "key": "d84a3b8bde7a06b674b076ff94980f6237fdf948",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Warning",
+    "key": "9f132f60ac0e8b2c176736603f54bd3f7b2e2f1e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Warning Heavy",
+    "key": "17c83b71ba0d2d3be8a6cd63c6ef4e267dc5adad",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Positive",
+    "key": "7df3f7cbf9451ef9ec991a3c1b28bc28619b36b7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Positive Heavy",
+    "key": "e1db3694b9b834b7acb08e4e0b93b556e4d87b36",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Utility",
+    "key": "1a6b7ce07de40c3b2971cc98a298b586a423321e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Utility Heavy",
+    "key": "cc06b647f4da5a1a27874bc2e7a7cb645bed0aba",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Misc",
+    "key": "97ae155c4e4d98ace810e8d99bf050a727807ec4",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Misc Heavy",
+    "key": "14770dcf41eacd596b6491f510600017a305e1da",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Light Primary",
+    "key": "5213d259118ced65888a964f5c25d5eb7002f4ae",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Light Complementary",
+    "key": "5257967f490046b23e0fa5d698fb5387d8761f32",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Light Secondary",
+    "key": "759842a612d1c697e407c340613e9459f502810b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Light Hint",
+    "key": "02c6d7b8853b2c8030b030b084a7e265ff9dafb9",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Dark Primary",
+    "key": "c9e81cb76992e3437c4a360c998b2014b9c156cb",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Dark Complementary",
+    "key": "2683af63e95420dc658ede18a68aeecf7a6a77c5",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Dark Secondary",
+    "key": "91b7f6b2399c3ad4b6f4cd23e43a332b303a8228",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Dark Hint",
+    "key": "2b26dcc8da58705d35d1364303dbea4594201a50",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Inverted Primary",
+    "key": "ca6f729d4e112dc59fde19fcbc057be72d74215b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Inverted Complementary",
+    "key": "1d2e562ffd1558ac71853d343e219708f0710ce4",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Inverted Secondary",
+    "key": "634640ff41f74838b9a5d0601a6fa363aab50798",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Text/Inverted Hint",
+    "key": "bd040cf179a5a656b06cd013f1d29da9c554ce5e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base/Generic",
+    "key": "2e6d224c40fb4012bf928ab600370e269a404182",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base/Generic Hover",
+    "key": "e8d3e827302725387a72f88e52d0abbdc23f9c16",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base/Generic Accent",
+    "key": "16371c94fcd86160e5e7367c8e99f6bad0ed83c6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base/Generic Accent Disabled",
+    "key": "1af6155e0a8b119ffd8abfe2588cd357a443f0d6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base/Generic Medium",
+    "key": "aff5ad4201651ab548234dc5ccea8d3a062ef12a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base/Generic Medium Hover",
+    "key": "6c48e4a06565532622cc48a26cf973c46019eb48",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base/Simple Hover",
+    "key": "27c2913d358b3654931fb372cb7159743d2e7f8f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base/Simple Hover Solid",
+    "key": "001dd9d9550a552e912c486791c795c1fd7cee2f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base/Light",
+    "key": "ec5968b8407dd40da0caf5c6d234441016f24338",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base/Light Hover",
+    "key": "f18d19346c6a6763115aef625f6269a8dc238afc",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base/Light Simple Hover",
+    "key": "d226626debdd2bfcaa0fb23d42062b6f7677a0d4",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base/Light Disabled",
+    "key": "2803d8c53bdc74d42c079960b2cc02533b5e07b8",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base/Light Accent Disabled",
+    "key": "8bac28fb03eb6bd1207e3bc2e17724baf9f42584",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base/🥴 _base_Base Area (Ultralight)",
+    "key": "0997315901c8416230cdf7fef3dff4216e8c177f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Info Light",
+    "key": "4b56debf77e3313a5057b53d9cd6e6b54620a4e3",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Info Light Hover",
+    "key": "10388d8b155431d3bfc1779c32b66c62bb79b024",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Info Medium",
+    "key": "bfcfa8cd6bbc6903e84e170c48161e958b7af890",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Info Medium Hover",
+    "key": "708880aebd84c2c41381b1405189d5fc29d1a9e0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Info Heavy",
+    "key": "4701cefcc040f23953c84b637bbb99c10c49a4b0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Info Heavy Hover",
+    "key": "c2788939426e242e655df419819f0b469cbd96de",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Positive Light",
+    "key": "be319c05f9b50d5188552dd263c13ea398570727",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Positive Light Hover",
+    "key": "6a0f0e9557875fb149df01919349581e84a6f5f7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Positive Medium",
+    "key": "aec56329fe9d2fcd7fc7941b0a69bd22d6d9fd5b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Positive Medium Hover",
+    "key": "eb0fba67a85d87c0278288eaf7be7b0e04b48075",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Positive Heavy",
+    "key": "095fa4a0057cd643d7b91dbc52574a54ecc11851",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Positive Heavy Hover",
+    "key": "7b805d038a641b4ae6c157f149c5307c8d99dd08",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Warning Light",
+    "key": "f9c646c3698b39aad5424f6cb0b7a73898665001",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Warning Light Hover",
+    "key": "476e59f46bb45e51baf3a2a1d78731b35aa574d7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Warning Medium",
+    "key": "7c6332d6adbbc111d1d94ef4c4fe356bb4655417",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Warning Medium Hover",
+    "key": "bbec80851f627a6854d33cb224446d273ba4edfc",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Warning Heavy",
+    "key": "e05ac489374e146299add0972553ddad4995165d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Warning Heavy Hover",
+    "key": "fd4e66a444464489d4c8c25ef11d89a313e6221e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Neutral Light",
+    "key": "0bdd5a92d0324a109a9d87b00954ad9e1664365e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Neutral Light Hover",
+    "key": "563b7800df59add57f0a1300f0e6cdb4d69ca064",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Neutral Medium",
+    "key": "fa325f6ce4e5e76cdc6267bdd54a37bcb5c8c6ec",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Neutral Medium Hover",
+    "key": "d2caa836c4f1b1e5841d56cbc34106441b50b36d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Neutral Heavy",
+    "key": "9a1796a974156266e77b689409068e775de36639",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Neutral Heavy Hover",
+    "key": "9b643e953c8c727b68cfacee200a7160e986cc2c",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Danger Light",
+    "key": "b59dfc464f1d5cf74c74d88651b7c9a4eaee3857",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Danger Light Hover",
+    "key": "0a2008faa14eff573646469ad3998f636f28d905",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Danger Medium",
+    "key": "ea137ff4c3fb3b472351e63d361b12d16fd6548b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Danger Medium Hover",
+    "key": "2faba447137a5c831b8e745f6ad98a998d28fb4e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Danger Heavy",
+    "key": "15a51e6d462650eacb899d6a0d07dedb5814b5ee",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Danger Heavy Hover",
+    "key": "bb2079eddbf14e76945f3f7b8a98804f07629903",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Misc Light",
+    "key": "7263a86079e1e43f607c7a7224f4bc35db6962db",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Misc Light Hover",
+    "key": "2c75276b37c640739886ff353e0c8bfe589a312a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Misc Medium",
+    "key": "8806cbfe5b208462340f1048de6ca6f8f93747d3",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Misc Medium Hover",
+    "key": "2e5969cf635d18ca068a172e890834330194aa1d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Misc Heavy",
+    "key": "e3d6da868ef162b9e2cacff10465803f9601dd41",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Misc Heavy Hover",
+    "key": "78479aeca8284244d688109ea8ce8ebe30b86ee8",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Utility Light",
+    "key": "312f9040c1c5a9bd1019f3119283696b55b41fe1",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Utility Light Hover",
+    "key": "1c491b612bcfaf51d01ca0e77a95128497a618d4",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Utility Medium",
+    "key": "0665884776e795ed3deba461849d99b79d35a3b7",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Utility Medium Hover",
+    "key": "bd6352c54abddf2b5f7de970f5ed3a9ec844827f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Utility Heavy",
+    "key": "10e5a357df7f696b85b08cc7821e6e7b04aa658e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Semantic/Utility Heavy Hover",
+    "key": "1e2896ca7ab2dfc1cf8af44fa669f747fd5de9d6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Float/Float BG",
+    "key": "a771acc16028a93e59a74f3750958db4e8ccfd97",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Float/Float Hover",
+    "key": "97d8a0bb2939a07f47008271cf920df3280909d2",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Float/Float Heavy",
+    "key": "e1fb7005441042d576240f7ab1cead0fe134ef5b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Float/Modal",
+    "key": "f0e26b1554a79c91a21bf787536bab720094f02b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Float/Float Accent",
+    "key": "2560c64e985b5aae9d34a196facc5a8d6192991a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Float/Float Accent Hover",
+    "key": "506d40455849abc10c7a940550b6f6d2b70fd2f2",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Base Float/Float Announcement",
+    "key": "15c7d7bb2b6a108c7545fc5f4144e7f80882e7cf",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Line/Generic",
+    "key": "19a0d9b3f7876b2635f67da321eedea32391c233",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Line/Generic Hover",
+    "key": "f34c23351d2e28e6ced4b3be0c90a716d080b8fb",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Line/Generic Active",
+    "key": "5409c1efe1409d38860cdfcec17b7a354c7ce27e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Line/Generic Accent",
+    "key": "9988229a57f4482455047a6a3f0e97e5d018ad91",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Line/Generic Accent Hover",
+    "key": "724e1b71239afc7515ab83c208136aa60a4eea40",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Line/Generic Solid",
+    "key": "e51c154d1728c4c0de5e8efe3f17d213f0a79387",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Line/Misc",
+    "key": "8e232e13eb3f5b7656c2abe878b7051baca78eb0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Line/Info",
+    "key": "1085f8227522889594e31ddc05922159a42b431b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Line/Positive",
+    "key": "7419f3005e7a937795bbcbc148a785657fee1f0f",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Line/Warning",
+    "key": "493a78f110941243cfb8e27114d8f937e629bc63",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Line/Danger",
+    "key": "aa96c7c92420fc3a806cff6ac0d49641374bb315",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Line/Light",
+    "key": "7949c6fae7a853335754ba814e42ee47a6e71f92",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Line/Utility",
+    "key": "a8473eb2af35484fa9a13caa5ecf6f780e661edc",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Effect/Veil",
+    "key": "a59c04a7611beb7161c8260cbabdb0cd6e2a2000",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Effect/Shadow Light",
+    "key": "3631c952b911c3c76add292d56462815182ff365",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Effect/Shadow",
+    "key": "1ca4c50cb04e9f7ed7b36fa6f9c3d70ae8fd66f8",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Effect/Shadow Heavy",
+    "key": "bdd73074036dc213da25d8d0e15a54b3a092dd3b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Effect/Fade",
+    "key": "95cc41a8af6b78267bb12f4a8662eb67a277408d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Misc/Scroll Corner",
+    "key": "ed05cc0dc104e338286f655f9eda16b7ce21dd71",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Misc/Scroll Handle",
+    "key": "3a47e8945bbf2f35e5468f96ce1bae2069ea76af",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Misc/Scroll Handle Hover",
+    "key": "5a0895dcaa397784474096d775c6221d8d7678e3",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Misc/Scroll Track",
+    "key": "6bb37d04817520d1e89810bb56d851c1ae0a5992",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Misc/Axis",
+    "key": "2aa73b3ff478b8db177048fd876570bad562e46d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Misc/Tooltip BG",
+    "key": "d7c3b10a5b2f9bf51a02454aa980ad06f1aa3d18",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Branding/Base Brand",
+    "key": "4ac6f56d5e69bb7edd0d300e40a778790be5d5a3",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Branding/Base Brand Hover",
+    "key": "db0c4bcca12c0e35f1b43d4ea5943f3e8c552b98",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Branding/Line Brand",
+    "key": "0e80abf69e59b5c3ad25fa4e500591609dfad036",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Branding/Text Brand",
+    "key": "de07676f69b64657f2cc56fcb371f28592779078",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Branding/Text Brand Heavy",
+    "key": "b80c16cd025d772aa4fa5aa6c082f82e3acd8c82",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Branding/Text Brand Contrast",
+    "key": "2e02897b827863f0725bb92eee3ea41eb249dd3a",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Branding/Base Selection",
+    "key": "acf72ea7c2224e18c81a3f3c5cdb671c21c7f997",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Branding/Base Selection Hover",
+    "key": "5c74fe9ad694c19ae09cd016d0d83ddd460dd784",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Branding/Text Link",
+    "key": "af4a68334b63423787a3a67fcd7d1ae0a9375bd0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Branding/Text Link Hover",
+    "key": "0523b9706455b3c8dc30b4b19301951a87578702",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Branding/🥴_YC_Yandex Red (Legacy)",
+    "key": "696490d88da28d8bb1a944e75968901a9e94bdaa",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Branding/Text Link Visited",
+    "key": "a58cd55851c8730ef64d8fb317e8057b3b9ea1b0",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Branding/Text Link Visited Hover",
+    "key": "566269d1f9416b6a418fbffcce4812afc73f9d9d",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Navigation/Decoration collapsed bg",
+    "key": "0cc95379f81025be1f3376421b71ce88c4a2dca5",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Navigation/Decoration expanded bg",
+    "key": "6b122f7b9628585b4dbe3ada3285e5800f171f8b",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Navigation/Divider vertical",
+    "key": "6d58a6bd75c1503d1b5a1fb9f67ce2a74a3c25ba",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Navigation/Divider horizontal",
+    "key": "46a9d035b34ef880863205fa41ae07eec302986e",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Navigation/Header background",
+    "key": "9611e8a190b524c8387ff43fb549e411bc632791",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Navigation/Item background hover",
+    "key": "85cadaa72b8d134670a44c81935d8ce604a6dce4",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Navigation/Item background current",
+    "key": "72f3c2e1ff02bda03f37e7eff1c2e4344df7eeed",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Navigation/Item icon general",
+    "key": "add57c06a375f8cb471cc6e86db2590951f41403",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Navigation/Item icon",
+    "key": "930e0429ccff8c0dc456acd7ef70f2a21d7ce1b3",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Navigation/Item icon hover",
+    "key": "876c43795d25d27d3a97cabb314592074e4d64d6",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Navigation/Item icon current",
+    "key": "5a26c1e7cd707f41295fa2db409924644d438233",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Navigation/Item text",
+    "key": "54f00b2b26d77ef54986302c6b0b97e6baf64f10",
+    "collection": "Appearance"
+  },
+  {
+    "name": "DataLens/Navigation/Item text current",
+    "key": "dd7b3f1ac74445e0db2b64c89aaae83ab5d5634c",
+    "collection": "Appearance"
+  }
+]
