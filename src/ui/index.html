@@ -83,10 +83,97 @@
     .alert-info    { background: #f8f9fa; border-color: #dee2e6; color: #1a1a1a; }
     .alert-info .alert-desc { color: #666; }
 
+    .seg-control {
+      display: inline-flex;
+      background: #efefef;
+      border-radius: 9px;
+      padding: 2px;
+    }
+    .seg-btn {
+      flex: 1;
+      min-width: 88px;
+      padding: 6px 16px;
+      border: none;
+      border-radius: 7px;
+      background: transparent;
+      color: #666;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      margin: 0;
+      transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+    }
+    .seg-btn:hover:not(.seg-active) { background: rgba(0,0,0,.05); }
+    .seg-btn.seg-active { background: #1a1a1a; color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.18); }
+
+    .family-select-all {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0 8px;
+      border-bottom: 2px solid #e8e8e8;
+      margin-bottom: 2px;
+      font-size: 12px;
+      color: #666;
+      cursor: pointer;
+    }
+    .family-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 36px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .family-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .family-picker {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      visibility: hidden;
+    }
+    .family-picker.visible { visibility: visible; }
+
+    #helpToggle svg { width: 16px; height: 16px; display: block; fill: currentColor; }
+    #helpToggle:hover { color: #555 !important; }
+
+    #toast-container {
+      position: fixed;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+    .toast {
+      pointer-events: all;
+      animation: toast-in 0.2s ease forwards;
+    }
+    .toast.toast-hiding {
+      animation: toast-out 0.25s ease forwards;
+    }
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes toast-out {
+      from { opacity: 1; transform: translateY(0); }
+      to   { opacity: 0; transform: translateY(4px); }
+    }
+
     #app { min-height: 100%; }
   </style>
 </head>
 <body>
+  <div id="toast-container"></div>
   <div id="app">
     <p style="color:#999; padding:20px 0;">Загружается…</p>
   </div>

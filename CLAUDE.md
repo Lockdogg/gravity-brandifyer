@@ -78,14 +78,15 @@ Communication via `postMessage`. All message types declared in `src/shared/messa
 
 ## Current state
 
-(Update this section as the project progresses.)
-
 - [x] Milestone 0: Bootstrap
 - [x] Milestone 1: Lib inspection
-- [ ] Milestone 2: Themer + HC blend
+- [x] Milestone 2: Themer + HC blend — `generatePrivateColors` via `themer-bridge.ts`; HC themes use FALLBACK_BACKGROUNDS (no runtime read yet — sufficient for Phase 1)
 - [ ] Milestone 3: Preview UI
-- [ ] Milestone 4: Variable writer
+- [~] Milestone 4: Variable writer — Phase 1 done (`writePrivateColorsFull`, ~1212 vars); Phase 2 (Appearance + Brand mode) not started
 - [ ] Milestone 5: Wizard end-to-end
 - [ ] Milestone 6: CSS export
-- [ ] Milestone 7: Expert mode (custom Private Colors)
+- [ ] Milestone 7: Expert mode (custom Private Colors) — color-family overrides for Phase 1 already done; external lib scope still pending
 - [ ] Milestone 8: Docs, polish, publish
+
+### Phase 1 UI — complete
+Brand name + color, Simple/Expert segmented control (top), Expert mode with 6 chromatic family overrides + "select all", generate button, toast notifications, help tooltip.

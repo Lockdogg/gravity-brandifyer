@@ -9,11 +9,11 @@ figma.ui.onmessage = (msg: UiToMainMessage) => {
   if (msg.type === 'close') {
     figma.closePlugin();
   } else if (msg.type === 'generate-private-colors') {
-    const { brandName, brandHex } = msg;
+    const { brandName, brandHex, colorOverrides } = msg;
     (async () => {
       try {
         const scale = generateBrandScale(brandHex);
-        const count = await writePrivateColorsFull(brandName, scale);
+        const count = await writePrivateColorsFull(brandName, scale, colorOverrides);
         figma.ui.postMessage({ type: 'generate-done', varCount: count });
       } catch (err) {
         const message = err instanceof Error ? err.message : String(err);

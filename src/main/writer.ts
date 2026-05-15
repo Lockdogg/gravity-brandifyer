@@ -1,5 +1,7 @@
 import type { BrandScaleByTheme } from './themer-bridge';
-import { COLLECTION_NAMES, PRIVATE_COLORS_THEME } from '../shared/constants';
+import { generateFamilyScale } from './themer-bridge';
+import { COLLECTION_NAMES, PRIVATE_COLORS_THEME, APPEARANCE_MODES } from '../shared/constants';
+import type { ColorFamily } from '../shared/messages';
 import ycBaseColors from './data/yc-base-colors.json';
 
 type RgbaRecord = Record<string, { r: number; g: number; b: number; a: number }>;
@@ -39,12 +41,27 @@ function isSolid(suffix: string): boolean {
 export async function writePrivateColorsFull(
   brandName: string,
   brandScale: BrandScaleByTheme,
+  colorOverrides: Partial<Record<ColorFamily, string>> = {},
 ): Promise<number> {
   const collection = await getOrCreateCollection(COLLECTION_NAMES.privateColors);
   const modeId = collection.defaultModeId;
   const existing = await buildExistingMap(collection.id);
 
   let count = 0;
+
+  // Pre-compute override values: familyName/theme/suffix → RGBA
+  // keyed as "<BrandName>/<ThemeName>/<Family>/<Suffix>"
+  const overrideValues = new Map<string, { r: number; g: number; b: number; a: number }>();
+  for (const [family, hex] of Object.entries(colorOverrides) as [ColorFamily, string][]) {
+    if (!hex) continue;
+    const familyScale = generateFamilyScale(hex, family);
+    for (const mode of APPEARANCE_MODES) {
+      const themeName = PRIVATE_COLORS_THEME[mode];
+      for (const [suffix, rgba] of Object.entries(familyScale[mode])) {
+        overrideValues.set(`${brandName}/${themeName}/${family}/${suffix}`, rgba);
+      }
+    }
+  }
 
   // 1. System colors — group dump entries by theme, then write in desired visual order.
   // Within each theme: families in reverse-dump order (Orange first), indices reversed (1000 Solid first).
@@ -64,7 +81,7 @@ export async function writePrivateColorsFull(
       const varName = ycKey.replace(/^Yandex Cloud\//, `${brandName}/`);
       const variable = existing.get(varName)
         ?? figma.variables.createVariable(varName, collection, 'COLOR');
-      setColor(variable, modeId, rgba);
+      setColor(variable, modeId, overrideValues.get(varName) ?? rgba);
       count++;
     }
   }

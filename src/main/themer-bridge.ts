@@ -1,6 +1,16 @@
 import { generatePrivateColors } from '@gravity-ui/uikit-themer';
 import type { AppearanceMode, RGBA, ThemeBackgroundPair } from '../shared/types';
+import type { ColorFamily } from '../shared/messages';
 import { APPEARANCE_MODES, FALLBACK_BACKGROUNDS } from '../shared/constants';
+
+export const COLOR_FAMILY_TOKEN: Record<ColorFamily, string> = {
+  Blue:   'blue',
+  Green:  'green',
+  Yellow: 'yellow',
+  Red:    'red',
+  Purple: 'purple',
+  Orange: 'orange',
+};
 
 // key = variable name suffix: "50", "100 Solid", "550 Solid", …
 export type BrandScale = Record<string, RGBA>;
@@ -32,14 +42,14 @@ function themerKeyToSuffix(key: string): string | null {
 }
 
 function generateForMode(
-  brandHex: string,
+  hex: string,
   mode: AppearanceMode,
   backgrounds: Record<AppearanceMode, ThemeBackgroundPair>,
+  colorToken: string,
 ): BrandScale {
   const bg = backgrounds[mode];
   const isLight = mode === 'Light' || mode === 'Light HC';
 
-  // themer always wants the lighter color in lightBg, darker in darkBg
   const lightHex = isLight
     ? rgbToHex(bg.primary.r, bg.primary.g, bg.primary.b)
     : rgbToHex(bg.contrasting.r, bg.contrasting.g, bg.contrasting.b);
@@ -49,8 +59,8 @@ function generateForMode(
 
   const raw = generatePrivateColors({
     theme: isLight ? 'light' : 'dark',
-    colorToken: 'brand',
-    colorValue: brandHex,
+    colorToken,
+    colorValue: hex,
     lightBg: lightHex,
     darkBg: darkHex,
   }) as Record<string, string>;
@@ -63,13 +73,29 @@ function generateForMode(
   return scale;
 }
 
+function generateScaleForToken(
+  hex: string,
+  colorToken: string,
+  backgrounds: Record<AppearanceMode, ThemeBackgroundPair>,
+): BrandScaleByTheme {
+  const result = {} as BrandScaleByTheme;
+  for (const mode of APPEARANCE_MODES) {
+    result[mode] = generateForMode(hex, mode, backgrounds, colorToken);
+  }
+  return result;
+}
+
 export function generateBrandScale(
   brandHex: string,
   backgrounds: Record<AppearanceMode, ThemeBackgroundPair> = FALLBACK_BACKGROUNDS,
 ): BrandScaleByTheme {
-  const result = {} as BrandScaleByTheme;
-  for (const mode of APPEARANCE_MODES) {
-    result[mode] = generateForMode(brandHex, mode, backgrounds);
-  }
-  return result;
+  return generateScaleForToken(brandHex, 'brand', backgrounds);
+}
+
+export function generateFamilyScale(
+  hex: string,
+  family: ColorFamily,
+  backgrounds: Record<AppearanceMode, ThemeBackgroundPair> = FALLBACK_BACKGROUNDS,
+): BrandScaleByTheme {
+  return generateScaleForToken(hex, COLOR_FAMILY_TOKEN[family], backgrounds);
 }
