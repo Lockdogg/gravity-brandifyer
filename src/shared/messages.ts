@@ -6,7 +6,7 @@ export type MainToUiMessage =
   | { type: 'phase-private-colors' }
   | { type: 'phase-main-lib'; info: LibInfo }
   | { type: 'lib-error'; message: string; missingCollections?: string[] }
-  | { type: 'generate-done'; varCount: number }
+  | { type: 'generate-done'; varCount: number; cssContent: string }
   | { type: 'generate-error'; message: string };
 
 export type UiToMainMessage =

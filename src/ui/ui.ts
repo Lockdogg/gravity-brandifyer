@@ -563,12 +563,30 @@ function showPhasePrivateColors() {
   });
 }
 
-function handleGenerateDone(varCount: number) {
+function downloadCss(content: string, filename: string) {
+  const a = document.createElement('a');
+  a.href = 'data:text/css;charset=utf-8,' + encodeURIComponent(content);
+  a.download = filename;
+  a.click();
+}
+
+function handleGenerateDone(varCount: number, cssContent: string) {
   const status = document.getElementById('generateStatus');
   const btn = document.getElementById('generateBtn') as HTMLButtonElement | null;
-  if (status) status.innerHTML = '';
-  showToast('success', `Создано ${varCount} переменных.`);
   if (btn) btn.disabled = false;
+  showToast('success', `Создано ${varCount} переменных.`);
+
+  if (status) {
+    const downloadBtn = document.createElement('button');
+    downloadBtn.textContent = 'Скачать CSS';
+    downloadBtn.style.cssText = 'margin-top:10px;background:#f0f0f0;color:#1a1a1a;width:100%';
+    downloadBtn.addEventListener('click', () => {
+      const brandName = (document.getElementById('brandName') as HTMLInputElement)?.value.trim() || 'brand';
+      downloadCss(cssContent, `${brandName}-theme.css`);
+    });
+    status.innerHTML = '';
+    status.appendChild(downloadBtn);
+  }
 }
 
 function handleGenerateError(message: string) {
@@ -630,7 +648,7 @@ window.onmessage = (event: MessageEvent) => {
   } else if (msg.type === 'lib-error') {
     showError(msg.message, msg.missingCollections);
   } else if (msg.type === 'generate-done') {
-    handleGenerateDone(msg.varCount);
+    handleGenerateDone(msg.varCount, msg.cssContent);
   } else if (msg.type === 'generate-error') {
     handleGenerateError(msg.message);
   }
