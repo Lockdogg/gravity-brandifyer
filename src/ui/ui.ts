@@ -397,9 +397,9 @@ function renderBrandDownloads() {
     `<span style="${ICON_SZ}">${iconDownload}</span> Скачать CSS` +
     `<span style="font-size:9px;opacity:.45;margin-left:2px">▾</span></button>` +
     `<div id="cssDropdown" class="css-dropdown" style="display:none">` +
+    rowsHtml +
     `<button class="css-drop-all" id="cssDropAll">` +
     `<span style="${ICON_SZ}">${iconDownload}</span> Скачать все (${entries.length})</button>` +
-    rowsHtml +
     `</div></div>`;
 
   const dropBtn  = section.querySelector<HTMLButtonElement>('#cssDropBtn')!;
