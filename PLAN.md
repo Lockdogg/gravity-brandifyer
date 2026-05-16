@@ -168,65 +168,63 @@ Gravity UI имеет публичный пакет `@gravity-ui/uikit-themer`, 
 
 - **TypeScript / TSX** — основной язык.
 - **Figma Plugin API** (`@figma/plugin-typings`) — типизация Figma-окружения.
-- **`@gravity-ui/uikit-themer`** — генерация Light/Dark private colors из бренд-цвета.
-- **`@gravity-ui/icons`** — SVG-иконки в UI.
-- **Preact** — UI-фреймворк (React-совместимый, ~3KB).
-- **`@create-figma-plugin/ui`** — Figma-native компоненты поверх Preact (Button, TextboxText, SegmentedControl, Checkbox, Banner и др.).
-- **Bundler**: `@create-figma-plugin/build` (esbuild под капотом, поддерживает CSS Modules + JSX из коробки).
+- **`@gravity-ui/uikit-themer`** — генерация Light/Dark/HC private colors из бренд-цвета.
+- **`@gravity-ui/icons`** — SVG-иконки, импортируются как текст и рендерятся через `dangerouslySetInnerHTML`.
+- **React 18** (`react`, `react-dom`) — UI-фреймворк. `createRoot` + JSX automatic runtime через esbuild.
+- **Tailwind CSS v3** + **PostCSS** — утилитарные стили. PostCSS вызывается напрямую через API в `build.mjs` (не через плагин esbuild).
+- **shadcn/ui** — компоненты (Button, Input, Label, Checkbox, Alert) скопированы в `src/ui/components/ui/`, используют Tailwind + CSS-переменные.
+- **Canvas-based color picker** (`src/ui/components/ColorPicker.tsx`) — кастомный HSV-пикер с режимами HEX/RGB/HSL/HSB. По умолчанию HSB.
+- **Bundler**: esbuild напрямую через `build.mjs`. UI собирается в `build/ui.js`, CSS — через PostCSS в `build/ui.css`, потом оба инлайнятся в `build/ui.html`.
 
-Никаких HTTP-запросов из плагина не делаем (это упрощает и аудит, и manifest). Themer работает локально как npm-пакет.
+Никаких HTTP-запросов из плагина не делаем. Themer работает локально как npm-пакет.
 
 ## 7. Структура репозитория
 
 ```
-brand-manager-plugin/
+gravity-brandifyer/
 ├── manifest.json             # Figma plugin manifest
 ├── package.json
-├── pnpm-lock.yaml            # или npm/yarn
+├── package-lock.json
 ├── tsconfig.json
-├── README.md                 # для GitHub: что это, как развернуть
-├── CLAUDE.md                 # контекст для Claude Code в каждой сессии
-├── SPEC.md                   # подробные требования (детализирует разделы PLAN.md)
+├── build.mjs                 # esbuild + PostCSS build script
+├── tailwind.config.js
+├── postcss.config.js
+├── CLAUDE.md                 # контекст для Claude Code
+├── SPEC.md
 ├── PLAN.md                   # этот документ
 ├── docs/
-│   ├── architecture.md       # подробнее про потоки данных, mind-map переменных
-│   ├── themer-output-example.css  # пример вывода Themer для референса
-│   ├── decisions/            # ADR-заметки
-│   │   ├── 0001-use-gravity-themer.md
-│   │   ├── 0002-hc-themes-generation.md
-│   │   ├── 0003-figma-branches-for-review.md
-│   │   ├── 0004-preview-in-plugin-ui.md
-│   │   └── 0005-no-edit-delete-in-v1.md
-│   └── lib-dumps/            # дампы переменных из существующей либы (для справки)
-│       ├── internal-lib.json
-│       └── opensource-lib.json
+│   ├── architecture.md
+│   ├── themer-output-example.css
+│   ├── decisions/
+│   └── lib-dumps/
 ├── src/
 │   ├── main/                 # main thread (Figma side)
-│   │   ├── index.ts          # entry, message handling
-│   │   ├── inspect.ts        # чтение существующих коллекций, brands, backgrounds
-│   │   ├── themer-bridge.ts  # обёртка над @gravity-ui/uikit-themer
-│   │   ├── hc-blend.ts       # генерация HC вариантов
-│   │   ├── writer.ts         # запись в Variables API
-│   │   └── validator.ts      # проверки имени, конфликтов
+│   │   ├── index.ts          # entry, message handling (ui-ready handshake)
+│   │   ├── inspect.ts        # фаза-детект: private-colors vs main-lib
+│   │   ├── themer-bridge.ts  # generateBrandScale, generateFamilyScale
+│   │   ├── writer.ts         # writePrivateColorsFull: ~1212 vars + WEB code syntax
+│   │   ├── css-export.ts     # generateBrandCss (brand scale + family overrides)
+│   │   ├── reader.ts         # readExistingBrandCss — читает уже созданные бренды
+│   │   └── data/
+│   │       └── yc-base-colors.json   # дамп системных цветов YC
 │   ├── ui/                   # UI iframe
-│   │   ├── index.html
-│   │   ├── ui.ts             # entry, wizard state, messaging
-│   │   ├── wizard/           # шаги
-│   │   │   ├── welcome.ts
-│   │   │   ├── identity.ts
-│   │   │   ├── base-brand.ts
-│   │   │   ├── color.ts
-│   │   │   ├── preview.ts
-│   │   │   └── confirm.ts
-│   │   ├── preview/          # рендер мини-демки компонентов
-│   │   │   ├── components.ts
-│   │   │   └── styles.css
-│   │   └── export/           # CSS экспорт
-│   │       └── css-builder.ts
+│   │   ├── index.html        # точка входа (div#root)
+│   │   ├── styles.css        # @tailwind directives
+│   │   ├── ui.tsx            # App, PrivateColorsPhase, ExpertSection, ColorField, …
+│   │   ├── lib/
+│   │   │   └── utils.ts      # cn() helper
+│   │   └── components/
+│   │       ├── ColorPicker.tsx        # canvas HSV picker (HEX/RGB/HSL/HSB)
+│   │       └── ui/                    # shadcn/ui компоненты
+│   │           ├── button.tsx
+│   │           ├── input.tsx
+│   │           ├── label.tsx
+│   │           ├── checkbox.tsx
+│   │           └── alert.tsx
 │   └── shared/
-│       ├── types.ts          # GeneratedBrand, ThemeBackgrounds, ...
-│       ├── messages.ts       # message type contracts main↔ui
-│       └── constants.ts      # default base brand, scale indices, etc.
+│       ├── types.ts
+│       ├── messages.ts       # UiToMainMessage, MainToUiMessage, BrandCssEntry
+│       └── constants.ts      # PRIVATE_COLORS_THEME, COLLECTION_NAMES, FALLBACK_BACKGROUNDS
 └── build/                    # output (gitignored)
 ```
 
@@ -259,14 +257,15 @@ Claude Code при работе в репозитории автоматичес
 ### Текущее состояние (май 2026)
 
 - [x] Milestone 0 — Bootstrap
-- [x] Milestone 1 — Lib inspection
+- [x] Milestone 1 — Lib inspection (phase auto-detect)
 - [x] Milestone 2 — Themer + HC blend
-- [x] Milestone 4 (Phase 1) — writePrivateColorsFull (~1212 vars), CSS export, reader.ts
-- [~] **UI migration** — переход с vanilla TS на Preact + @create-figma-plugin/ui (в процессе)
-- [ ] Milestone 3 — Preview UI
-- [ ] Milestone 4 (Phase 2) — Appearance + Brand mode write
-- [ ] Milestone 5 — Wizard end-to-end
-- [ ] Milestone 7 — Expert mode (external lib)
+- [x] Milestone 4 (Phase 1) — `writePrivateColorsFull` (~1212 vars), WEB code syntax, CSS export + family overrides
+- [x] **UI** — React 18 + Tailwind CSS v3 + shadcn/ui. Canvas HSV color picker (HEX/RGB/HSL/HSB). Simple/Expert режимы. Toast-уведомления. Sticky footer с иконками Gravity. Автофокус. Tooltip на бренд-цвете.
+- [x] **Expert mode (Phase 1)** — 6 хроматических семейств с color overrides, все включены по умолчанию, Brand — залоченная первая строка. CSS экспорт включает все переопределённые семейства.
+- [ ] Milestone 3 — Preview UI (шкала цветов до генерации)
+- [ ] Milestone 4 (Phase 2) — Appearance group (~142 vars) + Brand mode column (~215 vars)
+- [ ] Milestone 5 — Wizard Phase 2 (выбор базового бренда, шаг подтверждения)
+- [ ] Milestone 7 — Expert mode Phase 2 (external lib Private Colors)
 - [ ] Milestone 8 — Docs, polish, publish
 
 ### Milestone 0 — Bootstrap репозитория
