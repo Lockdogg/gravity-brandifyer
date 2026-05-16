@@ -384,10 +384,9 @@ function renderBrandDownloads() {
 
   // Multiple brands: button + dropdown
   const rowsHtml = entries.map(([name]) =>
-    `<div class="css-drop-row">` +
+    `<div class="css-drop-row dl-brand-btn" data-brand="${name}">` +
     `<span class="css-drop-name">${name}</span>` +
-    `<button class="css-drop-btn dl-brand-btn" data-brand="${name}">` +
-    `<span style="${ICON_SZ}">${iconDownload}</span> CSS</button></div>`
+    `</div>`
   ).join('');
 
   section.innerHTML =
