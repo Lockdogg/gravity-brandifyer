@@ -85,6 +85,11 @@ async function buildMainLibInfo(
     themeBackgrounds[mode] = { primary, contrasting };
   }
 
+  const libCollections = await figma.teamLibrary.getAvailableLibraryVariableCollectionsAsync();
+  const connectedPrivateColorLibs = libCollections
+    .filter(c => c.name === COLLECTION_NAMES.privateColors)
+    .map(c => c.libraryName);
+
   return {
     existingBrands,
     brandModeCount,
@@ -96,6 +101,7 @@ async function buildMainLibInfo(
       brand:         br.id,
     },
     appearanceModes: app.modes,
+    connectedPrivateColorLibs,
   };
 }
 

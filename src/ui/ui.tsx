@@ -461,23 +461,151 @@ function PrivateColorsPhase({ existingBrands }: { existingBrands: BrandCssEntry[
 
 // ─── Main Lib Phase ───────────────────────────────────────────────────────────
 
+type Phase2Status = 'idle' | 'generating' | { type: 'done'; brandName: string; varCount: number } | { type: 'error'; message: string };
+
+const FUN_MESSAGES = [
+  'Раскрашиваем пиксели...',
+  'Уговариваем токены стать алиасами...',
+  'Тащим цвета из внешней библиотеки...',
+  'Объясняем Appearance, кто тут новый...',
+  'Прокладываем путь от Brand к Appearance...',
+  'Финальный штрих — почти готово...',
+];
+
 function MainLibPhase({ info }: { info: LibInfo }) {
+  const [brandName, setBrandName] = useState('');
+  const [status, setStatus] = useState<Phase2Status>('idle');
+  const [progress, setProgress] = useState(0);
+  const [msgIdx, setMsgIdx] = useState(0);
+  const baseBrand = info.existingBrands[0] ?? 'Yandex Cloud';
+  const [toast, setToast] = useState<ToastState>(null);
+  const toastTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const showToast = useCallback((variant: 'success' | 'destructive', title: string, description: string) => {
+    toastTimers.current.forEach(clearTimeout);
+    setToast({ variant, title, description, hiding: false });
+    toastTimers.current = [
+      setTimeout(() => setToast(t => t ? { ...t, hiding: true } : null), 4000),
+      setTimeout(() => setToast(null), 4300),
+    ];
+  }, []);
+
+  const isGenerating = status === 'generating';
+
+  useEffect(() => {
+    if (isGenerating) {
+      setMsgIdx(0);
+      intervalRef.current = setInterval(() => {
+        setMsgIdx(i => (i + 1) % FUN_MESSAGES.length);
+      }, 2200);
+    } else {
+      if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null; }
+    }
+    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
+  }, [isGenerating]);
+
+  useEffect(() => {
+    const handler = (event: MessageEvent) => {
+      const msg = event.data?.pluginMessage as MainToUiMessage | undefined;
+      if (!msg) return;
+      if (msg.type === 'phase2-progress') {
+        setProgress(msg.total > 0 ? Math.round((msg.current / msg.total) * 100) : 0);
+      } else if (msg.type === 'phase2-done') {
+        setStatus({ type: 'done', brandName: msg.brandName, varCount: msg.varCount });
+        setProgress(100);
+        showToast('success', `Бренд «${msg.brandName}» добавлен.`, `${msg.varCount} переменных обновлено.`);
+      } else if (msg.type === 'phase2-error') {
+        setStatus({ type: 'error', message: msg.message });
+        showToast('destructive', 'Ошибка', msg.message);
+      }
+    };
+    window.addEventListener('message', handler);
+    return () => window.removeEventListener('message', handler);
+  }, [showToast]);
+
+  const handleGenerate = useCallback(() => {
+    const name = brandName.trim();
+    if (!name) return;
+    setStatus('generating');
+    setProgress(0);
+    send({ type: 'generate-phase2', brandName: name, baseBrandName: baseBrand });
+  }, [brandName, baseBrand]);
+
+  const { connectedPrivateColorLibs: libs } = info;
+
   return (
-    <div className="p-5 space-y-4">
-      <h1 className="text-base font-semibold">Gravity Brandifyer</h1>
-      <p className="text-sm text-muted-foreground">
-        Обнаружена основная библиотека. Добавление Appearance-группы и режима Brand в разработке.
-      </p>
-      {info.brands.length > 0 && (
-        <div>
-          <p className="text-xs text-muted-foreground mb-2">Существующие бренды:</p>
-          <ul className="space-y-1">
-            {info.brands.map(b => (
-              <li key={b} className="text-sm px-3 py-1.5 rounded-md bg-muted">{b}</li>
-            ))}
-          </ul>
+    <div className="relative flex flex-col h-full">
+      <div className="flex-1 overflow-y-auto p-5 space-y-4">
+        <h1 className="text-base font-semibold">Основная библиотека</h1>
+
+        {isGenerating ? (
+          <div className="flex flex-col justify-center py-8 gap-4">
+            <div className="space-y-2">
+              <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
+                <div
+                  className="h-full bg-primary rounded-full transition-all duration-300 ease-out"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+              <div className="flex justify-between text-xs text-muted-foreground">
+                <span className="italic">{FUN_MESSAGES[msgIdx]}</span>
+                <span>{progress}%</span>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="space-y-1.5">
+              <Label htmlFor="p2-brand-name" className="text-xs">Название нового бренда</Label>
+              <Input
+                id="p2-brand-name"
+                autoFocus
+                value={brandName}
+                onChange={e => setBrandName(e.target.value)}
+                placeholder="MyBrand"
+                onKeyDown={e => { if (e.key === 'Enter' && brandName.trim()) handleGenerate(); }}
+              />
+            </div>
+
+            <div className="space-y-1">
+              <p className="text-xs text-muted-foreground">Подключённые библиотеки приватных цветов:</p>
+              {libs.length === 0 ? (
+                <p className="text-xs text-destructive">Нет подключённых библиотек</p>
+              ) : libs.map(name => (
+                <div key={name} className="flex items-center gap-1.5 text-xs">
+                  <span className="text-green-600 font-medium">✓</span>
+                  <span>{name}</span>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+
+      {toast && (
+        <div
+          className={cn('absolute left-4 right-4 bottom-20 z-50', toast.hiding ? 'toast-leave' : 'toast-enter')}
+          style={{ pointerEvents: 'all' }}
+          onClick={() => setToast(null)}
+        >
+          <Alert variant={toast.variant}>
+            <AlertTitle>{toast.title}</AlertTitle>
+            <AlertDescription>{toast.description}</AlertDescription>
+          </Alert>
         </div>
       )}
+
+      <div className="shrink-0 border-t border-border bg-background px-5 py-3">
+        <Button
+          className="w-full gap-2"
+          disabled={!brandName.trim() || isGenerating}
+          onClick={handleGenerate}
+        >
+          <SvgIcon svg={iconPalette} />
+          {isGenerating ? 'Генерируем…' : 'Сгенерировать'}
+        </Button>
+      </div>
     </div>
   );
 }

@@ -29,6 +29,8 @@ export interface LibInfo {
     brand: string;
   };
   appearanceModes: Array<{ modeId: string; name: string }>;
+  /** File names of connected "Private Colors" libraries */
+  connectedPrivateColorLibs: string[];
 }
 
 // key = variable name suffix: "50", "100 Solid", "550 Solid", etc.
