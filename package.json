@@ -2,7 +2,7 @@
   "name": "gravity-brand-manager",
   "version": "0.1.0",
   "private": true,
-  "description": "Figma plugin: Brand Manager for YC Gravity UI library",
+  "description": "Figma plugin: Gravity Brandifyer for YC Gravity UI library",
   "scripts": {
     "build": "node build.mjs",
     "dev": "node build.mjs --watch",

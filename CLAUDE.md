@@ -4,7 +4,7 @@ This file is read at the start of every Claude Code session. Keep it compact (~2
 
 ## What is this
 
-Figma plugin **Brand Manager** for the internal **YC Gravity UI** design library. Lets a product designer add their own "brand" to the central lib via a wizard: input a brand color → plugin generates Private Colors scale + Appearance group + new Brand-collection mode for all 4 themes (Light, Dark, Light HC, Dark HC), all written into the current Figma branch.
+Figma plugin **Gravity Brandifyer** for the internal **YC Gravity UI** design library. Lets a product designer add their own "brand" to the central lib via a wizard: input a brand color → plugin generates Private Colors scale + Appearance group + new Brand-collection mode for all 4 themes (Light, Dark, Light HC, Dark HC), all written into the current Figma branch.
 
 Out-of-scope for v1: edit/delete brands, working-file migrations (those are native Figma mode-switches on the Brand collection), typography/radii customization.
 

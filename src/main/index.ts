@@ -4,7 +4,7 @@ import { generateBrandScale } from './themer-bridge';
 import { writePrivateColorsFull } from './writer';
 import { generateBrandCss } from './css-export';
 
-figma.showUI(__html__, { width: 480, height: 640, title: 'Brand Manager' });
+figma.showUI(__html__, { width: 480, height: 640, title: 'Gravity Brandifyer' });
 
 figma.ui.onmessage = (msg: UiToMainMessage) => {
   if (msg.type === 'close') {
@@ -42,7 +42,7 @@ figma.ui.onmessage = (msg: UiToMainMessage) => {
       });
     } else {
       const msg = err instanceof Error ? err.message : String(err);
-      console.error('[Brand Manager] inspect error:', err);
+      console.error('[Gravity Brandifyer] inspect error:', err);
       figma.ui.postMessage({ type: 'lib-error', message: `Ошибка: ${msg}` });
     }
   }

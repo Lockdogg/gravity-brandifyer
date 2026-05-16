@@ -1,4 +1,4 @@
-# Brand Manager Plugin
+# Gravity Brandifyer Plugin
 
 Figma plugin for adding new brands to the internal YC Gravity UI design library. A product designer inputs a brand color, the plugin generates a full Private Colors scale and Appearance group, then adds a new column to the Brand collection — all in a Figma branch, ready for review.
 
@@ -19,7 +19,7 @@ Then in Figma:
 
 1. **Plugins → Development → Import plugin from manifest…**
 2. Pick `manifest.json` from this repo.
-3. Open the YC Gravity UI library file, create a branch, run the plugin from **Plugins → Development → Brand Manager**.
+3. Open the YC Gravity UI library file, create a branch, run the plugin from **Plugins → Development → Gravity Brandifyer**.
 
 For development with live rebuild:
 
@@ -31,7 +31,7 @@ pnpm dev
 
 1. Open the YC Gravity UI library file.
 2. Create a Figma branch (so your changes are reviewable).
-3. Run **Plugins → Brand Manager**.
+3. Run **Plugins → Gravity Brandifyer**.
 4. Follow the wizard: pick a base brand, set your brand color, preview, and commit.
 5. Download the CSS file for engineering handoff.
 6. Submit your branch for review via Figma's native UI.

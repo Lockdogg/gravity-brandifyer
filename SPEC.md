@@ -1,10 +1,10 @@
-# SPEC — Brand Manager Plugin
+# SPEC — Gravity Brandifyer Plugin
 
 Подробные продуктовые требования. Дополняет `PLAN.md` (контекст и архитектура). Здесь — что именно показывает плагин, как валидирует, что записывает. Обновляется по мере работы.
 
 ## 1. Запуск и предусловия
 
-- Плагин запускается через меню Figma "Plugins → Development → Brand Manager" (или из Figma Community когда опубликуем).
+- Плагин запускается через меню Figma "Plugins → Development → Gravity Brandifyer" (или из Figma Community когда опубликуем).
 - При старте main thread проверяет, что текущий файл — это либа с коллекциями `Brand`, `Appearance`, `Private Colors`. Если нет — UI показывает экран-ошибку "This plugin must run on the YC Gravity UI library file." и кнопку "Close".
 - Если файл подходит, но дизайнер не в ветке (а на main) — UI показывает мягкое предупреждение "You're editing the main branch. We recommend creating a branch first." с кнопками "Continue anyway" и "Close".
 - Размер окна плагина: 480×640 px фиксировано. На шаге Preview можно расшириться до 720×640.
