@@ -35,7 +35,7 @@ type Phase =
   | { tag: 'loading' }
   | { tag: 'error'; message: string; missingCollections?: string[] }
   | { tag: 'private-colors'; existingBrands: BrandCssEntry[] }
-  | { tag: 'main-lib'; info: LibInfo };
+  | { tag: 'main-lib'; info: LibInfo; existingBrandsCss: BrandCssEntry[] };
 
 type GenStatus =
   | null
@@ -327,6 +327,7 @@ function PrivateColorsPhase({ existingBrands }: { existingBrands: BrandCssEntry[
       if (msg.type === 'generate-done') {
         setStatus({ type: 'success', varCount: msg.varCount, brandName: msg.brandName, cssContent: msg.cssContent });
         setNewCssEntry({ brandName: msg.brandName, cssContent: msg.cssContent });
+        setBrandName('');
         showToast('success', 'Коллекция приватных цветов создана.', `«${msg.brandName}»: ${msg.varCount} переменных всего.`);
       } else if (msg.type === 'generate-error') {
         setStatus({ type: 'error', message: msg.message });
@@ -461,7 +462,7 @@ function PrivateColorsPhase({ existingBrands }: { existingBrands: BrandCssEntry[
 
 // ─── Main Lib Phase ───────────────────────────────────────────────────────────
 
-type Phase2Status = 'idle' | 'generating' | { type: 'done'; brandName: string; varCount: number } | { type: 'error'; message: string };
+type Phase2Status = 'idle' | 'generating' | { type: 'done'; brandName: string; varCount: number; cssContent: string } | { type: 'error'; message: string };
 
 const FUN_MESSAGES = [
   'Раскрашиваем пиксели...',
@@ -472,8 +473,10 @@ const FUN_MESSAGES = [
   'Финальный штрих — почти готово...',
 ];
 
-function MainLibPhase({ info }: { info: LibInfo }) {
+function MainLibPhase({ info, existingBrandsCss }: { info: LibInfo; existingBrandsCss: BrandCssEntry[] }) {
+  const { connectedLibs } = info;
   const [brandName, setBrandName] = useState('');
+  const [pcLibKey, setPcLibKey] = useState(connectedLibs[0]?.key ?? '');
   const [status, setStatus] = useState<Phase2Status>('idle');
   const [progress, setProgress] = useState(0);
   const [msgIdx, setMsgIdx] = useState(0);
@@ -512,7 +515,8 @@ function MainLibPhase({ info }: { info: LibInfo }) {
       if (msg.type === 'phase2-progress') {
         setProgress(msg.total > 0 ? Math.round((msg.current / msg.total) * 100) : 0);
       } else if (msg.type === 'phase2-done') {
-        setStatus({ type: 'done', brandName: msg.brandName, varCount: msg.varCount });
+        setStatus({ type: 'done', brandName: msg.brandName, varCount: msg.varCount, cssContent: msg.cssContent });
+        setBrandName('');
         setProgress(100);
         showToast('success', `Бренд «${msg.brandName}» добавлен.`, `${msg.varCount} переменных обновлено.`);
       } else if (msg.type === 'phase2-error') {
@@ -529,10 +533,15 @@ function MainLibPhase({ info }: { info: LibInfo }) {
     if (!name) return;
     setStatus('generating');
     setProgress(0);
-    send({ type: 'generate-phase2', brandName: name, baseBrandName: baseBrand });
-  }, [brandName, baseBrand]);
+    send({ type: 'generate-phase2', brandName: name, baseBrandName: baseBrand, pcLibKey });
+  }, [brandName, baseBrand, pcLibKey]);
 
-  const { connectedPrivateColorLibs: libs } = info;
+  const nameExists = info.existingBrands.includes(brandName.trim());
+
+  const libLabel = (lib: typeof connectedLibs[number]) => {
+    const sameName = connectedLibs.filter(l => l.libraryName === lib.libraryName);
+    return sameName.length > 1 ? `${lib.libraryName} — ${lib.collectionName}` : lib.libraryName;
+  };
 
   return (
     <div className="relative flex flex-col h-full">
@@ -564,20 +573,29 @@ function MainLibPhase({ info }: { info: LibInfo }) {
                 value={brandName}
                 onChange={e => setBrandName(e.target.value)}
                 placeholder="MyBrand"
-                onKeyDown={e => { if (e.key === 'Enter' && brandName.trim()) handleGenerate(); }}
+                onKeyDown={e => { if (e.key === 'Enter' && brandName.trim() && pcLibKey && !nameExists) handleGenerate(); }}
               />
+              {nameExists && (
+                <p className="text-xs text-destructive">Бренд «{brandName.trim()}» уже существует</p>
+              )}
             </div>
 
-            <div className="space-y-1">
-              <p className="text-xs text-muted-foreground">Подключённые библиотеки приватных цветов:</p>
-              {libs.length === 0 ? (
-                <p className="text-xs text-destructive">Нет подключённых библиотек</p>
-              ) : libs.map(name => (
-                <div key={name} className="flex items-center gap-1.5 text-xs">
-                  <span className="text-green-600 font-medium">✓</span>
-                  <span>{name}</span>
-                </div>
-              ))}
+            <div className="space-y-1.5">
+              <Label htmlFor="p2-pc-lib" className="text-xs">Библиотека приватных цветов</Label>
+              {connectedLibs.length === 0 ? (
+                <p className="text-xs text-destructive">Нет подключённых библиотек — подключите библиотеку приватных цветов</p>
+              ) : (
+                <select
+                  id="p2-pc-lib"
+                  value={pcLibKey}
+                  onChange={e => setPcLibKey(e.target.value)}
+                  className="w-full h-9 rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-1 focus:ring-ring"
+                >
+                  {connectedLibs.map(lib => (
+                    <option key={lib.key} value={lib.key}>{libLabel(lib)}</option>
+                  ))}
+                </select>
+              )}
             </div>
           </>
         )}
@@ -596,16 +614,27 @@ function MainLibPhase({ info }: { info: LibInfo }) {
         </div>
       )}
 
-      <div className="shrink-0 border-t border-border bg-background px-5 py-3">
-        <Button
-          className="w-full gap-2"
-          disabled={!brandName.trim() || isGenerating}
-          onClick={handleGenerate}
-        >
-          <SvgIcon svg={iconPalette} />
-          {isGenerating ? 'Генерируем…' : 'Сгенерировать'}
-        </Button>
-      </div>
+      {(() => {
+        const newEntry = typeof status === 'object' && status.type === 'done' && status.cssContent
+          ? { brandName: status.brandName, cssContent: status.cssContent }
+          : null;
+        const hasCss = newEntry !== null || existingBrandsCss.length > 0;
+        return (
+          <div className={cn('shrink-0 border-t border-border bg-background px-5 py-3', hasCss ? 'flex gap-2' : '')}>
+            <Button
+              className={cn('gap-2', hasCss ? 'flex-1' : 'w-full')}
+              disabled={!brandName.trim() || !pcLibKey || isGenerating || nameExists}
+              onClick={handleGenerate}
+            >
+              <SvgIcon svg={iconPalette} />
+              {isGenerating ? 'Генерируем…' : 'Сгенерировать'}
+            </Button>
+            {hasCss && (
+              <CssDownloadSection brands={existingBrandsCss} newEntry={newEntry} className="flex-1" />
+            )}
+          </div>
+        );
+      })()}
     </div>
   );
 }
@@ -649,7 +678,7 @@ function App() {
       if (msg.type === 'phase-private-colors') {
         setPhase({ tag: 'private-colors', existingBrands: msg.existingBrands });
       } else if (msg.type === 'phase-main-lib') {
-        setPhase({ tag: 'main-lib', info: msg.info });
+        setPhase({ tag: 'main-lib', info: msg.info, existingBrandsCss: msg.existingBrandsCss });
       } else if (msg.type === 'lib-error') {
         setPhase({
           tag: 'error',
@@ -683,7 +712,7 @@ function App() {
     return <PrivateColorsPhase existingBrands={phase.existingBrands} />;
   }
 
-  return <MainLibPhase info={phase.info} />;
+  return <MainLibPhase info={phase.info} existingBrandsCss={phase.existingBrandsCss} />;
 }
 
 // ─── Mount ────────────────────────────────────────────────────────────────────

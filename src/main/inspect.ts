@@ -86,9 +86,9 @@ async function buildMainLibInfo(
   }
 
   const libCollections = await figma.teamLibrary.getAvailableLibraryVariableCollectionsAsync();
-  const connectedPrivateColorLibs = libCollections
-    .filter(c => c.name === COLLECTION_NAMES.privateColors)
-    .map(c => c.libraryName);
+  const connectedLibs = libCollections
+    .filter(col => !/icons?/i.test(col.libraryName))
+    .map(col => ({ key: col.key, libraryName: col.libraryName, collectionName: col.name }));
 
   return {
     existingBrands,
@@ -101,7 +101,7 @@ async function buildMainLibInfo(
       brand:         br.id,
     },
     appearanceModes: app.modes,
-    connectedPrivateColorLibs,
+    connectedLibs,
   };
 }
 

@@ -29,9 +29,14 @@ export interface LibInfo {
     brand: string;
   };
   appearanceModes: Array<{ modeId: string; name: string }>;
-  /** File names of connected "Private Colors" libraries */
-  connectedPrivateColorLibs: string[];
+  /** All connected team library collections available for PC selection */
+  connectedLibs: Array<{ key: string; libraryName: string; collectionName: string }>;
 }
+
+export type BrandingEntry = {
+  suffix: string;                       // e.g. "Base Brand" — part after "Branding/"
+  perMode: Map<string, string | null>;  // modeId → pcName (null = no PC alias)
+};
 
 // key = variable name suffix: "50", "100 Solid", "550 Solid", etc.
 export interface GeneratedBrand {

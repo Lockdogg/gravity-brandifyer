@@ -1,7 +1,7 @@
-import type { AppearanceMode } from '../shared/types';
+import type { AppearanceMode, BrandingEntry } from '../shared/types';
 import type { BrandScaleByTheme } from './themer-bridge';
 import { COLLECTION_NAMES } from '../shared/constants';
-import { generateBrandCss } from './css-export';
+import { generateBrandCss, generatePhase2Css } from './css-export';
 
 export type BrandCssEntry = { brandName: string; cssContent: string };
 
@@ -52,4 +52,77 @@ export async function readExistingBrandCss(): Promise<BrandCssEntry[]> {
     brandName,
     cssContent: generateBrandCss(brandName, scale),
   }));
+}
+
+export async function readExistingBrandingCss(appearanceColl: VariableCollection): Promise<BrandCssEntry[]> {
+  const allVars = await figma.variables.getLocalVariablesAsync('COLOR');
+  const localVarMap = new Map<string, Variable>(allVars.map(v => [v.id, v]));
+
+  const brandingVars = allVars.filter(
+    v => v.variableCollectionId === appearanceColl.id && v.name.includes('/Branding/'),
+  );
+  if (brandingVars.length === 0) return [];
+
+  // Collect alias target IDs that are not in localVarMap (external library vars)
+  const externalIds = new Set<string>();
+  for (const v of brandingVars) {
+    for (const { modeId } of appearanceColl.modes) {
+      const raw = v.valuesByMode[modeId] ?? v.valuesByMode[Object.keys(v.valuesByMode)[0] ?? ''];
+      if (raw && typeof raw === 'object' && 'type' in raw && raw.type === 'VARIABLE_ALIAS') {
+        const id = (raw as VariableAlias).id;
+        if (!localVarMap.has(id)) externalIds.add(id);
+      }
+    }
+  }
+
+  // Fetch external vars in parallel
+  const externalMap = new Map<string, Variable>();
+  await Promise.all([...externalIds].map(id =>
+    figma.variables.getVariableByIdAsync(id).then(v => { if (v) externalMap.set(id, v); }),
+  ));
+
+  const getVar = (id: string) => localVarMap.get(id) ?? externalMap.get(id);
+
+  const byBrand = new Map<string, Variable[]>();
+  for (const v of brandingVars) {
+    const brand = v.name.split('/')[0]!;
+    if (!byBrand.has(brand)) byBrand.set(brand, []);
+    byBrand.get(brand)!.push(v);
+  }
+
+  const results: BrandCssEntry[] = [];
+
+  for (const [brandName, vars] of byBrand) {
+    const brandingEntries: BrandingEntry[] = [];
+
+    for (const v of vars) {
+      const suffix = v.name.slice(v.name.indexOf('/Branding/') + '/Branding/'.length);
+      const perMode = new Map<string, string | null>();
+
+      for (const { modeId } of appearanceColl.modes) {
+        const raw = v.valuesByMode[modeId] ?? v.valuesByMode[Object.keys(v.valuesByMode)[0] ?? ''];
+        if (!raw || typeof raw !== 'object' || !('type' in raw) || raw.type !== 'VARIABLE_ALIAS') {
+          perMode.set(modeId, null);
+          continue;
+        }
+
+        let target = getVar((raw as VariableAlias).id);
+        // Follow aliases, skipping intermediate Appearance vars
+        for (let d = 0; d < 4 && target?.variableCollectionId === appearanceColl.id; d++) {
+          const next = target.valuesByMode[modeId] ?? target.valuesByMode[Object.keys(target.valuesByMode)[0] ?? ''];
+          if (!next || typeof next !== 'object' || !('type' in next) || next.type !== 'VARIABLE_ALIAS') break;
+          target = getVar((next as VariableAlias).id);
+        }
+
+        perMode.set(modeId, target?.variableCollectionId !== appearanceColl.id ? (target?.name ?? null) : null);
+      }
+
+      brandingEntries.push({ suffix, perMode });
+    }
+
+    const cssContent = generatePhase2Css(brandName, brandingEntries, appearanceColl.modes);
+    if (cssContent.includes('--g-color-')) results.push({ brandName, cssContent });
+  }
+
+  return results;
 }

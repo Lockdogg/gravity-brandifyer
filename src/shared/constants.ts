@@ -18,6 +18,9 @@ export const PRIVATE_COLORS_THEME: Record<AppearanceMode, string> = {
   'Dark HC':  'Dark-HC',
 };
 
+// Theme segments as they appear in Private Colors variable names (e.g. "Light-HC")
+export const PC_THEMES = new Set(['Light', 'Dark', 'Light-HC', 'Dark-HC']);
+
 export const COLLECTION_NAMES = {
   privateColors: 'Private Colors',
   appearance: 'Appearance',

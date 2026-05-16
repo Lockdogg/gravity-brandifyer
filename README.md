@@ -1,72 +1,96 @@
-# Gravity Brandifyer Plugin
+# Gravity Brandifyer
 
-Figma plugin for adding new brands to the internal YC Gravity UI design library. A product designer inputs a brand color, the plugin generates a full Private Colors scale and Appearance group, then adds a new column to the Brand collection — all in a Figma branch, ready for review.
+Figma-плагин для добавления нового бренда в центральную дизайн-библиотеку **YC Gravity UI**.
 
-## Status
+Дизайнер вводит бренд-цвет — плагин генерирует полную шкалу приватных цветов, группу в коллекции Appearance и новую колонку в коллекции Brand. Всё пишется в ветку Figma и уходит на ревью стандартным образом.
 
-🚧 Early development. See `PLAN.md` for milestones, `CLAUDE.md` for project context.
+---
 
-## Quick start (developer)
+## Как использовать (для дизайнера)
+
+Рабочий процесс состоит из двух шагов, которые выполняются в разных файлах Figma.
+
+### Шаг 1 — Файл приватных цветов
+
+1. Создай новый пустой Figma-файл с названием `<BrandName> Private Colors`.
+2. Открой плагин **Gravity Brandifyer** в этом файле.
+3. Введи название бренда и основной бренд-цвет.
+4. Нажми **Сгенерировать** — плагин создаст коллекцию `Private Colors` с полной шкалой (~1212 переменных).
+5. Скачай CSS-файл (кнопка **Скачать CSS**) — он понадобится фронтенду.
+6. **Опубликуй файл как библиотеку** в Figma (`Assets → Publish`).
+
+### Шаг 2 — Основная библиотека
+
+1. Открой файл основной библиотеки Gravity UI.
+2. Создай ветку (`Drafts → Create branch`).
+3. **Подключи** только что опубликованную библиотеку приватных цветов к этой ветке (`Assets → Libraries`).
+4. Открой плагин **Gravity Brandifyer** в ветке.
+5. Введи название нового бренда, выбери нужную библиотеку приватных цветов в дропдауне.
+6. Нажми **Сгенерировать** — плагин добавит группу в Appearance (~142 переменных) и новый модус в Brand (~215 переменных).
+7. Скачай CSS Branding-токенов и объедини с CSS из Шага 1.
+8. Отправь ветку на ревью через стандартный механизм Figma Branches.
+
+---
+
+## Установка (для разработчика)
 
 ```bash
 git clone <repo>
-cd brand-manager-plugin
-pnpm install
-pnpm build
+cd gravity-brandifyer
+npm install
+npm run build
 ```
 
-Then in Figma:
+В Figma:
 
 1. **Plugins → Development → Import plugin from manifest…**
-2. Pick `manifest.json` from this repo.
-3. Open the YC Gravity UI library file, create a branch, run the plugin from **Plugins → Development → Gravity Brandifyer**.
+2. Укажи `manifest.json` из этого репозитория.
+3. Плагин появится в **Plugins → Development → Gravity Brandifyer**.
 
-For development with live rebuild:
+Для разработки с живой пересборкой:
 
 ```bash
-pnpm dev
+npm run dev
 ```
 
-## How to use (designer)
+---
 
-1. Open the YC Gravity UI library file.
-2. Create a Figma branch (so your changes are reviewable).
-3. Run **Plugins → Gravity Brandifyer**.
-4. Follow the wizard: pick a base brand, set your brand color, preview, and commit.
-5. Download the CSS file for engineering handoff.
-6. Submit your branch for review via Figma's native UI.
+## Стек
 
-## Documentation
+- TypeScript strict mode
+- Figma Plugin API (`@figma/plugin-typings`)
+- React 18 + Tailwind CSS v3 + shadcn/ui
+- `@gravity-ui/uikit-themer` — генерация цветовой шкалы
+- esbuild — сборка
 
-- **`PLAN.md`** — full project plan, milestones, motivation.
-- **`SPEC.md`** — detailed product requirements: wizard steps, validations, edge cases.
-- **`CLAUDE.md`** — project context for AI agents working in this repo.
-- **`docs/architecture.md`** — system architecture, data flows.
-- **`docs/decisions/`** — architecture decision records.
+---
 
-## Project structure
+## Документация
+
+| Файл | Назначение |
+|------|-----------|
+| `PLAN.md` | Полный план: мотивация, архитектура, milestone'ы |
+| `SPEC.md` | Детальные продуктовые требования, edge cases, copy для UI |
+| `CLAUDE.md` | Контекст для Claude Code (AI-агента) |
+| `docs/architecture.md` | Потоки данных, карта переменных |
+| `docs/decisions/` | ADR — записи об архитектурных решениях |
+| `docs/lib-dumps/` | JSON-дампы существующей либы для референса |
+
+---
+
+## Структура репозитория
 
 ```
 src/
-  main/    Figma main-thread code (Variables API access)
-  ui/      HTML iframe with wizard, preview, export
-  shared/  types and message contracts
-docs/      design docs, ADRs, reference materials
+  main/     Figma main thread — читает/пишет Variables API
+  ui/       HTML iframe — визард, цветопикер, CSS-экспорт
+  shared/   типы и контракты сообщений main↔UI
+docs/       архитектурная документация и ADR
+build/      артефакты сборки (gitignored)
 ```
 
-See `PLAN.md` for the full layout and what each file does.
-
-## Tech
-
-- TypeScript
-- Figma Plugin API
-- `@gravity-ui/uikit-themer` for color generation
-- esbuild for bundling
+---
 
 ## Contributing
 
-This is an internal tool. Issues and PRs go through the DS team. See `docs/decisions/` before proposing architectural changes — chances are the question was already considered.
-
-## License
-
-(To be determined — internal use for now.)
+Внутренний инструмент DS-команды. Issues и PR — через внутренние каналы. Перед архитектурными изменениями читай `docs/decisions/` — скорее всего вопрос уже разбирался.

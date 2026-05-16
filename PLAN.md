@@ -74,12 +74,15 @@ Gravity UI имеет публичный пакет `@gravity-ui/uikit-themer`, 
 
 #### Phase 2 — основная либа (ветка)
 
-**В коллекцию Appearance** добавляется новая группа с префиксом `<NewBrand>/`, содержащая ~142 переменных, повторяющих структуру существующих брендов:
+**В коллекцию Appearance** добавляется новая группа с префиксом `<NewBrand>/`, содержащая ~142 переменных:
 
-- Branding/* (~14 токенов) — алиасятся на новые private brand-примитивы из Phase 1 файла.
-- Text/*, Base/*, Base Semantic/*, Base Float/*, Line/*, Misc/*, Effect/*, Navigation/* (~128 токенов) — алиасятся на соответствующие токены **базового бренда** (например, `Yandex Cloud/Text/Primary`).
+- **Branding/* (~14 токенов)** — полная цепочка алиасов через базовый бренд → разрешается до имени переменной в PC-либе → маппится на аналог с префиксом нового бренда в выбранной пользователем PC-библиотеке. Импортируется через `figma.variables.importVariableByKeyAsync`.
+- **Остальные ~128 токенов (Text, Base, Base Semantic, …)**:
+  - Если прямой алиас-таргет находится в той же коллекции Appearance → ремаппинг внутри Appearance: `BaseBrand/Text/Primary` → `NewBrand/Text/Primary`.
+  - Если прямой алиас-таргет является PC-переменной → импортируем аналог из выбранной PC-либы.
+  - Raw RGBA или нераспознанный таргет → копируется значение как есть.
 
-У каждой переменной — 4 значения по модусам Appearance.
+Пользователь **явно выбирает** PC-библиотеку для Phase 2 через `<select>` в UI (все подключённые библиотеки кроме иконных). Ключ коллекции `pcLibKey` передаётся из UI в main и используется для прямого `getVariablesInLibraryCollectionAsync`.
 
 **В коллекцию Brand** добавляется новая колонка-модус с именем бренда. В этом модусе каждая из ~215 переменных Brand-коллекции алиаситься на соответствующий `<NewBrand>/...` из Appearance.
 
@@ -260,12 +263,13 @@ Claude Code при работе в репозитории автоматичес
 - [x] Milestone 1 — Lib inspection (phase auto-detect)
 - [x] Milestone 2 — Themer + HC blend
 - [x] Milestone 4 (Phase 1) — `writePrivateColorsFull` (~1212 vars), WEB code syntax, CSS export + family overrides
-- [x] **UI** — React 18 + Tailwind CSS v3 + shadcn/ui. Canvas HSV color picker (HEX/RGB/HSL/HSB). Simple/Expert режимы. Toast-уведомления. Sticky footer с иконками Gravity. Автофокус. Tooltip на бренд-цвете.
-- [x] **Expert mode (Phase 1)** — 6 хроматических семейств с color overrides, все включены по умолчанию, Brand — залоченная первая строка. CSS экспорт включает все переопределённые семейства.
-- [ ] Milestone 3 — Preview UI (шкала цветов до генерации)
-- [ ] Milestone 4 (Phase 2) — Appearance group (~142 vars) + Brand mode column (~215 vars)
-- [ ] Milestone 5 — Wizard Phase 2 (выбор базового бренда, шаг подтверждения)
-- [ ] Milestone 7 — Expert mode Phase 2 (external lib Private Colors)
+- [x] **UI Phase 1** — React 18 + Tailwind CSS v3 + shadcn/ui. Canvas HSV color picker. Simple/Expert режимы. Toast-уведомления. Sticky footer с иконками Gravity.
+- [x] **Expert mode (Phase 1)** — 6 хроматических семейств с color overrides, все включены по умолчанию. CSS экспорт включает все переопределённые семейства.
+- [x] **Milestone 4 (Phase 2)** — `writeAppearanceGroup` + `writeBrandMode` в `writer-phase2.ts`. Appearance group + Brand mode работают. Базовый кейс (новый бренд → своя PC-либа) проверен.
+- [x] **UI Phase 2** — `MainLibPhase`: ввод имени бренда + `<select>` выбора PC-библиотеки (все подключённые, кроме icon-либ). Прогресс-бар с fun-messages. Toast.
+- [ ] Milestone 3 — Preview UI — пропущен (согласовано, проще подправить в Figma)
+- [ ] Milestone 5 — Wizard Phase 2 UX: выбор базового бренда (сейчас хардкод `existingBrands[0]`), шаг подтверждения
+- [ ] Milestone 7 — Expert mode Phase 2 (дополнительные кейсы, валидация edge cases)
 - [ ] Milestone 8 — Docs, polish, publish
 
 ### Milestone 0 — Bootstrap репозитория
