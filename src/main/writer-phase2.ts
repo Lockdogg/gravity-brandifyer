@@ -117,9 +117,10 @@ export async function writeAppearanceGroup(
   const localVarMap = new Map<string, Variable>(allColorVars.map(v => [v.id, v]));
 
   const base = detectAppearanceBase(allColorVars, appearanceColl.id, baseBrandHint);
-  const baseBrandVars = allColorVars.filter(
-    v => v.variableCollectionId === appearanceColl.id && v.name.startsWith(base + '/'),
-  );
+  const collectionIdOrder = new Map<string, number>(appearanceColl.variableIds.map((id, i) => [id, i]));
+  const baseBrandVars = allColorVars
+    .filter(v => v.variableCollectionId === appearanceColl.id && v.name.startsWith(base + '/'))
+    .sort((a, b) => (collectionIdOrder.get(a.id) ?? 0) - (collectionIdOrder.get(b.id) ?? 0));
 
   if (baseBrandVars.length === 0) throw new Error('Не найдены бренды в коллекции Appearance');
 
@@ -130,19 +131,20 @@ export async function writeAppearanceGroup(
   for (const col of libCollections) {
     if (col.name !== COLLECTION_NAMES.privateColors) continue;
     const vars = await figma.teamLibrary.getVariablesInLibraryCollectionAsync(col.key);
-    if (vars.some(v => v.name.split('/')[0]?.toLowerCase() === brandName.toLowerCase())) {
+    if (vars.length > 0) {
       externalLibVars = vars;
       foundLib = true;
       break;
     }
   }
 
-  if (!foundLib) throw new Error(`Подключите библиотеку приватных цветов «${brandName}»`);
+  if (!foundLib) throw new Error('Подключите библиотеку приватных цветов');
 
   const externalVarMap = new Map<string, LibraryVariable>(externalLibVars.map(v => [v.name, v]));
+  // Detect the actual prefix from the library (may differ from brandName)
   const actualPcPrefix =
-    [...externalVarMap.keys()].map(n => n.split('/')[0] ?? '')
-      .find(p => p.toLowerCase() === brandName.toLowerCase()) ?? brandName;
+    [...new Set([...externalVarMap.keys()].map(n => n.split('/')[0] ?? '').filter(Boolean))][0]
+    ?? brandName;
 
   const existingNewVars = new Map<string, Variable>(
     allColorVars
@@ -154,11 +156,18 @@ export async function writeAppearanceGroup(
   const resolveCache = new Map<string, string | null>();
   const importCache = new Map<string, Variable>();
 
-  // Detect which color family the base brand uses for brand colors (e.g. "Blue").
-  // Used to remap Branding/* vars to the Phase-1 "Brand" family instead.
+  // Skip re-importing vars already in the file from a previous run (key === library key)
+  const allVarsByKey = new Map<string, Variable>(allColorVars.map(v => [v.key, v]));
+  for (const libVar of externalLibVars) {
+    const local = allVarsByKey.get(libVar.key);
+    if (local) importCache.set(libVar.key, local);
+  }
+
   const baseBrandFamily = await detectBrandFamily(baseBrandVars, base, modeIds[0] ?? '', resolveCache, localVarMap);
 
-  // Phase 1 — resolve alias chains (reports first half of progress)
+  // Phase 1 — resolve chains for Branding/* only.
+  // Non-Branding tokens (Text, Base, etc.) have no raph equivalent in the external lib
+  // and always fall back to baseVar — skip the expensive traversal entirely.
   type Resolved = { baseVar: Variable; newName: string; modeResults: Map<string, string | null> };
   const resolved: Resolved[] = [];
   const neededKeys = new Set<string>();
@@ -167,30 +176,32 @@ export async function writeAppearanceGroup(
     const baseVar = baseBrandVars[i]!;
     const newName = brandName + baseVar.name.slice(base.length);
     const modeResults = new Map<string, string | null>();
-    const brandFamilyForVar = baseVar.name.includes('/Branding/') ? baseBrandFamily : null;
 
-    for (const modeId of modeIds) {
-      const pcName = await resolveToPrivateColors(baseVar, modeId, base, resolveCache, localVarMap);
-      modeResults.set(modeId, pcName);
-      if (pcName) {
-        const extVar = lookupExtVar(externalVarMap, actualPcPrefix, pcName, base, brandFamilyForVar);
-        if (extVar) neededKeys.add(extVar.key);
+    if (baseVar.name.includes('/Branding/')) {
+      for (const modeId of modeIds) {
+        const pcName = await resolveToPrivateColors(baseVar, modeId, base, resolveCache, localVarMap);
+        modeResults.set(modeId, pcName);
+        if (pcName) {
+          const extVar = lookupExtVar(externalVarMap, actualPcPrefix, pcName, base, baseBrandFamily);
+          if (extVar) neededKeys.add(extVar.key);
+        }
       }
     }
 
     resolved.push({ baseVar, newName, modeResults });
-    onProgress(i + 1, baseBrandVars.length * 2 + neededKeys.size);
+    onProgress(i + 1, baseBrandVars.length);
   }
 
-  const totalSteps = baseBrandVars.length + neededKeys.size + resolved.length;
+  // Phase 2 — import in batches of 8; keys already in importCache are skipped
+  const IMPORT_BATCH = 8;
+  const keyList = [...neededKeys].filter(k => !importCache.has(k));
+  const totalSteps = baseBrandVars.length + keyList.length + resolved.length;
 
-  // Phase 2 — import external vars sequentially
-  const keyList = [...neededKeys];
-  for (let i = 0; i < keyList.length; i++) {
-    const key = keyList[i]!;
-    const imported = await figma.variables.importVariableByKeyAsync(key);
-    importCache.set(key, imported);
-    onProgress(baseBrandVars.length + i + 1, totalSteps);
+  for (let i = 0; i < keyList.length; i += IMPORT_BATCH) {
+    const batch = keyList.slice(i, i + IMPORT_BATCH);
+    const results = await Promise.all(batch.map(k => figma.variables.importVariableByKeyAsync(k)));
+    results.forEach((v, j) => importCache.set(batch[j]!, v));
+    onProgress(baseBrandVars.length + Math.min(i + IMPORT_BATCH, keyList.length), totalSteps);
   }
 
   // Phase 3 — create/update vars and set aliases
@@ -214,7 +225,13 @@ export async function writeAppearanceGroup(
           continue;
         }
       }
-      newVar.setValueForMode(modeId, { type: 'VARIABLE_ALIAS', id: baseVar.id });
+      const baseValue = baseVar.valuesByMode[modeId]
+        ?? baseVar.valuesByMode[Object.keys(baseVar.valuesByMode)[0] ?? ''];
+      const isAlias = baseValue && typeof baseValue === 'object' && 'type' in baseValue
+        && (baseValue as VariableAlias).type === 'VARIABLE_ALIAS';
+      newVar.setValueForMode(modeId, isAlias
+        ? { type: 'VARIABLE_ALIAS', id: baseVar.id }
+        : baseValue as RGBA);
     }
 
     onProgress(baseBrandVars.length + keyList.length + i + 1, totalSteps);
