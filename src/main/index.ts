@@ -3,6 +3,7 @@ import { inspectLibrary, InspectError } from './inspect';
 import { generateBrandScale } from './themer-bridge';
 import { writePrivateColorsFull } from './writer';
 import { generateBrandCss } from './css-export';
+import { readExistingBrandCss } from './reader';
 
 figma.showUI(__html__, { width: 480, height: 640, title: 'Gravity Brandifyer' });
 
@@ -16,7 +17,7 @@ figma.ui.onmessage = (msg: UiToMainMessage) => {
         const scale = generateBrandScale(brandHex);
         const count = await writePrivateColorsFull(brandName, scale, colorOverrides);
         const cssContent = generateBrandCss(brandName, scale);
-        figma.ui.postMessage({ type: 'generate-done', varCount: count, cssContent });
+        figma.ui.postMessage({ type: 'generate-done', varCount: count, cssContent, brandName });
       } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
         figma.ui.postMessage({ type: 'generate-error', message: `Не удалось создать переменные: ${message}` });
@@ -29,7 +30,8 @@ figma.ui.onmessage = (msg: UiToMainMessage) => {
   try {
     const result = await inspectLibrary();
     if (result.phase === 'private-colors') {
-      figma.ui.postMessage({ type: 'phase-private-colors' });
+      const existingBrands = await readExistingBrandCss();
+      figma.ui.postMessage({ type: 'phase-private-colors', existingBrands });
     } else {
       figma.ui.postMessage({ type: 'phase-main-lib', info: result.info });
     }

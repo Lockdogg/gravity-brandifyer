@@ -1,4 +1,4 @@
-import type { MainToUiMessage, UiToMainMessage, ColorFamily } from '../shared/messages';
+import type { MainToUiMessage, UiToMainMessage, ColorFamily, BrandCssEntry } from '../shared/messages';
 import type { LibInfo, AppearanceMode, RGB } from '../shared/types';
 import iconCheck from '@gravity-ui/icons/svgs/circle-check.svg';
 import iconError from '@gravity-ui/icons/svgs/circle-xmark.svg';
@@ -351,6 +351,61 @@ class ColorPicker {
   destroy() { this.popup.remove(); this.handlers = []; }
 }
 
+// ─── Brand CSS store ────────────────────────────────────────────────────────
+
+const brandCssMap = new Map<string, string>(); // brandName → cssContent
+
+function renderBrandDownloads() {
+  const section = document.getElementById('brandsDownloadSection');
+  if (!section) return;
+
+  if (brandCssMap.size === 0) {
+    section.style.display = 'none';
+    return;
+  }
+
+  section.style.display = 'block';
+  const entries = Array.from(brandCssMap.entries());
+
+  const btnStyle = (dark: boolean) =>
+    `margin-top:0;${dark ? 'background:#1a1a1a;color:#fff' : 'background:#f0f0f0;color:#1a1a1a'};` +
+    `width:100%;display:flex;align-items:center;justify-content:center;gap:6px;`;
+
+  let html = `<div style="border-top:1px solid #f0f0f0;padding-top:12px;margin-top:4px;display:flex;flex-direction:column;gap:6px">`;
+
+  if (entries.length > 1) {
+    html += `<button id="downloadAllBtn" style="${btnStyle(true)}">` +
+      `<span style="width:16px;height:16px;display:inline-flex;align-items:center;flex-shrink:0">${iconDownload}</span>` +
+      ` Скачать все (${entries.length})</button>`;
+  }
+
+  for (const [name] of entries) {
+    html += `<div style="display:flex;align-items:center;justify-content:space-between;gap:8px">` +
+      `<span style="font-size:12px;color:#555;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${name}</span>` +
+      `<button class="dl-brand-btn" data-brand="${name}" style="flex-shrink:0;margin-top:0;background:#f0f0f0;color:#1a1a1a;` +
+        `display:flex;align-items:center;gap:4px;padding:6px 10px">` +
+      `<span style="width:14px;height:14px;display:inline-flex;align-items:center;flex-shrink:0">${iconDownload}</span> CSS` +
+      `</button></div>`;
+  }
+
+  html += `</div>`;
+  section.innerHTML = html;
+
+  if (entries.length > 1) {
+    document.getElementById('downloadAllBtn')!.addEventListener('click', () => {
+      const all = entries.map(([, css]) => css).join('\n\n');
+      downloadCss(all, 'all-brands-theme.css');
+    });
+  }
+
+  section.querySelectorAll<HTMLButtonElement>('.dl-brand-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const name = btn.dataset['brand']!;
+      downloadCss(brandCssMap.get(name)!, `${name}-theme.css`);
+    });
+  });
+}
+
 // ─── Color picker wiring ────────────────────────────────────────────────────
 
 const _colorPickers: ColorPicker[] = [];
@@ -421,7 +476,9 @@ function familyRowHtml(family: ColorFamily): string {
   `;
 }
 
-function showPhasePrivateColors() {
+function showPhasePrivateColors(existingBrands: BrandCssEntry[] = []) {
+  brandCssMap.clear();
+  existingBrands.forEach(({ brandName, cssContent }) => brandCssMap.set(brandName, cssContent));
   destroyPickrInstances();
   document.getElementById('app')!.innerHTML = `
 
@@ -483,6 +540,7 @@ function showPhasePrivateColors() {
       </button>
       <div id="generateStatus"></div>
     </section>
+    <div id="brandsDownloadSection" style="display:none"></div>
 
   `;
 
@@ -583,6 +641,8 @@ function showPhasePrivateColors() {
     (document.getElementById('generateBtn') as HTMLButtonElement).disabled = true;
     send({ type: 'generate-private-colors', brandName: name, brandHex: color, colorOverrides });
   });
+
+  renderBrandDownloads();
 }
 
 function downloadCss(content: string, filename: string) {
@@ -592,23 +652,14 @@ function downloadCss(content: string, filename: string) {
   a.click();
 }
 
-function handleGenerateDone(varCount: number, cssContent: string) {
+function handleGenerateDone(brandName: string, varCount: number, cssContent: string) {
   const status = document.getElementById('generateStatus');
   const btn = document.getElementById('generateBtn') as HTMLButtonElement | null;
   if (btn) btn.disabled = false;
+  if (status) status.innerHTML = '';
   showToast('success', `Создано ${varCount} переменных.`);
-
-  if (status) {
-    const downloadBtn = document.createElement('button');
-    downloadBtn.style.cssText = 'margin-top:10px;background:#f0f0f0;color:#1a1a1a;width:100%;display:flex;align-items:center;justify-content:center;gap:6px';
-    downloadBtn.innerHTML = `<span style="width:16px;height:16px;display:inline-flex;align-items:center;flex-shrink:0">${iconDownload}</span> Скачать CSS`;
-    downloadBtn.addEventListener('click', () => {
-      const brandName = (document.getElementById('brandName') as HTMLInputElement)?.value.trim() || 'brand';
-      downloadCss(cssContent, `${brandName}-theme.css`);
-    });
-    status.innerHTML = '';
-    status.appendChild(downloadBtn);
-  }
+  brandCssMap.set(brandName, cssContent);
+  renderBrandDownloads();
 }
 
 function handleGenerateError(message: string) {
@@ -664,13 +715,13 @@ function showPhaseMainLib(info: LibInfo) {
 window.onmessage = (event: MessageEvent) => {
   const msg = event.data.pluginMessage as MainToUiMessage;
   if (msg.type === 'phase-private-colors') {
-    showPhasePrivateColors();
+    showPhasePrivateColors(msg.existingBrands);
   } else if (msg.type === 'phase-main-lib') {
     showPhaseMainLib(msg.info);
   } else if (msg.type === 'lib-error') {
     showError(msg.message, msg.missingCollections);
   } else if (msg.type === 'generate-done') {
-    handleGenerateDone(msg.varCount, msg.cssContent);
+    handleGenerateDone(msg.brandName, msg.varCount, msg.cssContent);
   } else if (msg.type === 'generate-error') {
     handleGenerateError(msg.message);
   }
