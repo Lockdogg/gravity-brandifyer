@@ -5,6 +5,8 @@ import iconError from '@gravity-ui/icons/svgs/circle-xmark.svg';
 import iconWarning from '@gravity-ui/icons/svgs/triangle-exclamation.svg';
 import iconInfo from '@gravity-ui/icons/svgs/circle-info.svg';
 import iconHelp from '@gravity-ui/icons/svgs/circle-question.svg';
+import iconSparkles from '@gravity-ui/icons/svgs/sparkles.svg';
+import iconDownload from '@gravity-ui/icons/svgs/arrow-down-to-line.svg';
 
 function send(msg: UiToMainMessage) {
   parent.postMessage({ pluginMessage: msg }, '*');
@@ -423,6 +425,18 @@ function showPhasePrivateColors() {
   destroyPickrInstances();
   document.getElementById('app')!.innerHTML = `
 
+    <section>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:16px">
+        <h2 style="margin-bottom:0">Приватные цвета</h2>
+        <button id="helpToggle" title="Помощь"
+          style="background:none;border:none;padding:0;margin:0;cursor:pointer;color:#aaa;display:flex;align-items:center;margin-top:0;width:16px;height:16px">
+          ${iconHelp}
+        </button>
+      </div>
+      <div id="helpText" style="display:none;margin-bottom:12px">
+        <p class="hint">Введите имя бренда и акцентный цвет. После генерации опубликуйте файл как библиотеку и подключите к основной либе.</p>
+      </div>
+    </section>
     <div style="display:flex;justify-content:center;margin-bottom:20px">
       <div class="seg-control">
         <button id="modeSimple" class="seg-btn seg-active">Простой</button>
@@ -430,26 +444,22 @@ function showPhasePrivateColors() {
       </div>
     </div>
     <section>
-      <div style="display:flex;align-items:center;gap:6px;margin-bottom:0">
-        <h2 style="margin-bottom:0">Фаза 1 — Приватные цвета</h2>
-        <button id="helpToggle" title="Помощь"
-          style="background:none;border:none;padding:0;margin:0;cursor:pointer;color:#aaa;display:flex;align-items:center;margin-top:0;width:16px;height:16px">
-          ${iconHelp}
-        </button>
-      </div>
-      <div id="helpText" style="display:none;margin-top:8px">
-        <p style="margin-bottom:4px">Введите имя бренда и акцентный цвет.</p>
-        <p class="hint">После генерации опубликуйте файл как библиотеку и подключите к основной либе.</p>
-      </div>
-    </section>
-    <section>
       <div style="margin-bottom:12px">
-        <label style="display:block;font-size:11px;color:#888;margin-bottom:4px">Имя бренда</label>
+        <label style="display:block;font-size:11px;color:#888;margin-bottom:4px">Название бренда</label>
         <input id="brandName" type="text" placeholder="My Brand"
           style="width:100%;padding:6px 8px;border:1px solid #ddd;border-radius:6px;font-size:13px" />
       </div>
       <div style="margin-bottom:12px">
-        <label style="display:block;font-size:11px;color:#888;margin-bottom:4px">Brand-цвет</label>
+        <div style="display:flex;align-items:center;gap:4px;margin-bottom:4px">
+          <label style="font-size:11px;color:#888">Основной цвет бренда</label>
+          <button id="colorHelpToggle" title="Что это?"
+            style="background:none;border:none;padding:0;margin:0;cursor:pointer;color:#bbb;display:flex;align-items:center;width:14px;height:14px;flex-shrink:0">
+            ${iconHelp}
+          </button>
+        </div>
+        <div id="colorHelpText" style="display:none;margin-bottom:6px">
+          <p class="hint">Этот цвет станет индексом 550 в шкале бренда — основным акцентным.</p>
+        </div>
         <div style="display:flex;gap:8px;align-items:center">
           <div id="brandColorTrigger"></div>
           <input id="brandColorHex" type="text" value="#005FF9" maxlength="7"
@@ -467,19 +477,31 @@ function showPhasePrivateColors() {
       ${COLOR_FAMILIES.map(familyRowHtml).join('')}
     </section>
     <section>
-      <button id="generateBtn" style="background:#1a1a1a;color:#fff;margin-top:0">Сгенерировать Private Colors</button>
+      <button id="generateBtn" style="background:#1a1a1a;color:#fff;margin-top:0;width:100%;display:flex;align-items:center;justify-content:center;gap:6px">
+        <span style="width:16px;height:16px;display:inline-flex;align-items:center;flex-shrink:0">${iconSparkles}</span>
+        Сгенерировать Private Colors
+      </button>
       <div id="generateStatus"></div>
     </section>
 
   `;
 
-  // Help toggle
+  // Help toggle (section heading)
   const helpToggle = document.getElementById('helpToggle')!;
   const helpText = document.getElementById('helpText')!;
   helpToggle.addEventListener('click', () => {
     const visible = helpText.style.display !== 'none';
     helpText.style.display = visible ? 'none' : 'block';
     (helpToggle as HTMLButtonElement).style.color = visible ? '#aaa' : '#555';
+  });
+
+  // Help toggle (color field tooltip)
+  const colorHelpToggle = document.getElementById('colorHelpToggle')!;
+  const colorHelpText = document.getElementById('colorHelpText')!;
+  colorHelpToggle.addEventListener('click', () => {
+    const visible = colorHelpText.style.display !== 'none';
+    colorHelpText.style.display = visible ? 'none' : 'block';
+    (colorHelpToggle as HTMLButtonElement).style.color = visible ? '#bbb' : '#555';
   });
 
   // Mode toggle
@@ -578,8 +600,8 @@ function handleGenerateDone(varCount: number, cssContent: string) {
 
   if (status) {
     const downloadBtn = document.createElement('button');
-    downloadBtn.textContent = 'Скачать CSS';
-    downloadBtn.style.cssText = 'margin-top:10px;background:#f0f0f0;color:#1a1a1a;width:100%';
+    downloadBtn.style.cssText = 'margin-top:10px;background:#f0f0f0;color:#1a1a1a;width:100%;display:flex;align-items:center;justify-content:center;gap:6px';
+    downloadBtn.innerHTML = `<span style="width:16px;height:16px;display:inline-flex;align-items:center;flex-shrink:0">${iconDownload}</span> Скачать CSS`;
     downloadBtn.addEventListener('click', () => {
       const brandName = (document.getElementById('brandName') as HTMLInputElement)?.value.trim() || 'brand';
       downloadCss(cssContent, `${brandName}-theme.css`);
