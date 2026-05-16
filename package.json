@@ -12,11 +12,22 @@
   "devDependencies": {
     "@figma/plugin-typings": "^1.107.0",
     "@gravity-ui/icons": "^2.18.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "autoprefixer": "^10.5.0",
     "esbuild": "^0.24.2",
+    "esbuild-plugin-postcss": "^0.3.0",
+    "postcss": "^8.5.14",
+    "tailwindcss": "^3.4.19",
     "typescript": "^5.7.2",
     "vitest": "^2.1.8"
   },
   "dependencies": {
-    "@gravity-ui/uikit-themer": "^1.8.0"
+    "@gravity-ui/uikit-themer": "^1.8.0",
+    "clsx": "^2.1.1",
+    "react": "^19.2.6",
+    "react-colorful": "^5.7.0",
+    "react-dom": "^19.2.6",
+    "tailwind-merge": "^3.6.0"
   }
 }

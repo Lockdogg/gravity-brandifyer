@@ -12,5 +12,6 @@ export type MainToUiMessage =
   | { type: 'generate-error'; message: string };
 
 export type UiToMainMessage =
+  | { type: 'ui-ready' }
   | { type: 'close' }
   | { type: 'generate-private-colors'; brandName: string; brandHex: string; colorOverrides?: Partial<Record<ColorFamily, string>> };

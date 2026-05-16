@@ -23,6 +23,15 @@ function setColor(variable: Variable, modeId: string, rgba: { r: number; g: numb
   variable.setValueForMode(modeId, { r: rgba.r, g: rgba.g, b: rgba.b, a: rgba.a });
 }
 
+// varName: "<Brand>/<Theme>/<Family>/<Suffix>", e.g. "MyBrand/Light/Orange/1000 Solid"
+// → "var(--g-color-private-orange-1000-solid)"
+function webSyntax(varName: string): string {
+  const parts = varName.split('/');
+  const family = (parts[2] ?? 'brand').toLowerCase();
+  const suffix = (parts[3] ?? '').toLowerCase().replace(' solid', '-solid');
+  return `var(--g-color-private-${family}-${suffix})`;
+}
+
 // Figma displays variables in forward creation order (first created = top).
 // Desired visual order: themes Light→Dark→Dark-HC→Light-HC, families Orange→…→White,
 // indices 1000 Solid→…→50 Solid then 500→…→50.
@@ -82,6 +91,7 @@ export async function writePrivateColorsFull(
       const variable = existing.get(varName)
         ?? figma.variables.createVariable(varName, collection, 'COLOR');
       setColor(variable, modeId, overrideValues.get(varName) ?? rgba);
+      variable.setVariableCodeSyntax('WEB', webSyntax(varName));
       count++;
     }
   }
@@ -102,6 +112,7 @@ export async function writePrivateColorsFull(
       const variable = existing.get(varName)
         ?? figma.variables.createVariable(varName, collection, 'COLOR');
       setColor(variable, modeId, rgba);
+      variable.setVariableCodeSyntax('WEB', webSyntax(varName));
       count++;
     }
   }
