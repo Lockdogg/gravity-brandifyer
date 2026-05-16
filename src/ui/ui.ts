@@ -7,6 +7,7 @@ import iconInfo from '@gravity-ui/icons/svgs/circle-info.svg';
 import iconHelp from '@gravity-ui/icons/svgs/circle-question.svg';
 import iconSparkles from '@gravity-ui/icons/svgs/sparkles.svg';
 import iconDownload from '@gravity-ui/icons/svgs/arrow-down-to-line.svg';
+import iconPalette from '@gravity-ui/icons/svgs/palette.svg';
 
 function send(msg: UiToMainMessage) {
   parent.postMessage({ pluginMessage: msg }, '*');
@@ -385,6 +386,7 @@ function renderBrandDownloads() {
   // Multiple brands: button + dropdown
   const rowsHtml = entries.map(([name]) =>
     `<div class="css-drop-row dl-brand-btn" data-brand="${name}">` +
+    `<span style="${ICON_SZ};color:#aaa;margin-right:6px">${iconPalette}</span>` +
     `<span class="css-drop-name">${name}</span>` +
     `</div>`
   ).join('');
