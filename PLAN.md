@@ -166,11 +166,13 @@ Gravity UI имеет публичный пакет `@gravity-ui/uikit-themer`, 
 
 ## 6. Стек
 
-- **TypeScript** — основной язык.
+- **TypeScript / TSX** — основной язык.
 - **Figma Plugin API** (`@figma/plugin-typings`) — типизация Figma-окружения.
-- **`@gravity-ui/uikit-themer`** — generation Light/Dark private colors из бренд-цвета.
-- **Bundler**: esbuild (быстро, минимальная конфигурация). Альтернатива — vite + plugin для Figma.
-- **UI**: чистый HTML + TypeScript + минимум CSS. Возможно тонкий слой компонентов (Preact/Lit) если будет нужно — но в идеале без фреймворка.
+- **`@gravity-ui/uikit-themer`** — генерация Light/Dark private colors из бренд-цвета.
+- **`@gravity-ui/icons`** — SVG-иконки в UI.
+- **Preact** — UI-фреймворк (React-совместимый, ~3KB).
+- **`@create-figma-plugin/ui`** — Figma-native компоненты поверх Preact (Button, TextboxText, SegmentedControl, Checkbox, Banner и др.).
+- **Bundler**: `@create-figma-plugin/build` (esbuild под капотом, поддерживает CSS Modules + JSX из коробки).
 
 Никаких HTTP-запросов из плагина не делаем (это упрощает и аудит, и manifest). Themer работает локально как npm-пакет.
 
@@ -253,6 +255,19 @@ Claude Code при работе в репозитории автоматичес
 ## 10. Последовательность работ
 
 Разбито на milestone'ы, каждый ~1–2 дня работы Claude Code + ревью.
+
+### Текущее состояние (май 2026)
+
+- [x] Milestone 0 — Bootstrap
+- [x] Milestone 1 — Lib inspection
+- [x] Milestone 2 — Themer + HC blend
+- [x] Milestone 4 (Phase 1) — writePrivateColorsFull (~1212 vars), CSS export, reader.ts
+- [~] **UI migration** — переход с vanilla TS на Preact + @create-figma-plugin/ui (в процессе)
+- [ ] Milestone 3 — Preview UI
+- [ ] Milestone 4 (Phase 2) — Appearance + Brand mode write
+- [ ] Milestone 5 — Wizard end-to-end
+- [ ] Milestone 7 — Expert mode (external lib)
+- [ ] Milestone 8 — Docs, polish, publish
 
 ### Milestone 0 — Bootstrap репозитория
 
