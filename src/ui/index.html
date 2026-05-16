@@ -167,6 +167,40 @@
     #helpToggle svg { width: 16px; height: 16px; display: block; fill: currentColor; }
     #helpToggle:hover { color: #555 !important; }
 
+    .css-dropdown {
+      position: absolute;
+      bottom: calc(100% + 4px);
+      left: 0; right: 0;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 24px rgba(0,0,0,.14), 0 0 0 1px rgba(0,0,0,.08);
+      z-index: 200;
+      overflow: hidden;
+      max-height: 260px;
+      overflow-y: auto;
+    }
+    .css-drop-all {
+      width: 100%; padding: 9px 12px;
+      background: transparent; border: none; border-bottom: 1px solid #f0f0f0;
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 500; color: #1a1a1a;
+      cursor: pointer; text-align: left; margin: 0;
+    }
+    .css-drop-all:hover { background: #f5f5f5; }
+    .css-drop-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 5px 8px 5px 12px; border-bottom: 1px solid #f5f5f5;
+    }
+    .css-drop-row:last-child { border-bottom: none; }
+    .css-drop-name { font-size: 12px; color: #333; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .css-drop-btn {
+      flex-shrink: 0; margin: 0; padding: 4px 8px;
+      background: #f0f0f0; border: none; border-radius: 5px;
+      font-size: 11px; color: #1a1a1a; cursor: pointer;
+      display: flex; align-items: center; gap: 3px;
+    }
+    .css-drop-btn:hover { background: #e4e4e4; }
+
     #toast-container {
       position: fixed;
       bottom: 16px;

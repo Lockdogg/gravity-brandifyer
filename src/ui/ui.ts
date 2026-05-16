@@ -355,6 +355,8 @@ class ColorPicker {
 
 const brandCssMap = new Map<string, string>(); // brandName → cssContent
 
+const ICON_SZ = `width:14px;height:14px;display:inline-flex;align-items:center;flex-shrink:0`;
+
 function renderBrandDownloads() {
   const section = document.getElementById('brandsDownloadSection');
   if (!section) return;
@@ -367,41 +369,68 @@ function renderBrandDownloads() {
   section.style.display = 'block';
   const entries = Array.from(brandCssMap.entries());
 
-  const btnStyle = (dark: boolean) =>
-    `margin-top:0;${dark ? 'background:#1a1a1a;color:#fff' : 'background:#f0f0f0;color:#1a1a1a'};` +
-    `width:100%;display:flex;align-items:center;justify-content:center;gap:6px;`;
-
-  let html = `<div style="border-top:1px solid #f0f0f0;padding-top:12px;margin-top:4px;display:flex;flex-direction:column;gap:6px">`;
-
-  if (entries.length > 1) {
-    html += `<button id="downloadAllBtn" style="${btnStyle(true)}">` +
-      `<span style="width:16px;height:16px;display:inline-flex;align-items:center;flex-shrink:0">${iconDownload}</span>` +
-      ` Скачать все (${entries.length})</button>`;
-  }
-
-  for (const [name] of entries) {
-    html += `<div style="display:flex;align-items:center;justify-content:space-between;gap:8px">` +
-      `<span style="font-size:12px;color:#555;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${name}</span>` +
-      `<button class="dl-brand-btn" data-brand="${name}" style="flex-shrink:0;margin-top:0;background:#f0f0f0;color:#1a1a1a;` +
-        `display:flex;align-items:center;gap:4px;padding:6px 10px">` +
-      `<span style="width:14px;height:14px;display:inline-flex;align-items:center;flex-shrink:0">${iconDownload}</span> CSS` +
-      `</button></div>`;
-  }
-
-  html += `</div>`;
-  section.innerHTML = html;
-
-  if (entries.length > 1) {
-    document.getElementById('downloadAllBtn')!.addEventListener('click', () => {
-      const all = entries.map(([, css]) => css).join('\n\n');
-      downloadCss(all, 'all-brands-theme.css');
+  if (entries.length === 1) {
+    // Single brand: direct download button, no dropdown needed
+    const [brandName, cssContent] = entries[0]!;
+    section.innerHTML =
+      `<button id="cssDirectBtn" style="margin-top:10px;background:#f0f0f0;color:#1a1a1a;width:100%;` +
+      `display:flex;align-items:center;justify-content:center;gap:6px">` +
+      `<span style="${ICON_SZ}">${iconDownload}</span> Скачать CSS</button>`;
+    section.querySelector<HTMLButtonElement>('#cssDirectBtn')!.addEventListener('click', () => {
+      downloadCss(cssContent, `${brandName}-theme.css`);
     });
+    return;
   }
+
+  // Multiple brands: button + dropdown
+  const rowsHtml = entries.map(([name]) =>
+    `<div class="css-drop-row">` +
+    `<span class="css-drop-name">${name}</span>` +
+    `<button class="css-drop-btn dl-brand-btn" data-brand="${name}">` +
+    `<span style="${ICON_SZ}">${iconDownload}</span> CSS</button></div>`
+  ).join('');
+
+  section.innerHTML =
+    `<div style="margin-top:10px;position:relative" id="cssDownloadWrap">` +
+    `<button id="cssDropBtn" style="background:#f0f0f0;color:#1a1a1a;width:100%;` +
+    `display:flex;align-items:center;justify-content:center;gap:6px;margin-top:0">` +
+    `<span style="${ICON_SZ}">${iconDownload}</span> Скачать CSS` +
+    `<span style="font-size:9px;opacity:.45;margin-left:2px">▾</span></button>` +
+    `<div id="cssDropdown" class="css-dropdown" style="display:none">` +
+    `<button class="css-drop-all" id="cssDropAll">` +
+    `<span style="${ICON_SZ}">${iconDownload}</span> Скачать все (${entries.length})</button>` +
+    rowsHtml +
+    `</div></div>`;
+
+  const dropBtn  = section.querySelector<HTMLButtonElement>('#cssDropBtn')!;
+  const dropdown = section.querySelector<HTMLElement>('#cssDropdown')!;
+
+  const close = () => { dropdown.style.display = 'none'; };
+  const toggle = (e: MouseEvent) => {
+    e.stopPropagation();
+    const open = dropdown.style.display !== 'none';
+    dropdown.style.display = open ? 'none' : 'block';
+  };
+
+  dropBtn.addEventListener('click', toggle);
+
+  document.addEventListener('mousedown', function outsideClose(e) {
+    if (!section.contains(e.target as Node)) {
+      close();
+      document.removeEventListener('mousedown', outsideClose);
+    }
+  });
+
+  section.querySelector<HTMLButtonElement>('#cssDropAll')!.addEventListener('click', () => {
+    const all = entries.map(([, css]) => css).join('\n\n');
+    downloadCss(all, 'all-brands-theme.css');
+    close();
+  });
 
   section.querySelectorAll<HTMLButtonElement>('.dl-brand-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      const name = btn.dataset['brand']!;
-      downloadCss(brandCssMap.get(name)!, `${name}-theme.css`);
+      downloadCss(brandCssMap.get(btn.dataset['brand']!)!, `${btn.dataset['brand']}-theme.css`);
+      close();
     });
   });
 }
