@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react';
 import { ColorPicker } from './components/ColorPicker';
 import { Button } from './components/ui/button';
 import { Input } from './components/ui/input';
@@ -13,6 +13,9 @@ import iconPalette from '@gravity-ui/icons/svgs/palette.svg';
 import iconDownload from '@gravity-ui/icons/svgs/arrow-down-to-line.svg';
 import iconFileCode from '@gravity-ui/icons/svgs/file-code.svg';
 import iconQuestion from '@gravity-ui/icons/svgs/circle-question.svg';
+import iconPlus from '@gravity-ui/icons/svgs/plus.svg';
+import iconTrash from '@gravity-ui/icons/svgs/trash-bin.svg';
+import iconChevronDown from '@gravity-ui/icons/svgs/chevron-down.svg';
 
 function SvgIcon({ svg, className }: { svg: string; className?: string }) {
   return (
@@ -51,9 +54,9 @@ function Tooltip({ text, children }: { text: string; children: React.ReactNode }
     <span className="relative inline-flex items-center" onMouseEnter={() => setVisible(true)} onMouseLeave={() => setVisible(false)}>
       {children}
       {visible && (
-        <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 z-50 w-52 rounded-md bg-foreground text-background text-xs px-2.5 py-1.5 leading-snug shadow-md pointer-events-none whitespace-normal text-center">
+        <span className="absolute bottom-full left-0 mb-1.5 z-50 w-52 rounded-md bg-foreground text-background text-xs px-2.5 py-1.5 leading-snug shadow-md pointer-events-none whitespace-normal">
           {text}
-          <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-foreground" />
+          <span className="absolute top-full left-3 -translate-x-1/2 border-4 border-transparent border-t-foreground" />
         </span>
       )}
     </span>
@@ -80,7 +83,9 @@ function ColorField({
   label?: string;
 }) {
   const [open, setOpen] = useState(false);
-  const [popoverStyle, setPopoverStyle] = useState<React.CSSProperties>({});
+  const [popoverStyle, setPopoverStyle] = useState<React.CSSProperties>({
+    position: 'fixed', top: -9999, left: -9999, zIndex: 9999,
+  });
   const [hexInput, setHexInput] = useState(value.replace('#', ''));
   const popoverRef = useRef<HTMLDivElement>(null);
   const swatchRef = useRef<HTMLButtonElement>(null);
@@ -89,7 +94,7 @@ function ColorField({
     setHexInput(value.replace('#', ''));
   }, [value]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!open || !swatchRef.current) return;
 
     const r = swatchRef.current.getBoundingClientRect();
@@ -99,7 +104,10 @@ function ColorField({
     if (top + ph > window.innerHeight - 8) top = r.top - ph - 6;
     if (left + PICKER_W > window.innerWidth - 8) left = window.innerWidth - PICKER_W - 8;
     setPopoverStyle({ position: 'fixed', top: Math.max(8, top), left: Math.max(8, left), zIndex: 9999 });
+  }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
     const handler = (e: MouseEvent) => {
       if (
         popoverRef.current && !popoverRef.current.contains(e.target as Node) &&
@@ -126,7 +134,7 @@ function ColorField({
           ref={swatchRef}
           type="button"
           onClick={() => setOpen(v => !v)}
-          className="w-7 h-7 rounded-md border border-input shrink-0 transition-shadow hover:shadow-md focus:outline-none focus:ring-1 focus:ring-ring"
+          className="w-9 h-9 rounded-md border border-input shrink-0 transition-shadow hover:shadow-md focus:outline-none focus:ring-1 focus:ring-ring"
           style={{ backgroundColor: value }}
           aria-label="Открыть палитру"
         />
@@ -232,6 +240,7 @@ function CssDownloadSection({
       )}
       <Button variant="secondary" className="w-full gap-2" onClick={() => setOpen(v => !v)}>
         <SvgIcon svg={iconDownload} /> Скачать CSS
+        <SvgIcon svg={iconChevronDown} className={cn('ml-auto transition-transform duration-150', open && 'rotate-180')} />
       </Button>
     </div>
   );
@@ -246,6 +255,7 @@ function ExpertSection({
   onColorChange,
   brandColor,
   onBrandColorChange,
+  showBrand = true,
 }: {
   overrides: Partial<Record<ColorFamily, string>>;
   enabled: Set<ColorFamily>;
@@ -253,25 +263,29 @@ function ExpertSection({
   onColorChange: (f: ColorFamily, hex: string) => void;
   brandColor: string;
   onBrandColorChange: (hex: string) => void;
+  showBrand?: boolean;
 }) {
   const allEnabled = COLOR_FAMILIES.every(f => enabled.has(f));
 
   return (
     <div className="space-y-1">
-      {/* Brand color row — always on, checkbox locked */}
-      <div className="flex items-center justify-between h-9 border-b border-border">
-        <label className="flex items-center gap-2 select-none">
-          <Checkbox checked readOnly className="pointer-events-none opacity-60" />
-          <span className="text-sm font-medium">Бренд</span>
-        </label>
-        <ColorField value={brandColor} onChange={onBrandColorChange} />
-      </div>
+      {/* Brand color row — only shown in mono-brand expert mode */}
+      {showBrand && (
+        <div className="flex items-center gap-2 h-9 border-b border-border">
+          <label className="flex items-center gap-2 flex-1 select-none">
+            <Checkbox checked readOnly className="pointer-events-none opacity-60" />
+            <span className="text-sm font-medium">Бренд</span>
+          </label>
+          <ColorField value={brandColor} onChange={onBrandColorChange} />
+          <span className="w-9 shrink-0" />
+        </div>
+      )}
       {COLOR_FAMILIES.map(family => {
         const isOn = enabled.has(family);
         const color = overrides[family] ?? DEFAULT_OVERRIDES[family];
         return (
-          <div key={family} className="flex items-center justify-between h-9 border-b border-border/50 last:border-0">
-            <label className="flex items-center gap-2 cursor-pointer select-none">
+          <div key={family} className="flex items-center gap-2 h-9 border-b border-border/50 last:border-0">
+            <label className="flex items-center gap-2 flex-1 cursor-pointer select-none">
               <Checkbox
                 checked={isOn}
                 onCheckedChange={checked => onToggle(family, checked)}
@@ -284,9 +298,103 @@ function ExpertSection({
                 onChange={hex => onColorChange(family, hex)}
               />
             )}
+            <span className="w-9 shrink-0" />
           </div>
         );
       })}
+    </div>
+  );
+}
+
+// ─── Multi-Brand Section ──────────────────────────────────────────────────────
+
+type MultiBrandEntry = { id: number; name: string; hex: string };
+
+let _nextId = 1;
+const nextId = () => _nextId++;
+
+function MultiBrandSection({
+  groupName,
+  onGroupNameChange,
+  entries,
+  onEntriesChange,
+  showGroupName = true,
+}: {
+  groupName: string;
+  onGroupNameChange: (v: string) => void;
+  entries: MultiBrandEntry[];
+  onEntriesChange: (v: MultiBrandEntry[]) => void;
+  showGroupName?: boolean;
+}) {
+  const setName = (id: number, name: string) =>
+    onEntriesChange(entries.map(e => e.id === id ? { ...e, name } : e));
+  const setHex = (id: number, hex: string) =>
+    onEntriesChange(entries.map(e => e.id === id ? { ...e, hex } : e));
+  const remove = (id: number) =>
+    onEntriesChange(entries.filter(e => e.id !== id));
+  const add = () =>
+    onEntriesChange([...entries, { id: nextId(), name: '', hex: '#005FF9' }]);
+
+  return (
+    <div className="space-y-4">
+      {showGroupName && (
+        <div className="space-y-1.5">
+          <Label className="text-xs">Название группы</Label>
+          <Input
+            value={groupName}
+            onChange={e => onGroupNameChange(e.target.value)}
+            placeholder="Infra"
+          />
+          {groupName && (
+            <p className="text-xs text-muted-foreground">
+              Системные цвета: [{groupName}] Semantic/…
+            </p>
+          )}
+        </div>
+      )}
+
+      <div className="space-y-1.5">
+        <Label className="text-xs flex items-center gap-1">
+          Бренды
+          <Tooltip text="Каждый бренд получит свою шкалу Brand/ (50–1000) под своим именем в коллекции.">
+            <SvgIcon svg={iconQuestion} className="text-muted-foreground cursor-default" />
+          </Tooltip>
+        </Label>
+        <div className="space-y-2">
+          {entries.map((entry) => (
+            <div key={entry.id} className="flex items-center gap-2">
+              <Input
+                value={entry.name}
+                onChange={e => setName(entry.id, e.target.value)}
+                placeholder="MyBrand"
+                className="flex-1 min-w-0"
+              />
+              <ColorField value={entry.hex} onChange={hex => setHex(entry.id, hex)} />
+              <button
+                type="button"
+                onClick={() => remove(entry.id)}
+                aria-label="Удалить бренд"
+                className={cn(
+                  'shrink-0 w-9 h-9 rounded-md flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-ring',
+                  entries.length > 1
+                    ? 'text-muted-foreground hover:text-destructive hover:bg-destructive/10'
+                    : 'invisible pointer-events-none',
+                )}
+              >
+                <SvgIcon svg={iconTrash} className="[&_svg]:w-3.5 [&_svg]:h-3.5" />
+              </button>
+            </div>
+          ))}
+        </div>
+        <button
+          type="button"
+          onClick={add}
+          className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <SvgIcon svg={iconPlus} className="[&_svg]:w-3 [&_svg]:h-3" />
+          Добавить бренд
+        </button>
+      </div>
     </div>
   );
 }
@@ -302,14 +410,40 @@ type ToastState = {
 
 function PrivateColorsPhase({ existingBrands }: { existingBrands: BrandCssEntry[] }) {
   const [mode, setMode] = useState<'simple' | 'expert'>('simple');
+  const [expertSub, setExpertSub] = useState<'mono' | 'multi'>('mono');
+  // Mono state
   const [brandName, setBrandName] = useState('');
   const [brandColor, setBrandColor] = useState('#005FF9');
+  // Shared expert overrides (used by both mono and multi)
   const [enabledFamilies, setEnabledFamilies] = useState<Set<ColorFamily>>(new Set(COLOR_FAMILIES));
   const [colorOverrides, setColorOverrides] = useState<Partial<Record<ColorFamily, string>>>({});
+  // Multi state
+  const [mbGroupName, setMbGroupName] = useState('');
+  const [mbEntries, setMbEntries] = useState<MultiBrandEntry[]>(() => [
+    { id: nextId(), name: 'Arcanum', hex: '#A96BFF' },
+    { id: nextId(), name: 'Deploy',  hex: '#3051A6' },
+    { id: nextId(), name: 'IDM',     hex: '#FF5D5D' },
+    { id: nextId(), name: 'ABC',     hex: '#FDD72A' },
+    { id: nextId(), name: 'IDP',     hex: '#FAC1FF' },
+    { id: nextId(), name: 'CMDB',    hex: '#B2F76F' },
+    { id: nextId(), name: 'NOC',     hex: '#15B381' },
+    { id: nextId(), name: 'Nirvana', hex: '#3B7F97' },
+  ]);
+  const [mbNewEntries, setMbNewEntries] = useState<BrandCssEntry[]>([]);
+
   const [status, setStatus] = useState<GenStatus>(null);
   const [newCssEntry, setNewCssEntry] = useState<{ brandName: string; cssContent: string } | null>(null);
   const [toast, setToast] = useState<ToastState>(null);
   const toastTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
+
+  const [errors, setErrors] = useState<Set<string>>(new Set());
+  const brandNameRef = useRef<HTMLInputElement>(null);
+  const groupNameRef = useRef<HTMLInputElement>(null);
+
+  const clearError = (key: string) =>
+    setErrors(prev => { const n = new Set(prev); n.delete(key); return n; });
+
+  const isMulti = mode === 'expert' && expertSub === 'multi';
 
   const showToast = useCallback((variant: 'success' | 'destructive', title: string, description: string) => {
     toastTimers.current.forEach(clearTimeout);
@@ -332,26 +466,62 @@ function PrivateColorsPhase({ existingBrands }: { existingBrands: BrandCssEntry[
       } else if (msg.type === 'generate-error') {
         setStatus({ type: 'error', message: msg.message });
         showToast('destructive', 'Ошибка', msg.message);
+      } else if (msg.type === 'multibrand-done') {
+        setStatus(null);
+        setMbNewEntries(msg.cssEntries);
+        const names = msg.cssEntries.map(e => e.brandName).join(', ');
+        showToast('success', 'Мультибренд создан.', `${msg.varCount} переменных: ${names}.`);
+      } else if (msg.type === 'multibrand-error') {
+        setStatus({ type: 'error', message: msg.message });
+        showToast('destructive', 'Ошибка', msg.message);
       }
     };
     window.addEventListener('message', handler);
     return () => window.removeEventListener('message', handler);
   }, [showToast]);
 
+  const getActiveOverrides = () => enabledFamilies.size > 0
+    ? Object.fromEntries([...enabledFamilies].map(f => [f, colorOverrides[f] ?? DEFAULT_OVERRIDES[f]])) as Partial<Record<ColorFamily, string>>
+    : undefined;
+
   const handleGenerate = useCallback(() => {
+    if (isMulti) {
+      const gn = mbGroupName.trim();
+      if (!gn) {
+        setErrors(new Set(['groupName']));
+        groupNameRef.current?.focus();
+        return;
+      }
+      const validBrands = mbEntries.filter(e => e.name.trim());
+      if (!validBrands.length) return;
+      setErrors(new Set());
+      setStatus('generating');
+      const overrides = getActiveOverrides();
+      send({
+        type: 'generate-multibrand',
+        groupName: gn,
+        brands: validBrands.map(e => ({ name: e.name.trim(), hex: e.hex })),
+        ...(overrides ? { colorOverrides: overrides } : {}),
+      });
+      return;
+    }
     const name = brandName.trim();
-    if (!name) return;
+    if (!name) {
+      setErrors(new Set(['brandName']));
+      brandNameRef.current?.focus();
+      return;
+    }
+    setErrors(new Set());
     setStatus('generating');
-    const overrides = mode === 'expert' && enabledFamilies.size > 0
-      ? Object.fromEntries([...enabledFamilies].map(f => [f, colorOverrides[f] ?? DEFAULT_OVERRIDES[f]]))
-      : undefined;
+    const overrides = mode === 'expert' ? getActiveOverrides() : undefined;
     send({
       type: 'generate-private-colors',
       brandName: name,
       brandHex: brandColor,
-      ...(overrides ? { colorOverrides: overrides as Partial<Record<ColorFamily, string>> } : {}),
+      ...(overrides ? { colorOverrides: overrides } : {}),
     });
-  }, [brandName, brandColor, mode, enabledFamilies, colorOverrides]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [brandName, brandColor, mode, expertSub, enabledFamilies, colorOverrides, mbGroupName, mbEntries]);
 
   const toggleFamily = (f: ColorFamily, on: boolean) => {
     setEnabledFamilies(prev => {
@@ -361,12 +531,14 @@ function PrivateColorsPhase({ existingBrands }: { existingBrands: BrandCssEntry[
     });
   };
 
+  const isGenerating = status === 'generating';
+
   return (
     <div className="relative flex flex-col h-full">
-      {/* Scrollable content */}
       <div className="flex-1 overflow-y-auto p-5 space-y-4">
-        <div className="flex items-center justify-between">
-          <h1 className="text-base font-semibold">Приватные цвета</h1>
+        <h1 className="text-base font-semibold">Приватные цвета</h1>
+
+        <div className="flex items-center gap-2">
           <div className="flex rounded-lg border border-input bg-muted p-0.5 gap-0.5">
             {(['simple', 'expert'] as const).map(m => (
               <button
@@ -384,19 +556,50 @@ function PrivateColorsPhase({ existingBrands }: { existingBrands: BrandCssEntry[
               </button>
             ))}
           </div>
+          {mode === 'expert' && (
+            <>
+              <span className="text-muted-foreground text-xs select-none">:</span>
+              <div className="flex rounded-lg border border-input bg-muted p-0.5 gap-0.5">
+                {(['mono', 'multi'] as const).map(s => (
+                  <button
+                    key={s}
+                    type="button"
+                    onClick={() => setExpertSub(s)}
+                    className={cn(
+                      'px-3 py-1 rounded-md text-xs font-medium transition-all',
+                      expertSub === s
+                        ? 'bg-background text-foreground shadow-sm'
+                        : 'text-muted-foreground hover:text-foreground'
+                    )}
+                  >
+                    {s === 'mono' ? 'Монобренд' : 'Мультибренд'}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
         </div>
 
-        <div className="space-y-1.5">
-          <Label htmlFor="brand-name" className="text-xs">Название бренда</Label>
-          <Input
-            id="brand-name"
-            autoFocus
-            value={brandName}
-            onChange={e => setBrandName(e.target.value)}
-            placeholder="MyBrand"
-          />
-        </div>
+        {/* Brand name — simple or expert mono */}
+        {!isMulti && (
+          <div className="space-y-1.5">
+            <Label htmlFor="brand-name" className="text-xs">Название бренда</Label>
+            <Input
+              ref={brandNameRef}
+              id="brand-name"
+              autoFocus
+              value={brandName}
+              onChange={e => { setBrandName(e.target.value); clearError('brandName'); }}
+              placeholder="MyBrand"
+              className={cn(errors.has('brandName') && 'border-destructive focus-visible:ring-destructive')}
+            />
+            {errors.has('brandName') && (
+              <p className="text-xs text-destructive">Для генерации нужно заполнить название</p>
+            )}
+          </div>
+        )}
 
+        {/* Simple: just brand color */}
         {mode === 'simple' && (
           <div className="space-y-1.5">
             <Label className="text-xs flex items-center gap-1">
@@ -409,20 +612,66 @@ function PrivateColorsPhase({ existingBrands }: { existingBrands: BrandCssEntry[
           </div>
         )}
 
-        {mode === 'expert' && (
-          <ExpertSection
-            overrides={colorOverrides}
-            enabled={enabledFamilies}
-            onToggle={toggleFamily}
-            onColorChange={(f, hex) => setColorOverrides(prev => ({ ...prev, [f]: hex }))}
-            brandColor={brandColor}
-            onBrandColorChange={setBrandColor}
-          />
+        {/* Multi: group name comes before the expert table */}
+        {isMulti && (
+          <div className="space-y-1.5">
+            <Label className="text-xs flex items-center gap-1">
+              Название группы
+              <Tooltip text="Системные цвета попадут в «[Группа] Semantic/», бренды — в «[Группа] Service/».">
+                <SvgIcon svg={iconQuestion} className="text-muted-foreground cursor-default" />
+              </Tooltip>
+            </Label>
+            <Input
+              ref={groupNameRef}
+              value={mbGroupName}
+              onChange={e => { setMbGroupName(e.target.value); clearError('groupName'); }}
+              placeholder="Infra"
+              className={cn(errors.has('groupName') && 'border-destructive focus-visible:ring-destructive')}
+            />
+            {errors.has('groupName') && (
+              <p className="text-xs text-destructive">Для генерации нужно заполнить название группы</p>
+            )}
+            {!errors.has('groupName') && mbGroupName && (
+              <p className="text-xs text-muted-foreground">
+                Системные цвета: [{mbGroupName}] Semantic/…
+              </p>
+            )}
+          </div>
         )}
 
+        {/* Expert: family overrides (Brand row only in mono) */}
+        {mode === 'expert' && (
+          <div className="space-y-2">
+            <Label className="text-xs flex items-center gap-1">
+              Базовые цвета
+              <Tooltip text="Палитры нейтральных оттенков (синий, зелёный…). Если не менять — берутся из Yandex Cloud.">
+                <SvgIcon svg={iconQuestion} className="text-muted-foreground cursor-default" />
+              </Tooltip>
+            </Label>
+            <ExpertSection
+              overrides={colorOverrides}
+              enabled={enabledFamilies}
+              onToggle={toggleFamily}
+              onColorChange={(f, hex) => setColorOverrides(prev => ({ ...prev, [f]: hex }))}
+              brandColor={brandColor}
+              onBrandColorChange={setBrandColor}
+              showBrand={expertSub === 'mono'}
+            />
+          </div>
+        )}
+
+        {/* Multi: brand list (group name already rendered above) */}
+        {isMulti && (
+          <MultiBrandSection
+            groupName={mbGroupName}
+            onGroupNameChange={setMbGroupName}
+            entries={mbEntries}
+            onEntriesChange={setMbEntries}
+            showGroupName={false}
+          />
+        )}
       </div>
 
-      {/* Toast */}
       {toast && (
         <div
           className={cn('absolute left-4 right-4 bottom-20 z-50 pointer-events-none', toast.hiding ? 'toast-leave' : 'toast-enter')}
@@ -438,21 +687,24 @@ function PrivateColorsPhase({ existingBrands }: { existingBrands: BrandCssEntry[
 
       {/* Sticky footer */}
       {(() => {
-        const allBrands = newCssEntry
-          ? [newCssEntry, ...existingBrands.filter(b => b.brandName !== newCssEntry.brandName)]
+        const mergedExisting = isMulti
+          ? [...mbNewEntries, ...existingBrands.filter(b => !mbNewEntries.some(e => e.brandName === b.brandName))]
           : existingBrands;
-        const hasCss = allBrands.length > 0;
+        const singleNew = !isMulti ? newCssEntry : null;
+        const hasCss = mergedExisting.length > 0 || singleNew !== null;
         return (
           <div className={cn('shrink-0 border-t border-border bg-background px-5 py-3', hasCss ? 'flex gap-2' : '')}>
             <Button
               className={cn('gap-2', hasCss ? 'flex-1' : 'w-full')}
-              disabled={!brandName.trim() || status === 'generating'}
+              disabled={isGenerating}
               onClick={handleGenerate}
             >
               <SvgIcon svg={iconPalette} />
-              {status === 'generating' ? 'Генерируем…' : 'Сгенерировать'}
+              {isGenerating ? 'Генерируем…' : 'Сгенерировать'}
             </Button>
-            {hasCss && <CssDownloadSection brands={existingBrands} newEntry={newCssEntry} className="flex-1" />}
+            {hasCss && (
+              <CssDownloadSection brands={mergedExisting} newEntry={singleNew} className="flex-1" />
+            )}
           </div>
         );
       })()}

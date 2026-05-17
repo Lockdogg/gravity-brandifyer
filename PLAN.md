@@ -55,6 +55,19 @@ Gravity UI имеет публичный пакет `@gravity-ui/uikit-themer`, 
 
 ### 4.1. Что плагин записывает в либу
 
+#### Multi-brand (Phase 1 extension)
+
+Режим для команд с несколькими сервисными брендами (например, команда Infra: Arcanum, Deploy, IDM, …). Запускается в том же пустом PC-файле, что и обычный Phase 1.
+
+Структура переменных:
+
+- **Системные цвета** (один раз на группу): `[GroupName] Semantic/<Theme>/<Family>/<Suffix>` — те же ~272 системных цвета на тему, с поддержкой color-family overrides из Эксперт-режима.
+- **Шкала бренда** (для каждого бренда): `[GroupName] Service/<BrandName>/<Theme>/Brand/<Suffix>` — Brand 50..1000 solid+alpha.
+
+`webSyntax()` использует последние два сегмента пути (`parts[n-2]` / `parts[n-1]`) для генерации `--g-color-private-<family>-<suffix>` — работает и для 4-сегментных, и для 5-сегментных имён.
+
+`readExistingBrandCss()` ищет сегмент `Brand` через `indexOf`, поэтому правильно читает обратно как обычные, так и Service-брендированные переменные.
+
 #### Phase 1 — файл приватных цветов нового бренда
 
 > **Изменение архитектуры:** сначала планировали записывать только шкалу акцентного цвета (~31 переменная) прямо в коллекцию Private Colors основной либы. Затем решили выносить приватные цвета каждого нового бренда в **отдельный файл-либу** — потому что файл с приватными цветами должен быть самодостаточным и полным, как у существующих брендов (Yandex Cloud, Gravity и т.д.), которые тоже имеют свои отдельные файлы. Локальная запись в главный файл нарушала бы эту конвенцию.
@@ -202,12 +215,13 @@ gravity-brandifyer/
 │   └── lib-dumps/
 ├── src/
 │   ├── main/                 # main thread (Figma side)
-│   │   ├── index.ts          # entry, message handling (ui-ready handshake)
+│   │   ├── index.ts          # entry, message routing
 │   │   ├── inspect.ts        # фаза-детект: private-colors vs main-lib
 │   │   ├── themer-bridge.ts  # generateBrandScale, generateFamilyScale
-│   │   ├── writer.ts         # writePrivateColorsFull: ~1212 vars + WEB code syntax
-│   │   ├── css-export.ts     # generateBrandCss (brand scale + family overrides)
-│   │   ├── reader.ts         # readExistingBrandCss — читает уже созданные бренды
+│   │   ├── writer.ts         # writePrivateColorsFull (~1212 vars) + writeMultiBrandPack
+│   │   ├── writer-phase2.ts  # writeAppearanceGroup + writeBrandMode (Phase 2)
+│   │   ├── css-export.ts     # generateBrandCss + generatePhase2Css
+│   │   ├── reader.ts         # readExistingBrandCss + readExistingBrandingCss
 │   │   └── data/
 │   │       └── yc-base-colors.json   # дамп системных цветов YC
 │   ├── ui/                   # UI iframe
@@ -263,13 +277,13 @@ Claude Code при работе в репозитории автоматичес
 - [x] Milestone 1 — Lib inspection (phase auto-detect)
 - [x] Milestone 2 — Themer + HC blend
 - [x] Milestone 4 (Phase 1) — `writePrivateColorsFull` (~1212 vars), WEB code syntax, CSS export + family overrides
-- [x] **UI Phase 1** — React 18 + Tailwind CSS v3 + shadcn/ui. Canvas HSV color picker. Simple/Expert режимы. Toast-уведомления. Sticky footer с иконками Gravity.
-- [x] **Expert mode (Phase 1)** — 6 хроматических семейств с color overrides, все включены по умолчанию. CSS экспорт включает все переопределённые семейства.
-- [x] **Milestone 4 (Phase 2)** — `writeAppearanceGroup` + `writeBrandMode` в `writer-phase2.ts`. Appearance group + Brand mode работают. Базовый кейс (новый бренд → своя PC-либа) проверен.
-- [x] **UI Phase 2** — `MainLibPhase`: ввод имени бренда + `<select>` выбора PC-библиотеки (все подключённые, кроме icon-либ). Прогресс-бар с fun-messages. Toast.
+- [x] **Multi-brand (Phase 1 extension)** — `writeMultiBrandPack` в `writer.ts`. Системные цвета под `[GroupName] Semantic/`, шкалы брендов под `[GroupName] Service/<Brand>/`. `readExistingBrandCss` поддерживает оба паттерна. `generate-multibrand` message + CSS per brand.
+- [x] **UI Phase 1** — React 18 + Tailwind CSS v3 + shadcn/ui. Canvas HSV color picker. Режимы Простой/Эксперт под заголовком. Эксперт: саб-тогл [Монобренд|Мультибренд]. Toast, sticky footer, CSS-дропдаун с шевроном, тултипы на лейблах, валидация-при-клике с фокусом на ошибочное поле.
+- [x] **Milestone 4 (Phase 2)** — `writeAppearanceGroup` + `writeBrandMode` в `writer-phase2.ts`. Appearance group + Brand mode работают. Базовый кейс проверен.
+- [x] **UI Phase 2** — `MainLibPhase`: ввод имени бренда + `<select>` выбора PC-библиотеки. Прогресс-бар. Toast. CSS-экспорт через `generatePhase2Css`.
 - [ ] Milestone 3 — Preview UI — пропущен (согласовано, проще подправить в Figma)
-- [ ] Milestone 5 — Wizard Phase 2 UX: выбор базового бренда (сейчас хардкод `existingBrands[0]`), шаг подтверждения
-- [ ] Milestone 7 — Expert mode Phase 2 (дополнительные кейсы, валидация edge cases)
+- [ ] Milestone 5 — Wizard Phase 2 UX: выбор базового бренда (сейчас дефолт — первый из списка)
+- [ ] Milestone 7 — Expert mode Phase 2 (edge cases, валидация)
 - [ ] Milestone 8 — Docs, polish, publish
 
 ### Milestone 0 — Bootstrap репозитория

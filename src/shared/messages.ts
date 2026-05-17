@@ -12,10 +12,13 @@ export type MainToUiMessage =
   | { type: 'generate-error'; message: string }
   | { type: 'phase2-progress'; current: number; total: number }
   | { type: 'phase2-done'; brandName: string; varCount: number; cssContent: string }
-  | { type: 'phase2-error'; message: string };
+  | { type: 'phase2-error'; message: string }
+  | { type: 'multibrand-done'; varCount: number; cssEntries: BrandCssEntry[] }
+  | { type: 'multibrand-error'; message: string };
 
 export type UiToMainMessage =
   | { type: 'ui-ready' }
   | { type: 'close' }
   | { type: 'generate-private-colors'; brandName: string; brandHex: string; colorOverrides?: Partial<Record<ColorFamily, string>> }
+  | { type: 'generate-multibrand'; groupName: string; brands: Array<{ name: string; hex: string }>; colorOverrides?: Partial<Record<ColorFamily, string>> }
   | { type: 'generate-phase2'; brandName: string; baseBrandName: string; pcLibKey: string };

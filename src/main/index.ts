@@ -1,7 +1,7 @@
 import type { UiToMainMessage } from '../shared/messages';
 import { inspectLibrary, InspectError } from './inspect';
 import { generateBrandScale } from './themer-bridge';
-import { writePrivateColorsFull } from './writer';
+import { writePrivateColorsFull, writeMultiBrandPack } from './writer';
 import { writeAppearanceGroup, writeBrandMode } from './writer-phase2';
 import { generateBrandCss, generatePhase2Css } from './css-export';
 import { readExistingBrandCss, readExistingBrandingCss } from './reader';
@@ -71,6 +71,21 @@ figma.ui.onmessage = (msg: UiToMainMessage) => {
       } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
         figma.ui.postMessage({ type: 'phase2-error', message });
+      }
+    })();
+  } else if (msg.type === 'generate-multibrand') {
+    const { groupName, brands, colorOverrides } = msg;
+    (async () => {
+      try {
+        const { count, brandScales } = await writeMultiBrandPack(groupName, brands, colorOverrides);
+        const cssEntries = brandScales.map(({ name, scale }) => ({
+          brandName: name,
+          cssContent: generateBrandCss(name, scale),
+        }));
+        figma.ui.postMessage({ type: 'multibrand-done', varCount: count, cssEntries });
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        figma.ui.postMessage({ type: 'multibrand-error', message: `Не удалось создать переменные: ${message}` });
       }
     })();
   } else if (msg.type === 'generate-private-colors') {

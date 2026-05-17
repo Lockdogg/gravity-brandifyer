@@ -76,17 +76,27 @@ Communication via `postMessage`. All message types declared in `src/shared/messa
 - **`docs/lib-dumps/`** — JSON dumps of the existing lib for reference and tests.
 - **`docs/themer-output-example.css`** — example Themer output. Our CSS export must match this format.
 
+## Multi-brand mode (Phase 1 extension)
+
+In addition to single-brand Phase 1, the plugin supports generating a **group of service brands** in one shot:
+
+- **System colors** → `[GroupName] Semantic/<Theme>/<Family>/<Suffix>` (copied from YC base, overridable via Expert color families)
+- **Brand scale per brand** → `[GroupName] Service/<BrandName>/<Theme>/Brand/<Suffix>`
+
+`webSyntax()` in `writer.ts` always derives family/suffix from the **last two path segments** — works for both 4-part regular names and 5-part Service-prefixed names.
+
+`readExistingBrandCss()` in `reader.ts` uses `parts.indexOf('Brand')` to locate the Brand segment, then reads brand name as `parts[brandIdx-2]` and theme as `parts[brandIdx-1]` — handles both naming patterns.
+
 ## Current state
 
 - [x] Milestone 0: Bootstrap
-- [x] Milestone 1: Lib inspection
-- [x] Milestone 2: Themer + HC blend — `generatePrivateColors` via `themer-bridge.ts`; HC themes use FALLBACK_BACKGROUNDS (no runtime read yet — sufficient for Phase 1)
-- [ ] Milestone 3: Preview UI
-- [~] Milestone 4: Variable writer — Phase 1 done (`writePrivateColorsFull`, ~1212 vars); Phase 2 (Appearance + Brand mode) not started
-- [ ] Milestone 5: Wizard end-to-end
-- [ ] Milestone 6: CSS export
-- [ ] Milestone 7: Expert mode (custom Private Colors) — color-family overrides for Phase 1 already done; external lib scope still pending
+- [x] Milestone 1: Lib inspection (phase auto-detect)
+- [x] Milestone 2: Themer + HC blend — `themer-bridge.ts`; HC uses FALLBACK_BACKGROUNDS
+- [x] Milestone 4 Phase 1: `writePrivateColorsFull` (~1212 vars), WEB code syntax, CSS export + family overrides
+- [x] Milestone 4 Phase 2: `writeAppearanceGroup` + `writeBrandMode` in `writer-phase2.ts`; CSS export via `generatePhase2Css`
+- [x] Multi-brand: `writeMultiBrandPack` in `writer.ts`; `generate-multibrand` message; CSS per brand
+- [x] Phase 1 UI: Простой/Эксперт modes under title; Expert sub-toggle [Монобренд|Мультибренд]; 6 chromatic family overrides; MultiBrandSection (group name + brand list); validate-on-click; tooltips; CSS download dropdown with chevron
+- [x] Phase 2 UI: `MainLibPhase` — brand name input, base brand selector, PC-library `<select>`, progress bar, toast
+- [ ] Milestone 3: Preview UI (skipped — easier to adjust in Figma)
+- [ ] Milestone 5: Phase 2 UX polish (base brand selector currently defaults to first existing brand)
 - [ ] Milestone 8: Docs, polish, publish
-
-### Phase 1 UI — complete
-Brand name + color, Simple/Expert segmented control (top), Expert mode with 6 chromatic family overrides + "select all", generate button, toast notifications, help tooltip.

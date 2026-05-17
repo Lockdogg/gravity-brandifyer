@@ -27,13 +27,15 @@ export async function readExistingBrandCss(): Promise<BrandCssEntry[]> {
   const brandScales = new Map<string, BrandScaleByTheme>();
 
   for (const v of brandVars) {
-    // Pattern: "<brandName>/<themePath>/Brand/<suffix>"
+    // Pattern A (regular):  "<brandName>/<themePath>/Brand/<suffix>"
+    // Pattern B (service):  "[Group] Service/<brandName>/<themePath>/Brand/<suffix>"
     const parts = v.name.split('/');
-    if (parts.length < 4 || parts[2] !== 'Brand') continue;
+    const brandSegIdx = parts.indexOf('Brand');
+    if (brandSegIdx < 2) continue; // need at least brandName + theme before Brand
 
-    const brandName = parts[0]!;
-    const themePath = parts[1]!;
-    const suffix    = parts.slice(3).join('/');
+    const brandName = parts[brandSegIdx - 2]!;
+    const themePath = parts[brandSegIdx - 1]!;
+    const suffix    = parts.slice(brandSegIdx + 1).join('/');
 
     const mode = THEME_FROM_PATH[themePath];
     if (!mode) continue;
