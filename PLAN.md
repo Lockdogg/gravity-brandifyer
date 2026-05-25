@@ -152,12 +152,15 @@ Gravity UI имеет публичный пакет `@gravity-ui/uikit-themer`, 
 
 ### 4.4. CSS экспорт
 
-Формат — тот же, что у Themer'а ([образец в `docs/themer-output-example.css`](docs/themer-output-example.css), приведённый из исходного обсуждения):
+Формат — тот же, что у Themer'а ([образец в `docs/themer-output-example.css`](docs/themer-output-example.css)):
 
-- `.g-root` — общие шрифты.
 - `.g-root_theme_light`, `.g-root_theme_dark`, `.g-root_theme_light-hc`, `.g-root_theme_dark-hc` — частные переменные `--g-color-private-brand-*` + переопределения Branding-токенов (`--g-color-base-brand`, `--g-color-text-link` и т.д.).
 
-Плагин формирует строку CSS и предлагает скачать как `<brand-name>.theme.css`.
+**Phase 1** — скачивается из вкладки Эксперт → CSS дропдаун. Имя файла: `brandname_private_colors.css`. Содержит только шкалу `--g-color-private-brand-*`.
+
+**Phase 2** — вкладка «Скачать CSS» в `MainLibPhase`. Имя файла: `brandname_theme_YYYYMMDD_HHMM.css` (таймстемп чтобы не перезаписывать). Содержит **оба слоя** в одном файле: сначала Phase 1 private colors, затем Phase 2 branding tokens. Phase 1 часть реконструируется из alias-цепочки (`Branding/Base Brand` → `Brand/550 Solid` → hex → `generateBrandScale()`).
+
+Также доступно **копирование в буфер обмена** через `CopyButton` (с 1.5с feedback). Clipboard API (`navigator.clipboard`) заблокирован в Figma plugin iframe — используется fallback через `document.execCommand('copy')` с offscreen-textarea.
 
 ## 5. Пользовательский сценарий (визард)
 
@@ -280,7 +283,10 @@ Claude Code при работе в репозитории автоматичес
 - [x] **Multi-brand (Phase 1 extension)** — `writeMultiBrandPack` в `writer.ts`. Системные цвета под `[GroupName] Semantic/`, шкалы брендов под `[GroupName] Service/<Brand>/`. `readExistingBrandCss` поддерживает оба паттерна. `generate-multibrand` message + CSS per brand.
 - [x] **UI Phase 1** — React 18 + Tailwind CSS v3 + shadcn/ui. Canvas HSV color picker. Режимы Простой/Эксперт под заголовком. Эксперт: саб-тогл [Монобренд|Мультибренд]. Toast, sticky footer, CSS-дропдаун с шевроном, тултипы на лейблах, валидация-при-клике с фокусом на ошибочное поле.
 - [x] **Milestone 4 (Phase 2)** — `writeAppearanceGroup` + `writeBrandMode` в `writer-phase2.ts`. Appearance group + Brand mode работают. Базовый кейс проверен.
-- [x] **UI Phase 2** — `MainLibPhase`: ввод имени бренда + `<select>` выбора PC-библиотеки. Прогресс-бар. Toast. CSS-экспорт через `generatePhase2Css`.
+- [x] **UI Phase 2** — `MainLibPhase` с сегмент-контролом «Генерация / Скачать CSS». Вкладка генерации: ввод имени бренда, `<select>` PC-библиотеки, прогресс-бар, toast. Вкладка скачивания: таблица всех брендов (существующих + только что сгенерированных), кнопки [↓ Скачать] и [⎘ Копировать] на каждую строку. Автопереключение на вкладку скачивания после успешной генерации.
+- [x] **CSS export Phase 2** — комбинированный CSS (Phase 1 private colors + Phase 2 branding tokens) в одном файле. Phase 1 реконструируется из alias-цепочки: `Branding/Base Brand` → `Brand/550 Solid` → RGBA → hex → `generateBrandScale()`. `getLocalVariablesAsync` не возвращает импортированные переменные из внешних либ — поэтому используется `getVariableByIdAsync` через `externalMap`.
+- [x] **Clipboard** — `CopyButton` пробует `navigator.clipboard.writeText()`, при отказе (Figma iframe блокирует `clipboard-write`) откатывается на `document.execCommand('copy')` через скрытый textarea вне экрана.
+- [x] **Имена файлов** — Phase 1: `brandname_private_colors.css`; Phase 2: `brandname_theme_YYYYMMDD_HHMM.css`.
 - [ ] Milestone 3 — Preview UI — пропущен (согласовано, проще подправить в Figma)
 - [ ] Milestone 5 — Wizard Phase 2 UX: выбор базового бренда (сейчас дефолт — первый из списка)
 - [ ] Milestone 7 — Expert mode Phase 2 (edge cases, валидация)
