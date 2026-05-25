@@ -316,8 +316,15 @@ export async function writeAppearanceGroup(
         }
       }
 
-      // Fallback: copy the base var's raw value (e.g. RGBA for Base Background when pcName is null)
-      newVar.setValueForMode(modeId, (rawValue ?? { r: 0, g: 0, b: 0, a: 1 }) as VariableValue);
+      // Fallback: copy the base var's raw value (e.g. RGBA for Base Background when pcName is null).
+      // If rawValue is a VARIABLE_ALIAS, only set it when the target ID is a known local variable —
+      // stale or external IDs cause Figma to throw "cannot convert to object".
+      const fallback = rawValue ?? { r: 0, g: 0, b: 0, a: 1 };
+      if (fallback && typeof fallback === 'object' && 'type' in fallback && (fallback as VariableAlias).type === 'VARIABLE_ALIAS') {
+        const aliasId = (fallback as VariableAlias).id;
+        if (!localVarMap.has(aliasId)) continue; // skip unresolvable alias
+      }
+      newVar.setValueForMode(modeId, fallback as VariableValue);
     }
 
     onProgress(baseBrandVars.length + keyList.length + i + 1, totalSteps);
