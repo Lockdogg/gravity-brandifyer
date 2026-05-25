@@ -7,6 +7,56 @@ import { generateBrandCss, generatePhase2Css } from './css-export';
 import { readExistingBrandCss, readExistingBrandingCss } from './reader';
 import { COLLECTION_NAMES } from '../shared/constants';
 
+// Theme-level names that appear as top-level prefix in some libraries (DataLens)
+const PC_THEME_NAMES = new Set(['Light', 'Dark', 'Light-HC', 'Dark-HC', 'Light HC', 'Dark HC']);
+// Color scale value names: "50", "550 Solid", "100 Alpha", etc.
+const SCALE_RE = /^\d+(\s+(Solid|Alpha))?$/i;
+
+function detectPcBrands(
+  entries: Array<{ vars: LibraryVariable[]; collectionKey: string }>,
+  fallbackName: string,
+): Array<{ display: string; prefix: string; collectionKey: string }> {
+  const seen = new Set<string>();
+  const regularBrands: Array<{ display: string; prefix: string; collectionKey: string }> = [];
+  const serviceBrands: Array<{ display: string; prefix: string; collectionKey: string }> = [];
+
+  for (const { vars, collectionKey } of entries) {
+    const names = vars.map(v => v.name);
+    const level1 = [...new Set(names.map(n => n.split('/')[0] ?? '').filter(Boolean))];
+
+    // Expand [X] Service groups → sub-brands at level-2
+    const serviceGroups = level1.filter(p => /\bService\b/i.test(p));
+    for (const sg of serviceGroups) {
+      const subBrands = [...new Set(
+        names
+          .filter(n => n.startsWith(sg + '/'))
+          .map(n => n.split('/')[1] ?? '')
+          .filter(s => s && !PC_THEME_NAMES.has(s) && !SCALE_RE.test(s)),
+      )];
+      for (const sub of subBrands) {
+        const prefix = `${sg}/${sub}`;
+        if (!seen.has(prefix)) { seen.add(prefix); serviceBrands.push({ display: sub, prefix, collectionKey }); }
+      }
+    }
+
+    // Regular brand prefixes
+    for (const p of level1) {
+      if (PC_THEME_NAMES.has(p) || SCALE_RE.test(p) || /\bSemantic\b/i.test(p) || /\bService\b/i.test(p)) continue;
+      if (!seen.has(p)) { seen.add(p); regularBrands.push({ display: p, prefix: p, collectionKey }); }
+    }
+  }
+
+  const result = [...regularBrands, ...serviceBrands];
+
+  // Fallback for libraries where vars have no brand prefix (e.g. DataLens: Light/Blue/550…)
+  if (result.length === 0) {
+    const key = entries[0]?.collectionKey ?? '';
+    return [{ display: fallbackName || 'Unknown', prefix: '', collectionKey: key }];
+  }
+
+  return result;
+}
+
 figma.showUI(__html__, { width: 480, height: 640, title: 'Gravity Brandifyer' });
 
 figma.ui.onmessage = (msg: UiToMainMessage) => {
@@ -39,8 +89,35 @@ figma.ui.onmessage = (msg: UiToMainMessage) => {
     })();
   } else if (msg.type === 'close') {
     figma.closePlugin();
+  } else if (msg.type === 'request-lib-brands') {
+    const { libKey } = msg;
+    (async () => {
+      try {
+        const libCollections = await figma.teamLibrary.getAvailableLibraryVariableCollectionsAsync();
+        const anchor = libCollections.find(c => c.key === libKey);
+        const collectionName = anchor?.name ?? '';
+
+        // Query ALL collections from the same library file (same libraryName) in parallel.
+        // This works around Figma's per-collection variable limit: if a file has N brands
+        // each stored as a separate published collection, all brands appear in the selector.
+        const siblings = libCollections.filter(c => c.libraryName === anchor?.libraryName);
+        const fetched = await Promise.all(
+          siblings.map(async c => ({
+            collectionKey: c.key,
+            vars: await figma.teamLibrary.getVariablesInLibraryCollectionAsync(c.key),
+          }))
+        );
+
+        const brands = detectPcBrands(fetched, collectionName);
+        figma.ui.postMessage({ type: 'lib-brands', libKey, brands, collectionName });
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        console.error('[Gravity Brandifyer] request-lib-brands error:', message);
+        figma.ui.postMessage({ type: 'lib-brands', libKey, brands: [], collectionName: '' });
+      }
+    })();
   } else if (msg.type === 'generate-phase2') {
-    const { brandName, baseBrandName, pcLibKey } = msg;
+    const { brandName, baseBrandName, pcLibKey, pcBrandName } = msg;
     (async () => {
       try {
         const collections = await figma.variables.getLocalVariableCollectionsAsync();
@@ -63,7 +140,7 @@ figma.ui.onmessage = (msg: UiToMainMessage) => {
         const onBrandProgress = (c: number, t: number) =>
           figma.ui.postMessage({ type: 'phase2-progress', current: 75 + (t > 0 ? Math.round((c / t) * 25) : 0), total: 100 });
 
-        const { count: appCount, brandingEntries } = await writeAppearanceGroup(brandName, baseBrandName, appearanceColl, pcLibKey, onAppProgress);
+        const { count: appCount, brandingEntries } = await writeAppearanceGroup(brandName, baseBrandName, appearanceColl, pcLibKey, pcBrandName, onAppProgress);
         const brandCount = await writeBrandMode(brandName, baseBrandName, brandColl, appearanceColl, onBrandProgress);
 
         const cssContent = generatePhase2Css(brandName, brandingEntries, appearanceColl.modes);

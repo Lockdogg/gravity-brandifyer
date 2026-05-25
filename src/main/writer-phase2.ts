@@ -95,6 +95,16 @@ function lookupExtVar(
   // Theme-stripped fallback (new-style: theme in Figma mode)
   if (hasTheme) {
     extVar = externalVarMap.get(`${actualPcPrefix}/${strippedParts.join('/')}`);
+    if (extVar) return extVar;
+  }
+  // Prefix-less fallback (e.g. DataLens: vars named Light/Blue/550 with no brand prefix)
+  if (actualPcPrefix === '') {
+    const bare = suffix.startsWith('/') ? suffix.slice(1) : suffix;
+    extVar = externalVarMap.get(bare);
+    if (extVar) return extVar;
+    if (hasTheme) {
+      extVar = externalVarMap.get(strippedParts.join('/'));
+    }
   }
   return extVar;
 }
@@ -111,6 +121,7 @@ export async function writeAppearanceGroup(
   baseBrandHint: string,
   appearanceColl: VariableCollection,
   pcLibKey: string,
+  pcBrandName: string,
   onProgress: ProgressCallback,
 ): Promise<{ count: number; brandingEntries: BrandingEntry[] }> {
   const allColorVars = await figma.variables.getLocalVariablesAsync('COLOR');
@@ -128,10 +139,7 @@ export async function writeAppearanceGroup(
   if (externalLibVars.length === 0) throw new Error('Выбранная библиотека не содержит переменных');
 
   const externalVarMap = new Map<string, LibraryVariable>(externalLibVars.map(v => [v.name, v]));
-  // Detect the actual prefix from the library (may differ from brandName)
-  const actualPcPrefix =
-    [...new Set([...externalVarMap.keys()].map(n => n.split('/')[0] ?? '').filter(Boolean))][0]
-    ?? brandName;
+  const actualPcPrefix = pcBrandName;
 
   const existingNewVars = new Map<string, Variable>(
     allColorVars

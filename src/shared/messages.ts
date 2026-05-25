@@ -14,11 +14,13 @@ export type MainToUiMessage =
   | { type: 'phase2-done'; brandName: string; varCount: number; cssContent: string }
   | { type: 'phase2-error'; message: string }
   | { type: 'multibrand-done'; varCount: number; cssEntries: BrandCssEntry[] }
-  | { type: 'multibrand-error'; message: string };
+  | { type: 'multibrand-error'; message: string }
+  | { type: 'lib-brands'; libKey: string; brands: Array<{ display: string; prefix: string; collectionKey: string }>; collectionName: string };
 
 export type UiToMainMessage =
   | { type: 'ui-ready' }
   | { type: 'close' }
   | { type: 'generate-private-colors'; brandName: string; brandHex: string; colorOverrides?: Partial<Record<ColorFamily, string>> }
   | { type: 'generate-multibrand'; groupName: string; brands: Array<{ name: string; hex: string }>; colorOverrides?: Partial<Record<ColorFamily, string>> }
-  | { type: 'generate-phase2'; brandName: string; baseBrandName: string; pcLibKey: string };
+  | { type: 'generate-phase2'; brandName: string; baseBrandName: string; pcLibKey: string; pcBrandName: string }
+  | { type: 'request-lib-brands'; libKey: string };

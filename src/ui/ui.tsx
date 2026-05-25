@@ -729,6 +729,9 @@ function MainLibPhase({ info, existingBrandsCss }: { info: LibInfo; existingBran
   const { connectedLibs } = info;
   const [brandName, setBrandName] = useState('');
   const [pcLibKey, setPcLibKey] = useState(connectedLibs[0]?.key ?? '');
+  const [pcBrands, setPcBrands] = useState<Array<{ display: string; prefix: string; collectionKey: string }> | 'loading'>('loading');
+  const [pcBrandName, setPcBrandName] = useState('');
+  const [pcBrandCustom, setPcBrandCustom] = useState(false);
   const [status, setStatus] = useState<Phase2Status>('idle');
   const [progress, setProgress] = useState(0);
   const [msgIdx, setMsgIdx] = useState(0);
@@ -736,6 +739,7 @@ function MainLibPhase({ info, existingBrandsCss }: { info: LibInfo; existingBran
   const [toast, setToast] = useState<ToastState>(null);
   const toastTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const lastAutoFill = useRef('');
 
   const showToast = useCallback((variant: 'success' | 'destructive', title: string, description: string) => {
     toastTimers.current.forEach(clearTimeout);
@@ -747,6 +751,13 @@ function MainLibPhase({ info, existingBrandsCss }: { info: LibInfo; existingBran
   }, []);
 
   const isGenerating = status === 'generating';
+
+  useEffect(() => {
+    if (!pcLibKey) return;
+    setPcBrands('loading');
+    setPcBrandCustom(false);
+    send({ type: 'request-lib-brands', libKey: pcLibKey });
+  }, [pcLibKey]);
 
   useEffect(() => {
     if (isGenerating) {
@@ -764,7 +775,23 @@ function MainLibPhase({ info, existingBrandsCss }: { info: LibInfo; existingBran
     const handler = (event: MessageEvent) => {
       const msg = event.data?.pluginMessage as MainToUiMessage | undefined;
       if (!msg) return;
-      if (msg.type === 'phase2-progress') {
+      if (msg.type === 'lib-brands') {
+        if (msg.libKey === pcLibKey) {
+          setPcBrands(msg.brands);
+          const first = msg.brands[0];
+          if (first) {
+            setPcBrandName(first.prefix);
+            setPcLibKey(first.collectionKey);
+            setBrandName(prev => {
+              if (prev === '' || prev === lastAutoFill.current) {
+                lastAutoFill.current = first.display;
+                return first.display;
+              }
+              return prev;
+            });
+          }
+        }
+      } else if (msg.type === 'phase2-progress') {
         setProgress(msg.total > 0 ? Math.round((msg.current / msg.total) * 100) : 0);
       } else if (msg.type === 'phase2-done') {
         setStatus({ type: 'done', brandName: msg.brandName, varCount: msg.varCount, cssContent: msg.cssContent });
@@ -778,15 +805,15 @@ function MainLibPhase({ info, existingBrandsCss }: { info: LibInfo; existingBran
     };
     window.addEventListener('message', handler);
     return () => window.removeEventListener('message', handler);
-  }, [showToast]);
+  }, [showToast, pcLibKey]);
 
   const handleGenerate = useCallback(() => {
     const name = brandName.trim();
-    if (!name) return;
+    if (!name || !pcBrandName) return;
     setStatus('generating');
     setProgress(0);
-    send({ type: 'generate-phase2', brandName: name, baseBrandName: baseBrand, pcLibKey });
-  }, [brandName, baseBrand, pcLibKey]);
+    send({ type: 'generate-phase2', brandName: name, baseBrandName: baseBrand, pcLibKey, pcBrandName });
+  }, [brandName, baseBrand, pcLibKey, pcBrandName]);
 
   const nameExists = info.existingBrands.includes(brandName.trim());
 
@@ -823,7 +850,7 @@ function MainLibPhase({ info, existingBrandsCss }: { info: LibInfo; existingBran
                 id="p2-brand-name"
                 autoFocus
                 value={brandName}
-                onChange={e => setBrandName(e.target.value)}
+                onChange={e => { lastAutoFill.current = ''; setBrandName(e.target.value); }}
                 placeholder="MyBrand"
                 onKeyDown={e => { if (e.key === 'Enter' && brandName.trim() && pcLibKey && !nameExists) handleGenerate(); }}
               />
@@ -849,6 +876,79 @@ function MainLibPhase({ info, existingBrandsCss }: { info: LibInfo; existingBran
                 </select>
               )}
             </div>
+
+            {pcLibKey && (
+              <div className="space-y-1.5">
+                <Label htmlFor="p2-pc-brand" className="text-xs">Бренд в библиотеке</Label>
+                {pcBrands === 'loading' ? (
+                  <div className="h-9 rounded-md border border-input bg-muted animate-pulse" />
+                ) : pcBrands.length > 0 && !pcBrandCustom ? (
+                  <>
+                    <select
+                      id="p2-pc-brand"
+                      value={pcBrandName}
+                      onChange={e => {
+                        const val = e.target.value;
+                        if (val === '__custom__') {
+                          setPcBrandCustom(true);
+                          setPcBrandName('');
+                          lastAutoFill.current = '';
+                          return;
+                        }
+                        const brands = pcBrands as Array<{ display: string; prefix: string; collectionKey: string }>;
+                        const brand = brands.find(b => b.prefix === val);
+                        setPcBrandName(val);
+                        if (brand?.collectionKey) setPcLibKey(brand.collectionKey);
+                        setBrandName(prev => {
+                          if (brand && (prev === '' || prev === lastAutoFill.current)) {
+                            lastAutoFill.current = brand.display;
+                            return brand.display;
+                          }
+                          return prev;
+                        });
+                      }}
+                      className="w-full h-9 rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-1 focus:ring-ring"
+                    >
+                      {(pcBrands as Array<{ display: string; prefix: string; collectionKey: string }>).map(b => (
+                        <option key={`${b.collectionKey}:${b.prefix}`} value={b.prefix}>{b.display}</option>
+                      ))}
+                      <option disabled>──────────</option>
+                      <option value="__custom__">Ввести другой…</option>
+                    </select>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex gap-2">
+                      <Input
+                        id="p2-pc-brand"
+                        value={pcBrandName}
+                        onChange={e => setPcBrandName(e.target.value)}
+                        placeholder="MyBrand"
+                        autoFocus={pcBrandCustom}
+                        className="flex-1"
+                      />
+                      {pcBrands !== 'loading' && (pcBrands as Array<unknown>).length > 0 && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setPcBrandCustom(false);
+                            const first = (pcBrands as Array<{ display: string; prefix: string; collectionKey: string }>)[0]!;
+                            setPcBrandName(first.prefix);
+                            setPcLibKey(first.collectionKey);
+                          }}
+                          className="text-xs text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
+                        >
+                          ← К списку
+                        </button>
+                      )}
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Точный префикс переменных: <span className="font-mono">MyBrand</span>/Light/Brand/…
+                    </p>
+                  </>
+                )}
+              </div>
+            )}
           </>
         )}
       </div>
@@ -875,7 +975,7 @@ function MainLibPhase({ info, existingBrandsCss }: { info: LibInfo; existingBran
           <div className={cn('shrink-0 border-t border-border bg-background px-5 py-3', hasCss ? 'flex gap-2' : '')}>
             <Button
               className={cn('gap-2', hasCss ? 'flex-1' : 'w-full')}
-              disabled={!brandName.trim() || !pcLibKey || isGenerating || nameExists}
+              disabled={!brandName.trim() || !pcLibKey || !pcBrandName.trim() || pcBrands === 'loading' || isGenerating || nameExists}
               onClick={handleGenerate}
             >
               <SvgIcon svg={iconPalette} />
