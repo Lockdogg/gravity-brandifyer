@@ -163,14 +163,23 @@ function ColorField({
 
 // ─── CSS Download Section ─────────────────────────────────────────────────────
 
-function copyText(text: string) {
-  const el = document.createElement('textarea');
-  el.value = text;
-  el.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand('copy');
-  document.body.removeChild(el);
+function copyText(text: string): Promise<boolean> {
+  if (navigator.clipboard?.writeText) {
+    return navigator.clipboard.writeText(text).then(() => true, () => false);
+  }
+  return new Promise(resolve => {
+    const el = document.createElement('textarea');
+    el.value = text;
+    el.style.cssText = 'position:fixed;left:-9999px;top:0;width:2px;height:2px;padding:0;border:none;outline:none;box-shadow:none;background:transparent';
+    document.body.appendChild(el);
+    el.focus({ preventScroll: true });
+    el.select();
+    el.setSelectionRange(0, text.length);
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch {}
+    el.remove();
+    resolve(ok);
+  });
 }
 
 function CopyButton({ cssContent }: { cssContent: string }) {
@@ -180,9 +189,12 @@ function CopyButton({ cssContent }: { cssContent: string }) {
       type="button"
       className="flex items-center gap-1 px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors whitespace-nowrap"
       onClick={() => {
-        copyText(cssContent);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1500);
+        copyText(cssContent).then(ok => {
+          if (ok) {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 1500);
+          }
+        });
       }}
     >
       <SvgIcon svg={copied ? iconCopyCheck : iconCopy} />
@@ -970,7 +982,17 @@ function MainLibPhase({ info, existingBrandsCss }: { info: LibInfo; existingBran
 
                 {pcLibKey && (
                   <div className="space-y-1.5">
-                    <Label htmlFor="p2-pc-brand" className="text-xs">Бренд в библиотеке</Label>
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="p2-pc-brand" className="text-xs">Бренд в библиотеке</Label>
+                      <button
+                        type="button"
+                        title="Обновить список брендов"
+                        onClick={() => { setPcBrands('loading'); send({ type: 'request-lib-brands', libKey: pcLibKey }); }}
+                        className="text-muted-foreground hover:text-foreground transition-colors p-0.5 rounded"
+                      >
+                        ↻
+                      </button>
+                    </div>
                     {pcBrands === 'loading' ? (
                       <div className="h-9 rounded-md border border-input bg-muted animate-pulse" />
                     ) : pcBrands.length > 0 && !pcBrandCustom ? (

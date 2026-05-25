@@ -35,7 +35,7 @@ async function resolveToPrivateColors(
     return null;
   }
 
-  const target = localVarMap.get(value.id) ?? await figma.variables.getVariableByIdAsync(value.id);
+  const target = localVarMap.get(value.id) ?? await figma.variables.getVariableByIdAsync(value.id).catch(() => null);
   if (!target) { cache.set(cacheKey, null); return null; }
 
   const targetModeId =
@@ -132,7 +132,27 @@ export async function writeAppearanceGroup(
   pcBrandName: string,
   onProgress: ProgressCallback,
 ): Promise<{ count: number; brandingEntries: BrandingEntry[]; brandScale: BrandScaleByTheme | null }> {
-  const allColorVars = await figma.variables.getLocalVariablesAsync('COLOR');
+  try {
+    return await _writeAppearanceGroup(brandName, baseBrandHint, appearanceColl, pcLibKey, pcBrandName, onProgress);
+  } catch (err) {
+    throw new Error(`WAG: ${err instanceof Error ? err.message : String(err)}`);
+  }
+}
+
+async function _writeAppearanceGroup(
+  brandName: string,
+  baseBrandHint: string,
+  appearanceColl: VariableCollection,
+  pcLibKey: string,
+  pcBrandName: string,
+  onProgress: ProgressCallback,
+): Promise<{ count: number; brandingEntries: BrandingEntry[]; brandScale: BrandScaleByTheme | null }> {
+  let allColorVars: Variable[];
+  try {
+    allColorVars = await figma.variables.getLocalVariablesAsync('COLOR');
+  } catch (err) {
+    throw new Error(`getLocalVars: ${err instanceof Error ? err.message : String(err)}`);
+  }
   const localVarMap = new Map<string, Variable>(allColorVars.map(v => [v.id, v]));
 
   const base = detectAppearanceBase(allColorVars, appearanceColl.id, baseBrandHint);
@@ -143,7 +163,12 @@ export async function writeAppearanceGroup(
 
   if (baseBrandVars.length === 0) throw new Error('Не найдены бренды в коллекции Appearance');
 
-  const externalLibVars = await figma.teamLibrary.getVariablesInLibraryCollectionAsync(pcLibKey);
+  let externalLibVars: LibraryVariable[];
+  try {
+    externalLibVars = await figma.teamLibrary.getVariablesInLibraryCollectionAsync(pcLibKey);
+  } catch (err) {
+    throw new Error(`getVariablesInLibraryCollection(${pcLibKey}): ${err instanceof Error ? err.message : String(err)}`);
+  }
   if (externalLibVars.length === 0) throw new Error('Выбранная библиотека не содержит переменных');
 
   const externalVarMap = new Map<string, LibraryVariable>(externalLibVars.map(v => [v.name, v]));
@@ -167,7 +192,12 @@ export async function writeAppearanceGroup(
     if (local) importCache.set(libVar.key, local);
   }
 
-  const baseBrandFamily = await detectBrandFamily(baseBrandVars, base, modeIds[0] ?? '', resolveCache, localVarMap);
+  let baseBrandFamily: string | null = null;
+  try {
+    baseBrandFamily = await detectBrandFamily(baseBrandVars, base, modeIds[0] ?? '', resolveCache, localVarMap);
+  } catch (err) {
+    throw new Error(`detectBrandFamily: ${err instanceof Error ? err.message : String(err)}`);
+  }
 
   // Pre-fetch alias targets for non-Branding vars that are NOT in localVarMap (external PC library).
   // Done in parallel before the main loop to avoid serial awaits.
@@ -183,7 +213,7 @@ export async function writeAppearanceGroup(
     }
   }
   const idList = [...externalAliasIds];
-  const fetchedExternal = await Promise.all(idList.map(id => figma.variables.getVariableByIdAsync(id)));
+  const fetchedExternal = await Promise.all(idList.map(id => figma.variables.getVariableByIdAsync(id).catch(() => null)));
   const externalAliasMap = new Map<string, Variable>();
   fetchedExternal.forEach((v, i) => { if (v) externalAliasMap.set(idList[i]!, v); });
 
@@ -266,7 +296,13 @@ export async function writeAppearanceGroup(
 
   for (let i = 0; i < keyList.length; i += IMPORT_BATCH) {
     const batch = keyList.slice(i, i + IMPORT_BATCH);
-    const results = await Promise.all(batch.map(k => figma.variables.importVariableByKeyAsync(k)));
+    const results = await Promise.all(
+      batch.map(k =>
+        figma.variables.importVariableByKeyAsync(k).catch(err => {
+          throw new Error(`importVariableByKeyAsync(${k}): ${err instanceof Error ? err.message : String(err)}`);
+        }),
+      ),
+    );
     results.forEach((v, j) => importCache.set(batch[j]!, v));
     onProgress(baseBrandVars.length + Math.min(i + IMPORT_BATCH, keyList.length), totalSteps);
   }
@@ -274,12 +310,22 @@ export async function writeAppearanceGroup(
   // Phase 3a — create all vars first so intra-collection aliases can reference them regardless of order
   for (const { newName } of resolved) {
     if (!existingNewVars.has(newName)) {
-      const v = figma.variables.createVariable(newName, appearanceColl, 'COLOR');
+      let v: Variable;
+      try {
+        v = figma.variables.createVariable(newName, appearanceColl, 'COLOR');
+      } catch (err) {
+        throw new Error(`createVariable(«${newName}»): ${err instanceof Error ? err.message : String(err)}`);
+      }
       existingNewVars.set(newName, v);
     }
   }
 
   // Phase 3b — set alias values
+  const setAlias = (v: Variable, modeId: string, id: string, context: string) => {
+    if (!id) throw new Error(`Пустой ID алиаса у ${context}`);
+    v.setValueForMode(modeId, { type: 'VARIABLE_ALIAS', id });
+  };
+
   for (let i = 0; i < resolved.length; i++) {
     const { baseVar, newName, modeResults } = resolved[i]!;
     const newVar = existingNewVars.get(newName)!;
@@ -287,44 +333,48 @@ export async function writeAppearanceGroup(
     const brandFamilyForVar = isBranding ? baseBrandFamily : null;
 
     for (const modeId of modeIds) {
-      const pcName = modeResults.get(modeId);
+      try {
+        const pcName = modeResults.get(modeId);
 
-      if (pcName) {
-        // Branding (full-chain PC) or non-Branding direct PC alias → set to imported var
-        const extVar = lookupExtVar(externalVarMap, actualPcPrefix, pcName, base, brandFamilyForVar);
-        const imported = extVar ? importCache.get(extVar.key) : undefined;
-        if (imported) {
-          newVar.setValueForMode(modeId, { type: 'VARIABLE_ALIAS', id: imported.id });
-          continue;
-        }
-      }
-
-      const rawValue =
-        baseVar.valuesByMode[modeId] ??
-        baseVar.valuesByMode[Object.keys(baseVar.valuesByMode)[0] ?? ''];
-
-      // Non-Branding: if direct alias target is an Appearance var → remap to new brand namespace
-      if (!isBranding && rawValue && typeof rawValue === 'object' && 'type' in rawValue && rawValue.type === 'VARIABLE_ALIAS') {
-        const targetVar = localVarMap.get((rawValue as VariableAlias).id);
-        if (targetVar && targetVar.variableCollectionId === appearanceColl.id) {
-          const remappedName = brandName + targetVar.name.slice(base.length);
-          const remappedVar = existingNewVars.get(remappedName);
-          if (remappedVar) {
-            newVar.setValueForMode(modeId, { type: 'VARIABLE_ALIAS', id: remappedVar.id });
+        if (pcName) {
+          // Branding (full-chain PC) or non-Branding direct PC alias → set to imported var
+          const extVar = lookupExtVar(externalVarMap, actualPcPrefix, pcName, base, brandFamilyForVar);
+          const imported = extVar ? importCache.get(extVar.key) : undefined;
+          if (imported) {
+            setAlias(newVar, modeId, imported.id, newName);
             continue;
           }
         }
-      }
 
-      // Fallback: copy the base var's raw value (e.g. RGBA for Base Background when pcName is null).
-      // If rawValue is a VARIABLE_ALIAS, only set it when the target ID is a known local variable —
-      // stale or external IDs cause Figma to throw "cannot convert to object".
-      const fallback = rawValue ?? { r: 0, g: 0, b: 0, a: 1 };
-      if (fallback && typeof fallback === 'object' && 'type' in fallback && (fallback as VariableAlias).type === 'VARIABLE_ALIAS') {
-        const aliasId = (fallback as VariableAlias).id;
-        if (!localVarMap.has(aliasId)) continue; // skip unresolvable alias
+        const rawValue =
+          baseVar.valuesByMode[modeId] ??
+          baseVar.valuesByMode[Object.keys(baseVar.valuesByMode)[0] ?? ''];
+
+        // Non-Branding: if direct alias target is an Appearance var → remap to new brand namespace
+        if (!isBranding && rawValue && typeof rawValue === 'object' && 'type' in rawValue && rawValue.type === 'VARIABLE_ALIAS') {
+          const targetVar = localVarMap.get((rawValue as VariableAlias).id);
+          if (targetVar && targetVar.variableCollectionId === appearanceColl.id) {
+            const remappedName = brandName + targetVar.name.slice(base.length);
+            const remappedVar = existingNewVars.get(remappedName);
+            if (remappedVar) {
+              setAlias(newVar, modeId, remappedVar.id, newName);
+              continue;
+            }
+          }
+        }
+
+        // Fallback: copy the base var's raw value (e.g. RGBA for Base Background).
+        // Skip VARIABLE_ALIAS values whose target ID is not a known local variable —
+        // stale or external IDs cause Figma to throw "cannot convert to object".
+        const fallback = rawValue ?? { r: 0, g: 0, b: 0, a: 1 };
+        if (fallback && typeof fallback === 'object' && 'type' in fallback && (fallback as VariableAlias).type === 'VARIABLE_ALIAS') {
+          const aliasId = (fallback as VariableAlias).id;
+          if (!localVarMap.has(aliasId)) continue;
+        }
+        newVar.setValueForMode(modeId, fallback as VariableValue);
+      } catch (_err) {
+        // skip — don't block the whole generation over one variable
       }
-      newVar.setValueForMode(modeId, fallback as VariableValue);
     }
 
     onProgress(baseBrandVars.length + keyList.length + i + 1, totalSteps);
@@ -340,7 +390,7 @@ export async function writeAppearanceGroup(
   // Build Phase 1 brand scale from imported Brand/* vars (RGBA from resolvedValuesByMode)
   const brandScaleData: BrandScaleByTheme = { Light: {}, Dark: {}, 'Light HC': {}, 'Dark HC': {} };
   let hasBrandScale = false;
-  if (actualPcPrefix !== '') {
+  try { if (actualPcPrefix !== '') {
     const prefix = actualPcPrefix + '/';
     for (const importedVar of importCache.values()) {
       if (!importedVar.name.startsWith(prefix)) continue;
@@ -361,12 +411,26 @@ export async function writeAppearanceGroup(
       brandScaleData[mode][suffix] = rgba;
       hasBrandScale = true;
     }
-  }
+  } } catch (_err) { /* skip brandScale extraction errors */ }
 
   return { count: resolved.length, brandingEntries, brandScale: hasBrandScale ? brandScaleData : null };
 }
 
 export async function writeBrandMode(
+  brandName: string,
+  baseBrandModeName: string,
+  brandColl: VariableCollection,
+  appearanceColl: VariableCollection,
+  onProgress: ProgressCallback,
+): Promise<number> {
+  try {
+    return await _writeBrandMode(brandName, baseBrandModeName, brandColl, appearanceColl, onProgress);
+  } catch (err) {
+    throw new Error(`WBM: ${err instanceof Error ? err.message : String(err)}`);
+  }
+}
+
+async function _writeBrandMode(
   brandName: string,
   baseBrandModeName: string,
   brandColl: VariableCollection,
@@ -380,9 +444,19 @@ export async function writeBrandMode(
   if (!baseModeId)
     throw new Error(`Базовый бренд «${baseBrandModeName}» не найден в коллекции Brand`);
 
-  const newModeId = brandColl.addMode(brandName);
+  let newModeId: string;
+  try {
+    newModeId = brandColl.addMode(brandName);
+  } catch (err) {
+    throw new Error(`addMode(«${brandName}»): ${err instanceof Error ? err.message : String(err)}`);
+  }
 
-  const allColorVars = await figma.variables.getLocalVariablesAsync('COLOR');
+  let allColorVars: Variable[];
+  try {
+    allColorVars = await figma.variables.getLocalVariablesAsync('COLOR');
+  } catch (err) {
+    throw new Error(`writeBrandMode getLocalVars: ${err instanceof Error ? err.message : String(err)}`);
+  }
   const localVarMap = new Map<string, Variable>(allColorVars.map(v => [v.id, v]));
   const brandColorVars = allColorVars.filter(v => v.variableCollectionId === brandColl.id);
 
@@ -398,15 +472,24 @@ export async function writeBrandMode(
     const baseValue = brandVar.valuesByMode[baseModeId];
 
     if (baseValue && typeof baseValue === 'object' && 'type' in baseValue && baseValue.type === 'VARIABLE_ALIAS') {
-      const baseTarget = localVarMap.get(baseValue.id) ?? await figma.variables.getVariableByIdAsync(baseValue.id);
+      let baseTarget: Variable | null;
+      try {
+        baseTarget = localVarMap.get(baseValue.id) ?? await figma.variables.getVariableByIdAsync(baseValue.id);
+      } catch (err) {
+        throw new Error(`getVariableByIdAsync(${baseValue.id}) for brand var «${brandVar.name}»: ${err instanceof Error ? err.message : String(err)}`);
+      }
       if (baseTarget) {
         const firstSlash = baseTarget.name.indexOf('/');
         if (firstSlash !== -1) {
           const newTargetName = brandName + baseTarget.name.slice(firstSlash);
           const newAppearanceVar = appearanceVarMap.get(newTargetName);
           if (newAppearanceVar) {
-            brandVar.setValueForMode(newModeId, { type: 'VARIABLE_ALIAS', id: newAppearanceVar.id });
-            count++;
+            try {
+              brandVar.setValueForMode(newModeId, { type: 'VARIABLE_ALIAS', id: newAppearanceVar.id });
+              count++;
+            } catch (err) {
+              throw new Error(`setValueForMode Brand«${brandVar.name}»→Appearance«${newTargetName}»(id:${newAppearanceVar.id}): ${err instanceof Error ? err.message : String(err)}`);
+            }
           }
         }
       }
