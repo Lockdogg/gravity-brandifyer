@@ -66,7 +66,10 @@ figma.ui.onmessage = (msg: UiToMainMessage) => {
         const result = await inspectLibrary();
         if (result.phase === 'private-colors') {
           const existingBrands = await readExistingBrandCss();
-          figma.ui.postMessage({ type: 'phase-private-colors', existingBrands });
+          const localColls = await figma.variables.getLocalVariableCollectionsAsync();
+          const pcColl = localColls.find(c => c.name === COLLECTION_NAMES.privateColors);
+          const existingVarCount = pcColl?.variableIds.length ?? 0;
+          figma.ui.postMessage({ type: 'phase-private-colors', existingBrands, existingVarCount });
         } else {
           const collections = await figma.variables.getLocalVariableCollectionsAsync();
           const appearanceColl = collections.find(c => c.name === COLLECTION_NAMES.appearance)!;
@@ -164,7 +167,10 @@ figma.ui.onmessage = (msg: UiToMainMessage) => {
         }));
         figma.ui.postMessage({ type: 'multibrand-done', varCount: count, cssEntries });
       } catch (err) {
-        const message = err instanceof Error ? err.message : String(err);
+        const raw = err instanceof Error ? err.message : String(err);
+        const message = /5000/i.test(raw)
+          ? 'Превышен лимит Figma: в одной коллекции не может быть более 5000 переменных. Уменьшите количество брендов или используйте отдельный файл.'
+          : raw;
         figma.ui.postMessage({ type: 'multibrand-error', message: `Не удалось создать переменные: ${message}` });
       }
     })();

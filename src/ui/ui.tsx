@@ -39,7 +39,7 @@ function send(msg: UiToMainMessage) {
 type Phase =
   | { tag: 'loading' }
   | { tag: 'error'; message: string; missingCollections?: string[] }
-  | { tag: 'private-colors'; existingBrands: BrandCssEntry[] }
+  | { tag: 'private-colors'; existingBrands: BrandCssEntry[]; existingVarCount: number }
   | { tag: 'main-lib'; info: LibInfo; existingBrandsCss: BrandCssEntry[] };
 
 type GenStatus =
@@ -372,18 +372,25 @@ type MultiBrandEntry = { id: number; name: string; hex: string };
 let _nextId = 1;
 const nextId = () => _nextId++;
 
+// Multibrand pack: 1092 shared semantic vars (once per pack) + 120 per brand (4 themes × 30)
+const VARS_SEMANTIC = 1092;
+const VARS_PER_BRAND_IN_PACK = 120;
+const FIGMA_COLLECTION_LIMIT = 5000;
+
 function MultiBrandSection({
   groupName,
   onGroupNameChange,
   entries,
   onEntriesChange,
   showGroupName = true,
+  existingVarCount = 0,
 }: {
   groupName: string;
   onGroupNameChange: (v: string) => void;
   entries: MultiBrandEntry[];
   onEntriesChange: (v: MultiBrandEntry[]) => void;
   showGroupName?: boolean;
+  existingVarCount?: number;
 }) {
   const setName = (id: number, name: string) =>
     onEntriesChange(entries.map(e => e.id === id ? { ...e, name } : e));
@@ -391,11 +398,29 @@ function MultiBrandSection({
     onEntriesChange(entries.map(e => e.id === id ? { ...e, hex } : e));
   const remove = (id: number) =>
     onEntriesChange(entries.filter(e => e.id !== id));
-  const add = () =>
-    onEntriesChange([...entries, { id: nextId(), name: '', hex: '#005FF9' }]);
+
+  // Worst-case estimate: semantic vars written fresh even if group already exists
+  const plannedVars = VARS_SEMANTIC + entries.length * VARS_PER_BRAND_IN_PACK;
+  const totalAfter = existingVarCount + plannedVars;
+  const wouldExceed = totalAfter > FIGMA_COLLECTION_LIMIT;
+  const addingOneMore = existingVarCount + VARS_SEMANTIC + (entries.length + 1) * VARS_PER_BRAND_IN_PACK > FIGMA_COLLECTION_LIMIT;
+
+  const add = () => {
+    if (!addingOneMore) onEntriesChange([...entries, { id: nextId(), name: '', hex: '#005FF9' }]);
+  };
 
   return (
     <div className="space-y-4">
+      {(addingOneMore || wouldExceed) && (
+        <Alert variant="info">
+          <AlertDescription>
+            В коллекции уже <strong>{existingVarCount}</strong> из {FIGMA_COLLECTION_LIMIT} переменных.
+            {wouldExceed
+              ? ` Пак (${VARS_SEMANTIC} общих + ${entries.length}×${VARS_PER_BRAND_IN_PACK} = ${plannedVars} перем.) не поместится.`
+              : ` После генерации будет ~${totalAfter} — почти предел.`}
+          </AlertDescription>
+        </Alert>
+      )}
       {showGroupName && (
         <div className="space-y-1.5">
           <Label className="text-xs">Название группы</Label>
@@ -413,12 +438,19 @@ function MultiBrandSection({
       )}
 
       <div className="space-y-1.5">
-        <Label className="text-xs flex items-center gap-1">
-          Бренды
-          <Tooltip text="Каждый бренд получит свою шкалу Brand/ (50–1000) под своим именем в коллекции.">
-            <SvgIcon svg={iconQuestion} className="text-muted-foreground cursor-default" />
-          </Tooltip>
-        </Label>
+        <div className="flex items-center justify-between">
+          <Label className="text-xs flex items-center gap-1">
+            Бренды
+            <Tooltip text="Каждый бренд получит свою шкалу Brand/ (50–1000) под своим именем в коллекции.">
+              <SvgIcon svg={iconQuestion} className="text-muted-foreground cursor-default" />
+            </Tooltip>
+          </Label>
+          {existingVarCount > 0 && (
+            <span className="text-xs tabular-nums text-muted-foreground">
+              {existingVarCount}/{FIGMA_COLLECTION_LIMIT} перем. в коллекции
+            </span>
+          )}
+        </div>
         <div className="space-y-2">
           {entries.map((entry) => (
             <div key={entry.id} className="flex items-center gap-2">
@@ -448,7 +480,13 @@ function MultiBrandSection({
         <button
           type="button"
           onClick={add}
-          className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+          disabled={addingOneMore}
+          className={cn(
+            'flex items-center gap-1 text-xs transition-colors',
+            addingOneMore
+              ? 'text-muted-foreground/40 cursor-not-allowed'
+              : 'text-muted-foreground hover:text-foreground',
+          )}
         >
           <SvgIcon svg={iconPlus} className="[&_svg]:w-3 [&_svg]:h-3" />
           Добавить бренд
@@ -467,7 +505,7 @@ type ToastState = {
   hiding: boolean;
 } | null;
 
-function PrivateColorsPhase({ existingBrands }: { existingBrands: BrandCssEntry[] }) {
+function PrivateColorsPhase({ existingBrands, existingVarCount }: { existingBrands: BrandCssEntry[]; existingVarCount: number }) {
   const [mode, setMode] = useState<'simple' | 'expert'>('simple');
   const [expertSub, setExpertSub] = useState<'mono' | 'multi'>('mono');
   // Mono state
@@ -507,10 +545,6 @@ function PrivateColorsPhase({ existingBrands }: { existingBrands: BrandCssEntry[
   const showToast = useCallback((variant: 'success' | 'destructive', title: string, description: string) => {
     toastTimers.current.forEach(clearTimeout);
     setToast({ variant, title, description, hiding: false });
-    toastTimers.current = [
-      setTimeout(() => setToast(t => t ? { ...t, hiding: true } : null), 4000),
-      setTimeout(() => setToast(null), 4300),
-    ];
   }, []);
 
   useEffect(() => {
@@ -727,17 +761,19 @@ function PrivateColorsPhase({ existingBrands }: { existingBrands: BrandCssEntry[
             entries={mbEntries}
             onEntriesChange={setMbEntries}
             showGroupName={false}
+            existingVarCount={existingVarCount}
           />
         )}
       </div>
 
       {toast && (
-        <div
-          className={cn('absolute left-4 right-4 bottom-20 z-50 pointer-events-none', toast.hiding ? 'toast-leave' : 'toast-enter')}
-          onClick={() => setToast(null)}
-          style={{ pointerEvents: 'all' }}
-        >
-          <Alert variant={toast.variant}>
+        <div className={cn('fixed left-4 right-4 bottom-20 z-50 shadow-lg rounded-lg', toast.hiding ? 'toast-leave' : 'toast-enter')}>
+          <Alert variant={toast.variant} className="pr-8">
+            <button
+              onClick={() => setToast(null)}
+              className="absolute right-2 top-2 text-current opacity-50 hover:opacity-100 transition-opacity"
+              aria-label="Закрыть"
+            >✕</button>
             <AlertTitle>{toast.title}</AlertTitle>
             <AlertDescription>{toast.description}</AlertDescription>
           </Alert>
@@ -804,10 +840,6 @@ function MainLibPhase({ info, existingBrandsCss }: { info: LibInfo; existingBran
   const showToast = useCallback((variant: 'success' | 'destructive', title: string, description: string) => {
     toastTimers.current.forEach(clearTimeout);
     setToast({ variant, title, description, hiding: false });
-    toastTimers.current = [
-      setTimeout(() => setToast(t => t ? { ...t, hiding: true } : null), 4000),
-      setTimeout(() => setToast(null), 4300),
-    ];
   }, []);
 
   const isGenerating = status === 'generating';
@@ -1131,12 +1163,13 @@ function MainLibPhase({ info, existingBrandsCss }: { info: LibInfo; existingBran
       )}
 
       {toast && (
-        <div
-          className={cn('absolute left-4 right-4 bottom-20 z-50', toast.hiding ? 'toast-leave' : 'toast-enter')}
-          style={{ pointerEvents: 'all' }}
-          onClick={() => setToast(null)}
-        >
-          <Alert variant={toast.variant}>
+        <div className={cn('fixed left-4 right-4 bottom-20 z-50 shadow-lg rounded-lg', toast.hiding ? 'toast-leave' : 'toast-enter')}>
+          <Alert variant={toast.variant} className="pr-8">
+            <button
+              onClick={() => setToast(null)}
+              className="absolute right-2 top-2 text-current opacity-50 hover:opacity-100 transition-opacity"
+              aria-label="Закрыть"
+            >✕</button>
             <AlertTitle>{toast.title}</AlertTitle>
             <AlertDescription>{toast.description}</AlertDescription>
           </Alert>
@@ -1183,7 +1216,7 @@ function App() {
       const msg = event.data?.pluginMessage as MainToUiMessage | undefined;
       if (!msg) return;
       if (msg.type === 'phase-private-colors') {
-        setPhase({ tag: 'private-colors', existingBrands: msg.existingBrands });
+        setPhase({ tag: 'private-colors', existingBrands: msg.existingBrands, existingVarCount: msg.existingVarCount });
       } else if (msg.type === 'phase-main-lib') {
         setPhase({ tag: 'main-lib', info: msg.info, existingBrandsCss: msg.existingBrandsCss });
       } else if (msg.type === 'lib-error') {
@@ -1216,7 +1249,7 @@ function App() {
   }
 
   if (phase.tag === 'private-colors') {
-    return <PrivateColorsPhase existingBrands={phase.existingBrands} />;
+    return <PrivateColorsPhase existingBrands={phase.existingBrands} existingVarCount={phase.existingVarCount} />;
   }
 
   return <MainLibPhase info={phase.info} existingBrandsCss={phase.existingBrandsCss} />;

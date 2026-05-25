@@ -5,7 +5,7 @@ export type ColorFamily = 'Blue' | 'Green' | 'Yellow' | 'Red' | 'Purple' | 'Oran
 export type BrandCssEntry = { brandName: string; cssContent: string };
 
 export type MainToUiMessage =
-  | { type: 'phase-private-colors'; existingBrands: BrandCssEntry[] }
+  | { type: 'phase-private-colors'; existingBrands: BrandCssEntry[]; existingVarCount: number }
   | { type: 'phase-main-lib'; info: LibInfo; existingBrandsCss: BrandCssEntry[] }
   | { type: 'lib-error'; message: string; missingCollections?: string[] }
   | { type: 'generate-done'; varCount: number; cssContent: string; brandName: string }

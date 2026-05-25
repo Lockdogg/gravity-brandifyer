@@ -2,7 +2,7 @@ import * as React from 'react';
 import { cn } from '../../lib/utils';
 
 interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'destructive' | 'success';
+  variant?: 'default' | 'destructive' | 'success' | 'info';
 }
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
@@ -14,8 +14,9 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
         'relative w-full rounded-lg border px-4 py-3 text-sm',
         {
           default: 'bg-background text-foreground',
-          destructive: 'border-destructive/50 text-destructive bg-destructive/5',
+          destructive: 'border-destructive/50 text-destructive bg-red-50',
           success: 'border-green-300 text-green-800 bg-green-50',
+          info: 'border-blue-300 text-blue-800 bg-blue-50',
         }[variant],
         className
       )}
