@@ -66,12 +66,19 @@ async function detectBrandFamily(
 
 // baseBrandFamily: if non-null AND terminal family matches it → try Brand/ first (Phase-1 scale).
 // This ensures Branding/Base Brand → Brand/550 Solid, but Branding/Text Link Visited → Purple stays.
+// For multibrand service packs: "[ww] Service/Nirvana" → "[ww] Semantic"
+function deriveSemanticPrefix(pcBrandName: string): string | null {
+  const m = pcBrandName.match(/^(.*\S)\s+Service\/.+$/);
+  return m ? `${m[1]} Semantic` : null;
+}
+
 function lookupExtVar(
   externalVarMap: Map<string, LibraryVariable>,
   actualPcPrefix: string,
   pcName: string,
   base: string,
   baseBrandFamily: string | null,
+  semanticPrefix?: string | null,
 ): LibraryVariable | undefined {
   const suffix = pcName.slice(base.length); // e.g. "/Light/Blue/550 Solid"
   const parts = suffix.split('/').filter(Boolean);
@@ -105,6 +112,15 @@ function lookupExtVar(
     if (extVar) return extVar;
     if (hasTheme) {
       extVar = externalVarMap.get(strippedParts.join('/'));
+    }
+  }
+  // Multibrand fallback: semantic colors live under "[ww] Semantic/..." not under Service/BrandName
+  if (semanticPrefix) {
+    extVar = externalVarMap.get(semanticPrefix + suffix);
+    if (extVar) return extVar;
+    if (hasTheme) {
+      extVar = externalVarMap.get(`${semanticPrefix}/${strippedParts.join('/')}`);
+      if (extVar) return extVar;
     }
   }
   return extVar;
@@ -173,6 +189,7 @@ async function _writeAppearanceGroup(
 
   const externalVarMap = new Map<string, LibraryVariable>(externalLibVars.map(v => [v.name, v]));
   const actualPcPrefix = pcBrandName;
+  const semanticPrefix = deriveSemanticPrefix(pcBrandName);
 
 
   const existingNewVars = new Map<string, Variable>(
@@ -254,7 +271,7 @@ async function _writeAppearanceGroup(
         const pcName = await resolveToPrivateColors(baseVar, modeId, base, resolveCache, localVarMap);
         modeResults.set(modeId, pcName);
         if (pcName) {
-          const extVar = lookupExtVar(externalVarMap, actualPcPrefix, pcName, base, brandFamilyForVar);
+          const extVar = lookupExtVar(externalVarMap, actualPcPrefix, pcName, base, brandFamilyForVar, semanticPrefix);
           if (extVar) neededKeys.add(extVar.key);
         }
       } else {
@@ -268,7 +285,7 @@ async function _writeAppearanceGroup(
             && targetVar.variableCollectionId !== appearanceColl.id
             && isPrivateColorsName(targetVar.name, base)) {
             // Direct alias to a PC var (local or external) → queue its remapped counterpart for import
-            const extVar = lookupExtVar(externalVarMap, actualPcPrefix, targetVar.name, base, null);
+            const extVar = lookupExtVar(externalVarMap, actualPcPrefix, targetVar.name, base, null, semanticPrefix);
             if (extVar) {
               neededKeys.add(extVar.key);
               modeResults.set(modeId, targetVar.name);
@@ -338,7 +355,7 @@ async function _writeAppearanceGroup(
 
         if (pcName) {
           // Branding (full-chain PC) or non-Branding direct PC alias → set to imported var
-          const extVar = lookupExtVar(externalVarMap, actualPcPrefix, pcName, base, brandFamilyForVar);
+          const extVar = lookupExtVar(externalVarMap, actualPcPrefix, pcName, base, brandFamilyForVar, semanticPrefix);
           const imported = extVar ? importCache.get(extVar.key) : undefined;
           if (imported) {
             setAlias(newVar, modeId, imported.id, newName);
