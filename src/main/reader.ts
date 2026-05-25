@@ -122,7 +122,47 @@ export async function readExistingBrandingCss(appearanceColl: VariableCollection
       brandingEntries.push({ suffix, perMode });
     }
 
-    const cssContent = generatePhase2Css(brandName, brandingEntries, appearanceColl.modes);
+    // Find Phase 1 brand scale: detect PC collection by following a Branding/* alias target,
+    // then collect all Brand/* scale vars from that collection.
+    let brandScale: BrandScaleByTheme | null = null;
+    let pcCollectionId: string | null = null;
+    outer:
+    for (const v of vars) {
+      for (const { modeId } of appearanceColl.modes) {
+        const raw = v.valuesByMode[modeId] ?? v.valuesByMode[Object.keys(v.valuesByMode)[0] ?? ''];
+        if (!raw || typeof raw !== 'object' || !('type' in raw) || raw.type !== 'VARIABLE_ALIAS') continue;
+        const target = getVar((raw as VariableAlias).id);
+        if (target && target.variableCollectionId !== appearanceColl.id && target.name.split('/').includes('Brand')) {
+          pcCollectionId = target.variableCollectionId;
+          break outer;
+        }
+      }
+    }
+
+    if (pcCollectionId) {
+      const scaleData: BrandScaleByTheme = { Light: {}, Dark: {}, 'Light HC': {}, 'Dark HC': {} };
+      let hasScale = false;
+      for (const v of allVars) {
+        if (v.variableCollectionId !== pcCollectionId) continue;
+        const parts = v.name.split('/');
+        const brandIdx = parts.indexOf('Brand');
+        if (brandIdx < 1) continue;
+        const mode = THEME_FROM_PATH[parts[brandIdx - 1] ?? ''];
+        if (!mode) continue;
+        const suffix = parts.slice(brandIdx + 1).join('/');
+        if (!suffix) continue;
+        const raw = Object.values(v.valuesByMode)[0];
+        if (!raw || typeof raw !== 'object' || !('r' in raw)) continue;
+        scaleData[mode][suffix] = raw as { r: number; g: number; b: number; a: number };
+        hasScale = true;
+      }
+      if (hasScale) brandScale = scaleData;
+    }
+
+    const phase2Css = generatePhase2Css(brandName, brandingEntries, appearanceColl.modes, !!brandScale);
+    const cssContent = brandScale
+      ? generateBrandCss(brandName, brandScale).trimEnd() + '\n\n' + phase2Css
+      : phase2Css;
     if (cssContent.includes('--g-color-')) results.push({ brandName, cssContent });
   }
 

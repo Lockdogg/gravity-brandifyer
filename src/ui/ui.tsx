@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef, useCallback, useMemo } from 'react';
 import { ColorPicker } from './components/ColorPicker';
 import { Button } from './components/ui/button';
 import { Input } from './components/ui/input';
@@ -727,6 +727,7 @@ const FUN_MESSAGES = [
 
 function MainLibPhase({ info, existingBrandsCss }: { info: LibInfo; existingBrandsCss: BrandCssEntry[] }) {
   const { connectedLibs } = info;
+  const [activeTab, setActiveTab] = useState<'generate' | 'download'>('generate');
   const [brandName, setBrandName] = useState('');
   const [pcLibKey, setPcLibKey] = useState(connectedLibs[0]?.key ?? '');
   const [pcBrands, setPcBrands] = useState<Array<{ display: string; prefix: string; collectionKey: string }> | 'loading'>('loading');
@@ -751,6 +752,15 @@ function MainLibPhase({ info, existingBrandsCss }: { info: LibInfo; existingBran
   }, []);
 
   const isGenerating = status === 'generating';
+
+  // Merge newly generated brand with existing list (new brand goes first, deduped)
+  const allBrands = useMemo<BrandCssEntry[]>(() => {
+    const newEntry = typeof status === 'object' && status.type === 'done'
+      ? { brandName: status.brandName, cssContent: status.cssContent }
+      : null;
+    if (!newEntry) return existingBrandsCss;
+    return [newEntry, ...existingBrandsCss.filter(b => b.brandName !== newEntry.brandName)];
+  }, [existingBrandsCss, status]);
 
   useEffect(() => {
     if (!pcLibKey) return;
@@ -798,6 +808,7 @@ function MainLibPhase({ info, existingBrandsCss }: { info: LibInfo; existingBran
         setBrandName('');
         setProgress(100);
         showToast('success', `Бренд «${msg.brandName}» добавлен.`, `${msg.varCount} переменных обновлено.`);
+        setActiveTab('download');
       } else if (msg.type === 'phase2-error') {
         setStatus({ type: 'error', message: msg.message });
         showToast('destructive', 'Ошибка', msg.message);
@@ -824,134 +835,228 @@ function MainLibPhase({ info, existingBrandsCss }: { info: LibInfo; existingBran
 
   return (
     <div className="relative flex flex-col h-full">
-      <div className="flex-1 overflow-y-auto p-5 space-y-4">
+
+      {/* Header + segment control */}
+      <div className="shrink-0 px-5 pt-4 pb-3 border-b border-border space-y-3">
         <h1 className="text-base font-semibold">Основная библиотека</h1>
-
-        {isGenerating ? (
-          <div className="flex flex-col justify-center py-8 gap-4">
-            <div className="space-y-2">
-              <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
-                <div
-                  className="h-full bg-primary rounded-full transition-all duration-300 ease-out"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-              <div className="flex justify-between text-xs text-muted-foreground">
-                <span className="italic">{FUN_MESSAGES[msgIdx]}</span>
-                <span>{progress}%</span>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <>
-            <div className="space-y-1.5">
-              <Label htmlFor="p2-brand-name" className="text-xs">Название нового бренда</Label>
-              <Input
-                id="p2-brand-name"
-                autoFocus
-                value={brandName}
-                onChange={e => { lastAutoFill.current = ''; setBrandName(e.target.value); }}
-                placeholder="MyBrand"
-                onKeyDown={e => { if (e.key === 'Enter' && brandName.trim() && pcLibKey && !nameExists) handleGenerate(); }}
-              />
-              {nameExists && (
-                <p className="text-xs text-destructive">Бренд «{brandName.trim()}» уже существует</p>
+        <div className="flex rounded-md border border-border overflow-hidden text-sm">
+          {(['generate', 'download'] as const).map((tab, i) => (
+            <button
+              key={tab}
+              type="button"
+              onClick={() => setActiveTab(tab)}
+              className={cn(
+                'flex-1 py-1.5 transition-colors',
+                i === 0 ? '' : 'border-l border-border',
+                activeTab === tab
+                  ? 'bg-primary text-primary-foreground font-medium'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/50',
               )}
-            </div>
-
-            <div className="space-y-1.5">
-              <Label htmlFor="p2-pc-lib" className="text-xs">Библиотека приватных цветов</Label>
-              {connectedLibs.length === 0 ? (
-                <p className="text-xs text-destructive">Нет подключённых библиотек — подключите библиотеку приватных цветов</p>
-              ) : (
-                <select
-                  id="p2-pc-lib"
-                  value={pcLibKey}
-                  onChange={e => setPcLibKey(e.target.value)}
-                  className="w-full h-9 rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-1 focus:ring-ring"
-                >
-                  {connectedLibs.map(lib => (
-                    <option key={lib.key} value={lib.key}>{libLabel(lib)}</option>
-                  ))}
-                </select>
+            >
+              {tab === 'generate' ? 'Генерация' : 'Скачать CSS'}
+              {tab === 'download' && allBrands.length > 0 && (
+                <span className={cn(
+                  'ml-1.5 text-xs px-1.5 py-0.5 rounded-full',
+                  activeTab === 'download' ? 'bg-primary-foreground/20' : 'bg-muted',
+                )}>
+                  {allBrands.length}
+                </span>
               )}
-            </div>
+            </button>
+          ))}
+        </div>
+      </div>
 
-            {pcLibKey && (
-              <div className="space-y-1.5">
-                <Label htmlFor="p2-pc-brand" className="text-xs">Бренд в библиотеке</Label>
-                {pcBrands === 'loading' ? (
-                  <div className="h-9 rounded-md border border-input bg-muted animate-pulse" />
-                ) : pcBrands.length > 0 && !pcBrandCustom ? (
-                  <>
+      {/* Tab: Генерация */}
+      {activeTab === 'generate' && (
+        <>
+          <div className="flex-1 overflow-y-auto p-5 space-y-4">
+            {isGenerating ? (
+              <div className="flex flex-col justify-center py-8 gap-4">
+                <div className="space-y-2">
+                  <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
+                    <div
+                      className="h-full bg-primary rounded-full transition-all duration-300 ease-out"
+                      style={{ width: `${progress}%` }}
+                    />
+                  </div>
+                  <div className="flex justify-between text-xs text-muted-foreground">
+                    <span className="italic">{FUN_MESSAGES[msgIdx]}</span>
+                    <span>{progress}%</span>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <>
+                <div className="space-y-1.5">
+                  <Label htmlFor="p2-brand-name" className="text-xs">Название нового бренда</Label>
+                  <Input
+                    id="p2-brand-name"
+                    autoFocus
+                    value={brandName}
+                    onChange={e => { lastAutoFill.current = ''; setBrandName(e.target.value); }}
+                    placeholder="MyBrand"
+                    onKeyDown={e => { if (e.key === 'Enter' && brandName.trim() && pcLibKey && !nameExists) handleGenerate(); }}
+                  />
+                  {nameExists && (
+                    <p className="text-xs text-destructive">Бренд «{brandName.trim()}» уже существует</p>
+                  )}
+                </div>
+
+                <div className="space-y-1.5">
+                  <Label htmlFor="p2-pc-lib" className="text-xs">Библиотека приватных цветов</Label>
+                  {connectedLibs.length === 0 ? (
+                    <p className="text-xs text-destructive">Нет подключённых библиотек — подключите библиотеку приватных цветов</p>
+                  ) : (
                     <select
-                      id="p2-pc-brand"
-                      value={pcBrandName}
-                      onChange={e => {
-                        const val = e.target.value;
-                        if (val === '__custom__') {
-                          setPcBrandCustom(true);
-                          setPcBrandName('');
-                          lastAutoFill.current = '';
-                          return;
-                        }
-                        const brands = pcBrands as Array<{ display: string; prefix: string; collectionKey: string }>;
-                        const brand = brands.find(b => b.prefix === val);
-                        setPcBrandName(val);
-                        if (brand?.collectionKey) setPcLibKey(brand.collectionKey);
-                        setBrandName(prev => {
-                          if (brand && (prev === '' || prev === lastAutoFill.current)) {
-                            lastAutoFill.current = brand.display;
-                            return brand.display;
-                          }
-                          return prev;
-                        });
-                      }}
+                      id="p2-pc-lib"
+                      value={pcLibKey}
+                      onChange={e => setPcLibKey(e.target.value)}
                       className="w-full h-9 rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-1 focus:ring-ring"
                     >
-                      {(pcBrands as Array<{ display: string; prefix: string; collectionKey: string }>).map(b => (
-                        <option key={`${b.collectionKey}:${b.prefix}`} value={b.prefix}>{b.display}</option>
+                      {connectedLibs.map(lib => (
+                        <option key={lib.key} value={lib.key}>{libLabel(lib)}</option>
                       ))}
-                      <option disabled>──────────</option>
-                      <option value="__custom__">Ввести другой…</option>
                     </select>
-                  </>
-                ) : (
-                  <>
-                    <div className="flex gap-2">
-                      <Input
+                  )}
+                </div>
+
+                {pcLibKey && (
+                  <div className="space-y-1.5">
+                    <Label htmlFor="p2-pc-brand" className="text-xs">Бренд в библиотеке</Label>
+                    {pcBrands === 'loading' ? (
+                      <div className="h-9 rounded-md border border-input bg-muted animate-pulse" />
+                    ) : pcBrands.length > 0 && !pcBrandCustom ? (
+                      <select
                         id="p2-pc-brand"
                         value={pcBrandName}
-                        onChange={e => setPcBrandName(e.target.value)}
-                        placeholder="MyBrand"
-                        autoFocus={pcBrandCustom}
-                        className="flex-1"
-                      />
-                      {pcBrands !== 'loading' && (pcBrands as Array<unknown>).length > 0 && (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setPcBrandCustom(false);
-                            const first = (pcBrands as Array<{ display: string; prefix: string; collectionKey: string }>)[0]!;
-                            setPcBrandName(first.prefix);
-                            setPcLibKey(first.collectionKey);
-                          }}
-                          className="text-xs text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
-                        >
-                          ← К списку
-                        </button>
-                      )}
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      Точный префикс переменных: <span className="font-mono">MyBrand</span>/Light/Brand/…
-                    </p>
-                  </>
+                        onChange={e => {
+                          const val = e.target.value;
+                          if (val === '__custom__') {
+                            setPcBrandCustom(true);
+                            setPcBrandName('');
+                            lastAutoFill.current = '';
+                            return;
+                          }
+                          const brands = pcBrands as Array<{ display: string; prefix: string; collectionKey: string }>;
+                          const brand = brands.find(b => b.prefix === val);
+                          setPcBrandName(val);
+                          if (brand?.collectionKey) setPcLibKey(brand.collectionKey);
+                          setBrandName(prev => {
+                            if (brand && (prev === '' || prev === lastAutoFill.current)) {
+                              lastAutoFill.current = brand.display;
+                              return brand.display;
+                            }
+                            return prev;
+                          });
+                        }}
+                        className="w-full h-9 rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-1 focus:ring-ring"
+                      >
+                        {(pcBrands as Array<{ display: string; prefix: string; collectionKey: string }>).map(b => (
+                          <option key={`${b.collectionKey}:${b.prefix}`} value={b.prefix}>{b.display}</option>
+                        ))}
+                        <option disabled>──────────</option>
+                        <option value="__custom__">Ввести другой…</option>
+                      </select>
+                    ) : (
+                      <>
+                        <div className="flex gap-2">
+                          <Input
+                            id="p2-pc-brand"
+                            value={pcBrandName}
+                            onChange={e => setPcBrandName(e.target.value)}
+                            placeholder="MyBrand"
+                            autoFocus={pcBrandCustom}
+                            className="flex-1"
+                          />
+                          {pcBrands !== 'loading' && (pcBrands as Array<unknown>).length > 0 && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setPcBrandCustom(false);
+                                const first = (pcBrands as Array<{ display: string; prefix: string; collectionKey: string }>)[0]!;
+                                setPcBrandName(first.prefix);
+                                setPcLibKey(first.collectionKey);
+                              }}
+                              className="text-xs text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
+                            >
+                              ← К списку
+                            </button>
+                          )}
+                        </div>
+                        <p className="text-xs text-muted-foreground">
+                          Точный префикс переменных: <span className="font-mono">MyBrand</span>/Light/Brand/…
+                        </p>
+                      </>
+                    )}
+                  </div>
                 )}
+              </>
+            )}
+          </div>
+
+          <div className="shrink-0 border-t border-border bg-background px-5 py-3">
+            <Button
+              className="w-full gap-2"
+              disabled={!brandName.trim() || !pcLibKey || !pcBrandName.trim() || pcBrands === 'loading' || isGenerating || nameExists}
+              onClick={handleGenerate}
+            >
+              <SvgIcon svg={iconPalette} />
+              {isGenerating ? 'Генерируем…' : 'Сгенерировать'}
+            </Button>
+          </div>
+        </>
+      )}
+
+      {/* Tab: Скачать CSS */}
+      {activeTab === 'download' && (
+        <>
+          <div className="flex-1 overflow-y-auto">
+            {allBrands.length === 0 ? (
+              <div className="flex flex-col items-center justify-center h-full gap-2 text-center px-8">
+                <p className="text-sm text-muted-foreground">Нет сгенерированных брендов</p>
+                <button
+                  type="button"
+                  className="text-xs text-primary hover:underline"
+                  onClick={() => setActiveTab('generate')}
+                >
+                  Перейти к генерации →
+                </button>
+              </div>
+            ) : (
+              <div className="divide-y divide-border">
+                {allBrands.map(brand => (
+                  <div key={brand.brandName} className="flex items-center gap-3 px-5 py-3 hover:bg-muted/40 transition-colors">
+                    <SvgIcon svg={iconFileCode} className="shrink-0 text-muted-foreground" />
+                    <span className="flex-1 text-sm">{brand.brandName}</span>
+                    <button
+                      type="button"
+                      onClick={() => downloadCss(brand.brandName, brand.cssContent)}
+                      className="shrink-0 text-muted-foreground hover:text-foreground transition-colors p-1 -mr-1"
+                      title="Скачать CSS"
+                    >
+                      <SvgIcon svg={iconDownload} />
+                    </button>
+                  </div>
+                ))}
               </div>
             )}
-          </>
-        )}
-      </div>
+          </div>
+
+          {allBrands.length > 0 && (
+            <div className="shrink-0 border-t border-border bg-background px-5 py-3">
+              <Button
+                variant="secondary"
+                className="w-full gap-2"
+                onClick={() => downloadAll(allBrands)}
+              >
+                <SvgIcon svg={iconDownload} />
+                Скачать все
+              </Button>
+            </div>
+          )}
+        </>
+      )}
 
       {toast && (
         <div
@@ -965,28 +1070,6 @@ function MainLibPhase({ info, existingBrandsCss }: { info: LibInfo; existingBran
           </Alert>
         </div>
       )}
-
-      {(() => {
-        const newEntry = typeof status === 'object' && status.type === 'done' && status.cssContent
-          ? { brandName: status.brandName, cssContent: status.cssContent }
-          : null;
-        const hasCss = newEntry !== null || existingBrandsCss.length > 0;
-        return (
-          <div className={cn('shrink-0 border-t border-border bg-background px-5 py-3', hasCss ? 'flex gap-2' : '')}>
-            <Button
-              className={cn('gap-2', hasCss ? 'flex-1' : 'w-full')}
-              disabled={!brandName.trim() || !pcLibKey || !pcBrandName.trim() || pcBrands === 'loading' || isGenerating || nameExists}
-              onClick={handleGenerate}
-            >
-              <SvgIcon svg={iconPalette} />
-              {isGenerating ? 'Генерируем…' : 'Сгенерировать'}
-            </Button>
-            {hasCss && (
-              <CssDownloadSection brands={existingBrandsCss} newEntry={newEntry} className="flex-1" />
-            )}
-          </div>
-        );
-      })()}
     </div>
   );
 }

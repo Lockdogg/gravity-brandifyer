@@ -140,10 +140,13 @@ figma.ui.onmessage = (msg: UiToMainMessage) => {
         const onBrandProgress = (c: number, t: number) =>
           figma.ui.postMessage({ type: 'phase2-progress', current: 75 + (t > 0 ? Math.round((c / t) * 25) : 0), total: 100 });
 
-        const { count: appCount, brandingEntries } = await writeAppearanceGroup(brandName, baseBrandName, appearanceColl, pcLibKey, pcBrandName, onAppProgress);
+        const { count: appCount, brandingEntries, brandScale } = await writeAppearanceGroup(brandName, baseBrandName, appearanceColl, pcLibKey, pcBrandName, onAppProgress);
         const brandCount = await writeBrandMode(brandName, baseBrandName, brandColl, appearanceColl, onBrandProgress);
 
-        const cssContent = generatePhase2Css(brandName, brandingEntries, appearanceColl.modes);
+        const phase2Css = generatePhase2Css(brandName, brandingEntries, appearanceColl.modes, !!brandScale);
+        const cssContent = brandScale
+          ? generateBrandCss(brandName, brandScale).trimEnd() + '\n\n' + phase2Css
+          : phase2Css;
         figma.ui.postMessage({ type: 'phase2-done', brandName, varCount: appCount + brandCount, cssContent });
       } catch (err) {
         const message = err instanceof Error ? err.message : String(err);

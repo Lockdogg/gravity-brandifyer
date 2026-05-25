@@ -1,5 +1,6 @@
 import { COLLECTION_NAMES, PC_THEMES } from '../shared/constants';
-import type { BrandingEntry } from '../shared/types';
+import type { AppearanceMode, BrandingEntry } from '../shared/types';
+import type { BrandScaleByTheme } from './themer-bridge';
 
 export type ProgressCallback = (current: number, total: number) => void;
 
@@ -116,6 +117,13 @@ function detectAppearanceBase(vars: Variable[], collectionId: string, hint: stri
   return prefixes.includes(hint) ? hint : (prefixes[0] ?? hint);
 }
 
+const PC_THEME_TO_MODE: Record<string, AppearanceMode> = {
+  Light: 'Light',
+  Dark: 'Dark',
+  'Light-HC': 'Light HC',
+  'Dark-HC': 'Dark HC',
+};
+
 export async function writeAppearanceGroup(
   brandName: string,
   baseBrandHint: string,
@@ -123,7 +131,7 @@ export async function writeAppearanceGroup(
   pcLibKey: string,
   pcBrandName: string,
   onProgress: ProgressCallback,
-): Promise<{ count: number; brandingEntries: BrandingEntry[] }> {
+): Promise<{ count: number; brandingEntries: BrandingEntry[]; brandScale: BrandScaleByTheme | null }> {
   const allColorVars = await figma.variables.getLocalVariablesAsync('COLOR');
   const localVarMap = new Map<string, Variable>(allColorVars.map(v => [v.id, v]));
 
@@ -140,6 +148,7 @@ export async function writeAppearanceGroup(
 
   const externalVarMap = new Map<string, LibraryVariable>(externalLibVars.map(v => [v.name, v]));
   const actualPcPrefix = pcBrandName;
+
 
   const existingNewVars = new Map<string, Variable>(
     allColorVars
@@ -189,6 +198,19 @@ export async function writeAppearanceGroup(
   type Resolved = { baseVar: Variable; newName: string; modeResults: Map<string, string | null> };
   const resolved: Resolved[] = [];
   const neededKeys = new Set<string>();
+
+  // Pre-queue all visible Brand/* scale vars for import (used to build Phase 1 CSS block)
+  if (actualPcPrefix !== '') {
+    const prefix = actualPcPrefix + '/';
+    for (const [name, libVar] of externalVarMap) {
+      if (!name.startsWith(prefix)) continue;
+      const parts = name.split('/');
+      const brandIdx = parts.indexOf('Brand');
+      if (brandIdx < 1) continue;
+      if (!PC_THEMES.has(parts[brandIdx - 1] ?? '')) continue;
+      neededKeys.add(libVar.key);
+    }
+  }
 
   for (let i = 0; i < baseBrandVars.length; i++) {
     const baseVar = baseBrandVars[i]!;
@@ -308,7 +330,33 @@ export async function writeAppearanceGroup(
       perMode: r.modeResults,
     }));
 
-  return { count: resolved.length, brandingEntries };
+  // Build Phase 1 brand scale from imported Brand/* vars (RGBA from resolvedValuesByMode)
+  const brandScaleData: BrandScaleByTheme = { Light: {}, Dark: {}, 'Light HC': {}, 'Dark HC': {} };
+  let hasBrandScale = false;
+  if (actualPcPrefix !== '') {
+    const prefix = actualPcPrefix + '/';
+    for (const importedVar of importCache.values()) {
+      if (!importedVar.name.startsWith(prefix)) continue;
+      const parts = importedVar.name.split('/');
+      const brandIdx = parts.indexOf('Brand');
+      if (brandIdx < 1) continue;
+      const mode = PC_THEME_TO_MODE[parts[brandIdx - 1] ?? ''];
+      if (!mode) continue;
+      const suffix = parts.slice(brandIdx + 1).join('/');
+      if (!suffix) continue;
+      // resolvedValuesByMode may be empty for external-linked vars; fallback to valuesByMode (raw color)
+      const resolved = Object.values(importedVar.resolvedValuesByMode)[0];
+      const raw = Object.values(importedVar.valuesByMode)[0];
+      const rgba =
+        (resolved?.type === 'COLOR' ? resolved.resolvedValue as { r: number; g: number; b: number; a: number } : null) ??
+        (raw && typeof raw === 'object' && 'r' in raw ? raw as { r: number; g: number; b: number; a: number } : null);
+      if (!rgba) continue;
+      brandScaleData[mode][suffix] = rgba;
+      hasBrandScale = true;
+    }
+  }
+
+  return { count: resolved.length, brandingEntries, brandScale: hasBrandScale ? brandScaleData : null };
 }
 
 export async function writeBrandMode(
