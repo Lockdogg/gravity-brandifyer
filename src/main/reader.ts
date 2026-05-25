@@ -1,5 +1,6 @@
 import type { AppearanceMode, BrandingEntry } from '../shared/types';
 import type { BrandScaleByTheme } from './themer-bridge';
+import { generateBrandScale } from './themer-bridge';
 import { COLLECTION_NAMES } from '../shared/constants';
 import { generateBrandCss, generatePhase2Css } from './css-export';
 
@@ -122,41 +123,25 @@ export async function readExistingBrandingCss(appearanceColl: VariableCollection
       brandingEntries.push({ suffix, perMode });
     }
 
-    // Find Phase 1 brand scale: detect PC collection by following a Branding/* alias target,
-    // then collect all Brand/* scale vars from that collection.
+    // Reconstruct Phase 1 brand scale by reading the alias target of Branding/Base Brand
+    // (Light mode). That target is the Brand/550 Solid var — its RGBA == the original brand
+    // hex — so we can regenerate the full 4-theme scale via generateBrandScale.
     let brandScale: BrandScaleByTheme | null = null;
-    let pcCollectionId: string | null = null;
-    outer:
-    for (const v of vars) {
-      for (const { modeId } of appearanceColl.modes) {
-        const raw = v.valuesByMode[modeId] ?? v.valuesByMode[Object.keys(v.valuesByMode)[0] ?? ''];
-        if (!raw || typeof raw !== 'object' || !('type' in raw) || raw.type !== 'VARIABLE_ALIAS') continue;
-        const target = getVar((raw as VariableAlias).id);
-        if (target && target.variableCollectionId !== appearanceColl.id && target.name.split('/').includes('Brand')) {
-          pcCollectionId = target.variableCollectionId;
-          break outer;
+    const baseBrandVar = vars.find(v => v.name.endsWith('/Branding/Base Brand'));
+    const lightModeId = appearanceColl.modes.find(m => m.name === 'Light')?.modeId;
+    if (baseBrandVar && lightModeId) {
+      const aliasRaw = baseBrandVar.valuesByMode[lightModeId];
+      if (aliasRaw && typeof aliasRaw === 'object' && 'type' in aliasRaw && aliasRaw.type === 'VARIABLE_ALIAS') {
+        const target = getVar((aliasRaw as VariableAlias).id);
+        if (target && target.name.split('/').includes('Brand')) {
+          const colorVal = Object.values(target.valuesByMode)[0];
+          if (colorVal && typeof colorVal === 'object' && 'r' in colorVal) {
+            const { r, g, b } = colorVal as { r: number; g: number; b: number };
+            const hex = '#' + [r, g, b].map(c => Math.round(c * 255).toString(16).padStart(2, '0')).join('');
+            brandScale = generateBrandScale(hex);
+          }
         }
       }
-    }
-
-    if (pcCollectionId) {
-      const scaleData: BrandScaleByTheme = { Light: {}, Dark: {}, 'Light HC': {}, 'Dark HC': {} };
-      let hasScale = false;
-      for (const v of allVars) {
-        if (v.variableCollectionId !== pcCollectionId) continue;
-        const parts = v.name.split('/');
-        const brandIdx = parts.indexOf('Brand');
-        if (brandIdx < 1) continue;
-        const mode = THEME_FROM_PATH[parts[brandIdx - 1] ?? ''];
-        if (!mode) continue;
-        const suffix = parts.slice(brandIdx + 1).join('/');
-        if (!suffix) continue;
-        const raw = Object.values(v.valuesByMode)[0];
-        if (!raw || typeof raw !== 'object' || !('r' in raw)) continue;
-        scaleData[mode][suffix] = raw as { r: number; g: number; b: number; a: number };
-        hasScale = true;
-      }
-      if (hasScale) brandScale = scaleData;
     }
 
     const phase2Css = generatePhase2Css(brandName, brandingEntries, appearanceColl.modes, !!brandScale);

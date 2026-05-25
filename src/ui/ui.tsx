@@ -16,6 +16,8 @@ import iconQuestion from '@gravity-ui/icons/svgs/circle-question.svg';
 import iconPlus from '@gravity-ui/icons/svgs/plus.svg';
 import iconTrash from '@gravity-ui/icons/svgs/trash-bin.svg';
 import iconChevronDown from '@gravity-ui/icons/svgs/chevron-down.svg';
+import iconCopy from '@gravity-ui/icons/svgs/copy.svg';
+import iconCopyCheck from '@gravity-ui/icons/svgs/copy-check.svg';
 
 function SvgIcon({ svg, className }: { svg: string; className?: string }) {
   return (
@@ -161,18 +163,63 @@ function ColorField({
 
 // ─── CSS Download Section ─────────────────────────────────────────────────────
 
-function downloadCss(brandName: string, cssContent: string) {
+function copyText(text: string) {
+  const el = document.createElement('textarea');
+  el.value = text;
+  el.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+}
+
+function CopyButton({ cssContent }: { cssContent: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <button
+      type="button"
+      className="flex items-center gap-1 px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors whitespace-nowrap"
+      onClick={() => {
+        copyText(cssContent);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1500);
+      }}
+    >
+      <SvgIcon svg={copied ? iconCopyCheck : iconCopy} />
+      {copied ? 'Скопировано' : 'Копировать'}
+    </button>
+  );
+}
+
+function brandSlug(name: string) {
+  return name.toLowerCase().replace(/\s+/g, '_');
+}
+
+function nowStamp() {
+  const d = new Date();
+  const p = (n: number) => n.toString().padStart(2, '0');
+  return `${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}`;
+}
+
+function downloadCss(brandName: string, cssContent: string, phase: 'phase1' | 'phase2' = 'phase1') {
+  const slug = brandSlug(brandName);
+  const filename = phase === 'phase1'
+    ? `${slug}_private_colors.css`
+    : `${slug}_theme_${nowStamp()}.css`;
   const a = document.createElement('a');
   a.href = 'data:text/css;charset=utf-8,' + encodeURIComponent(cssContent);
-  a.download = `${brandName.toLowerCase().replace(/\s+/g, '-')}-brand.css`;
+  a.download = filename;
   a.click();
 }
 
-function downloadAll(brands: BrandCssEntry[]) {
+function downloadAll(brands: BrandCssEntry[], phase: 'phase1' | 'phase2' = 'phase1') {
   const combined = brands.map(b => `/* ${b.brandName} */\n${b.cssContent}`).join('\n\n');
+  const filename = phase === 'phase1'
+    ? 'all_brands_private_colors.css'
+    : `all_brands_theme_${nowStamp()}.css`;
   const a = document.createElement('a');
   a.href = 'data:text/css;charset=utf-8,' + encodeURIComponent(combined);
-  a.download = 'all-brands.css';
+  a.download = filename;
   a.click();
 }
 
@@ -1026,17 +1073,20 @@ function MainLibPhase({ info, existingBrandsCss }: { info: LibInfo; existingBran
             ) : (
               <div className="divide-y divide-border">
                 {allBrands.map(brand => (
-                  <div key={brand.brandName} className="flex items-center gap-3 px-5 py-3 hover:bg-muted/40 transition-colors">
+                  <div key={brand.brandName} className="flex items-center gap-3 px-5 py-2.5 border-b border-border last:border-0">
                     <SvgIcon svg={iconFileCode} className="shrink-0 text-muted-foreground" />
-                    <span className="flex-1 text-sm">{brand.brandName}</span>
-                    <button
-                      type="button"
-                      onClick={() => downloadCss(brand.brandName, brand.cssContent)}
-                      className="shrink-0 text-muted-foreground hover:text-foreground transition-colors p-1 -mr-1"
-                      title="Скачать CSS"
-                    >
-                      <SvgIcon svg={iconDownload} />
-                    </button>
+                    <span className="flex-1 text-sm min-w-0 truncate">{brand.brandName}</span>
+                    <div className="flex items-center gap-1 shrink-0">
+                      <button
+                        type="button"
+                        className="flex items-center gap-1 px-2 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
+                        onClick={() => downloadCss(brand.brandName, brand.cssContent, 'phase2')}
+                      >
+                        <SvgIcon svg={iconDownload} />
+                        Скачать
+                      </button>
+                      <CopyButton cssContent={brand.cssContent} />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -1048,7 +1098,7 @@ function MainLibPhase({ info, existingBrandsCss }: { info: LibInfo; existingBran
               <Button
                 variant="secondary"
                 className="w-full gap-2"
-                onClick={() => downloadAll(allBrands)}
+                onClick={() => downloadAll(allBrands, 'phase2')}
               >
                 <SvgIcon svg={iconDownload} />
                 Скачать все
