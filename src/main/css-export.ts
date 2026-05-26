@@ -82,12 +82,13 @@ export function generateBrandCss(
 }
 
 function pcNameToCssValue(pcName: string): string {
-  // pcName: "Raph/Light/Brand/550 Solid" or "Raph/Brand/550 Solid"
-  const withoutPrefix = pcName.slice(pcName.indexOf('/') + 1);
-  const parts = withoutPrefix.split('/');
-  const start = PC_THEMES.has(parts[0] ?? '') ? 1 : 0;
-  const family = (parts[start] ?? '').toLowerCase();
-  const token = parts.slice(start + 1).join(' ').toLowerCase().replace(/\s+/g, '-');
+  // Always use the last two segments: family + suffix.
+  // Works for mono ("Raph/Light/Brand/550 Solid"), service ("[ww] Service/Nirvana/Light/Brand/550 Solid"),
+  // and semantic ("[ww] Semantic/Light/Purple/550 Solid") — matches webSyntax() in writer.ts.
+  const parts = pcName.split('/');
+  const n = parts.length;
+  const family = (parts[n - 2] ?? '').toLowerCase();
+  const token = (parts[n - 1] ?? '').toLowerCase().replace(/\s+/g, '-');
   return `var(--g-color-private-${family}-${token})`;
 }
 
