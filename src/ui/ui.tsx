@@ -411,16 +411,6 @@ function MultiBrandSection({
 
   return (
     <div className="space-y-4">
-      {(addingOneMore || wouldExceed) && (
-        <Alert variant="info">
-          <AlertDescription>
-            В коллекции уже <strong>{existingVarCount}</strong> из {FIGMA_COLLECTION_LIMIT} переменных.
-            {wouldExceed
-              ? ` Пак (${VARS_SEMANTIC} общих + ${entries.length}×${VARS_PER_BRAND_IN_PACK} = ${plannedVars} перем.) не поместится.`
-              : ` После генерации будет ~${totalAfter} — почти предел.`}
-          </AlertDescription>
-        </Alert>
-      )}
       {showGroupName && (
         <div className="space-y-1.5">
           <Label className="text-xs">Название группы</Label>
@@ -542,6 +532,9 @@ function PrivateColorsPhase({ existingBrands, existingVarCount }: { existingBran
     setErrors(prev => { const n = new Set(prev); n.delete(key); return n; });
 
   const isMulti = mode === 'expert' && expertSub === 'multi';
+
+  const mbPlannedVars = VARS_SEMANTIC + mbEntries.length * VARS_PER_BRAND_IN_PACK;
+  const mbWouldExceed = isMulti && existingVarCount + mbPlannedVars > FIGMA_COLLECTION_LIMIT;
 
   const allBrands = useMemo<BrandCssEntry[]>(() => {
     const merged = isMulti
@@ -718,6 +711,16 @@ function PrivateColorsPhase({ existingBrands, existingVarCount }: { existingBran
               )}
             </div>
 
+            {/* Capacity warning for multibrand — shown early, before the form */}
+            {mbWouldExceed && (
+              <Alert variant="info">
+                <AlertDescription>
+                  В коллекции уже <strong>{existingVarCount}</strong> из {FIGMA_COLLECTION_LIMIT} переменных.
+                  {` Пак (${VARS_SEMANTIC} общих + ${mbEntries.length}×${VARS_PER_BRAND_IN_PACK} = ${mbPlannedVars} перем.) не поместится.`}
+                </AlertDescription>
+              </Alert>
+            )}
+
             {/* Brand name — simple or expert mono */}
             {!isMulti && (
               <div className="space-y-1.5">
@@ -812,7 +815,7 @@ function PrivateColorsPhase({ existingBrands, existingVarCount }: { existingBran
           </div>
 
           <div className="shrink-0 border-t border-border bg-background px-5 py-3">
-            <Button className="w-full gap-2" disabled={isGenerating} onClick={handleGenerate}>
+            <Button className="w-full gap-2" disabled={isGenerating || mbWouldExceed} onClick={handleGenerate}>
               <SvgIcon svg={iconPalette} />
               {isGenerating ? 'Генерируем…' : 'Сгенерировать'}
             </Button>
