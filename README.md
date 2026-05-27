@@ -56,25 +56,28 @@ Figma-плагин для добавления нового бренда в це
 
 ---
 
-## Установка (для разработчика)
+## Установка
+
+### Просто использовать плагин
+
+Папка `build/` закоммичена — собирать ничего не нужно.
+
+1. `git clone <repo>`
+2. В Figma: **Plugins → Development → Import plugin from manifest…**
+3. Укажи `manifest.json` из папки репозитория.
+4. Плагин появится в **Plugins → Development → Gravity Brandifyer**.
+
+### Разработка
 
 ```bash
-git clone <repo>
-cd gravity-brandifyer
 npm install
-npm run build
+npm run dev   # живая пересборка при изменениях
 ```
 
-В Figma:
-
-1. **Plugins → Development → Import plugin from manifest…**
-2. Укажи `manifest.json` из этого репозитория.
-3. Плагин появится в **Plugins → Development → Gravity Brandifyer**.
-
-Для разработки с живой пересборкой:
+Перед коммитом пересобери финальный билд:
 
 ```bash
-npm run dev
+npm run build
 ```
 
 ---
